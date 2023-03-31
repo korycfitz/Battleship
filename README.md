@@ -1,0 +1,1 @@
+//Click the following link to play the game: https://battleship-kory-fitzgerald.netlify.app/
