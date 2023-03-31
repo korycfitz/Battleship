@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,237 @@
   <title>Battleship</title>
 </head>
 <body>
-  
+  <main>
+    <header>
+      <h1>Battleship</h1>
+      <button id="play-game" class="btn">Play Battleship</button>
+    </header>
+      <section id="player1" class="board">
+        <div class="sqr" id="00"></div>
+        <div class="sqr" id="01"></div>
+        <div class="sqr" id="02"></div>
+        <div class="sqr" id="03"></div>
+        <div class="sqr" id="04"></div>
+        <div class="sqr" id="05"></div>
+        <div class="sqr" id="06"></div>
+        <div class="sqr" id="07"></div>
+        <div class="sqr" id="08"></div>
+        <div class="sqr" id="09"></div>
+        <div class="sqr" id="10"></div>
+        <div class="sqr" id="11"></div>
+        <div class="sqr" id="12"></div>
+        <div class="sqr" id="13"></div>
+        <div class="sqr" id="14"></div>
+        <div class="sqr" id="15"></div>
+        <div class="sqr" id="16"></div>
+        <div class="sqr" id="17"></div>
+        <div class="sqr" id="18"></div>
+        <div class="sqr" id="19"></div>
+        <div class="sqr" id="20"></div>
+        <div class="sqr" id="21"></div>
+        <div class="sqr" id="22"></div>
+        <div class="sqr" id="23"></div>
+        <div class="sqr" id="24"></div>
+        <div class="sqr" id="25"></div>
+        <div class="sqr" id="26"></div>
+        <div class="sqr" id="27"></div>
+        <div class="sqr" id="28"></div>
+        <div class="sqr" id="29"></div>
+        <div class="sqr" id="30"></div>
+        <div class="sqr" id="31"></div>
+        <div class="sqr" id="32"></div>
+        <div class="sqr" id="33"></div>
+        <div class="sqr" id="34"></div>
+        <div class="sqr" id="35"></div>
+        <div class="sqr" id="36"></div>
+        <div class="sqr" id="37"></div>
+        <div class="sqr" id="38"></div>
+        <div class="sqr" id="39"></div>
+        <div class="sqr" id="40"></div>
+        <div class="sqr" id="41"></div>
+        <div class="sqr" id="42"></div>
+        <div class="sqr" id="43"></div>
+        <div class="sqr" id="44"></div>
+        <div class="sqr" id="45"></div>
+        <div class="sqr" id="46"></div>
+        <div class="sqr" id="47"></div>
+        <div class="sqr" id="48"></div>
+        <div class="sqr" id="49"></div>
+        <div class="sqr" id="50"></div>
+        <div class="sqr" id="51"></div>
+        <div class="sqr" id="52"></div>
+        <div class="sqr" id="53"></div>
+        <div class="sqr" id="54"></div>
+        <div class="sqr" id="55"></div>
+        <div class="sqr" id="56"></div>
+        <div class="sqr" id="57"></div>
+        <div class="sqr" id="58"></div>
+        <div class="sqr" id="59"></div>
+        <div class="sqr" id="60"></div>
+        <div class="sqr" id="61"></div>
+        <div class="sqr" id="62"></div>
+        <div class="sqr" id="63"></div>
+        <div class="sqr" id="64"></div>
+        <div class="sqr" id="65"></div>
+        <div class="sqr" id="66"></div>
+        <div class="sqr" id="67"></div>
+        <div class="sqr" id="68"></div>
+        <div class="sqr" id="69"></div>
+        <div class="sqr" id="70"></div>
+        <div class="sqr" id="71"></div>
+        <div class="sqr" id="72"></div>
+        <div class="sqr" id="73"></div>
+        <div class="sqr" id="74"></div>
+        <div class="sqr" id="75"></div>
+        <div class="sqr" id="76"></div>
+        <div class="sqr" id="77"></div>
+        <div class="sqr" id="78"></div>
+        <div class="sqr" id="79"></div>
+        <div class="sqr" id="80"></div>
+        <div class="sqr" id="81"></div>
+        <div class="sqr" id="82"></div>
+        <div class="sqr" id="83"></div>
+        <div class="sqr" id="84"></div>
+        <div class="sqr" id="85"></div>
+        <div class="sqr" id="86"></div>
+        <div class="sqr" id="87"></div>
+        <div class="sqr" id="88"></div>
+        <div class="sqr" id="89"></div>
+        <div class="sqr" id="90"></div>
+        <div class="sqr" id="91"></div>
+        <div class="sqr" id="92"></div>
+        <div class="sqr" id="93"></div>
+        <div class="sqr" id="94"></div>
+        <div class="sqr" id="95"></div>
+        <div class="sqr" id="96"></div>
+        <div class="sqr" id="97"></div>
+        <div class="sqr" id="98"></div>
+        <div class="sqr" id="99"></div>
+      </section>
+      <!-- <section id="player2" class="board">
+        <div class="sqr" id="00"></div>
+        <div class="sqr" id="01"></div>
+        <div class="sqr" id="02"></div>
+        <div class="sqr" id="03"></div>
+        <div class="sqr" id="04"></div>
+        <div class="sqr" id="05"></div>
+        <div class="sqr" id="06"></div>
+        <div class="sqr" id="07"></div>
+        <div class="sqr" id="08"></div>
+        <div class="sqr" id="09"></div>
+        <div class="sqr" id="10"></div>
+        <div class="sqr" id="11"></div>
+        <div class="sqr" id="12"></div>
+        <div class="sqr" id="13"></div>
+        <div class="sqr" id="14"></div>
+        <div class="sqr" id="15"></div>
+        <div class="sqr" id="16"></div>
+        <div class="sqr" id="17"></div>
+        <div class="sqr" id="18"></div>
+        <div class="sqr" id="19"></div>
+        <div class="sqr" id="20"></div>
+        <div class="sqr" id="21"></div>
+        <div class="sqr" id="22"></div>
+        <div class="sqr" id="23"></div>
+        <div class="sqr" id="24"></div>
+        <div class="sqr" id="25"></div>
+        <div class="sqr" id="26"></div>
+        <div class="sqr" id="27"></div>
+        <div class="sqr" id="28"></div>
+        <div class="sqr" id="29"></div>
+        <div class="sqr" id="30"></div>
+        <div class="sqr" id="31"></div>
+        <div class="sqr" id="32"></div>
+        <div class="sqr" id="33"></div>
+        <div class="sqr" id="34"></div>
+        <div class="sqr" id="35"></div>
+        <div class="sqr" id="36"></div>
+        <div class="sqr" id="37"></div>
+        <div class="sqr" id="38"></div>
+        <div class="sqr" id="39"></div>
+        <div class="sqr" id="40"></div>
+        <div class="sqr" id="41"></div>
+        <div class="sqr" id="42"></div>
+        <div class="sqr" id="43"></div>
+        <div class="sqr" id="44"></div>
+        <div class="sqr" id="45"></div>
+        <div class="sqr" id="46"></div>
+        <div class="sqr" id="47"></div>
+        <div class="sqr" id="48"></div>
+        <div class="sqr" id="49"></div>
+        <div class="sqr" id="50"></div>
+        <div class="sqr" id="51"></div>
+        <div class="sqr" id="52"></div>
+        <div class="sqr" id="53"></div>
+        <div class="sqr" id="54"></div>
+        <div class="sqr" id="55"></div>
+        <div class="sqr" id="56"></div>
+        <div class="sqr" id="57"></div>
+        <div class="sqr" id="58"></div>
+        <div class="sqr" id="59"></div>
+        <div class="sqr" id="60"></div>
+        <div class="sqr" id="61"></div>
+        <div class="sqr" id="62"></div>
+        <div class="sqr" id="63"></div>
+        <div class="sqr" id="64"></div>
+        <div class="sqr" id="65"></div>
+        <div class="sqr" id="66"></div>
+        <div class="sqr" id="67"></div>
+        <div class="sqr" id="68"></div>
+        <div class="sqr" id="69"></div>
+        <div class="sqr" id="70"></div>
+        <div class="sqr" id="71"></div>
+        <div class="sqr" id="72"></div>
+        <div class="sqr" id="73"></div>
+        <div class="sqr" id="74"></div>
+        <div class="sqr" id="75"></div>
+        <div class="sqr" id="76"></div>
+        <div class="sqr" id="77"></div>
+        <div class="sqr" id="78"></div>
+        <div class="sqr" id="79"></div>
+        <div class="sqr" id="80"></div>
+        <div class="sqr" id="81"></div>
+        <div class="sqr" id="82"></div>
+        <div class="sqr" id="83"></div>
+        <div class="sqr" id="84"></div>
+        <div class="sqr" id="85"></div>
+        <div class="sqr" id="86"></div>
+        <div class="sqr" id="87"></div>
+        <div class="sqr" id="88"></div>
+        <div class="sqr" id="89"></div>
+        <div class="sqr" id="90"></div>
+        <div class="sqr" id="91"></div>
+        <div class="sqr" id="92"></div>
+        <div class="sqr" id="93"></div>
+        <div class="sqr" id="94"></div>
+        <div class="sqr" id="95"></div>
+        <div class="sqr" id="96"></div>
+        <div class="sqr" id="97"></div>
+        <div class="sqr" id="98"></div>
+        <div class="sqr" id="99"></div>
+      </section> -->
+      <section class="player-1-board">
+        Test
+
+        <button>Hide Board</button>
+      </section>
+
+      
+      <!-- <section class="player-2-board ">
+        section2
+
+        <button id="display-board" class="board">Play Battleship</button>
+      </section> -->
+
+
+
+
+
+
+
+
+
+  </main>
 </body>
 </html>
+
