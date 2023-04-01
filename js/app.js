@@ -68,18 +68,17 @@ const ships = {
   ship5: ['S5', 'S5']
 }
 /*------------ Variables ------------*/
-let board, winner, turn, height, width, placeShipsValidPositions, placedShips, hidden
+let board, winner, turn, height, width, updateBoardValidPositions, placedShips, hidden, messageEl, squareEls
 /*---- Cached Element References ----*/
-const squareEls = document.querySelectorAll(".sqr");
 /*--------- Event Listeners ---------*/
 
 /*------------ Functions ------------*/
 function init(){
-  placeShipsValidPositions = []
+  updateBoardValidPositions = []
   for (let idx1 = 0; idx1 < 10; idx1++) {
     for (let idx2 = 0; idx2 < 10; idx2++) {
       positions.push([idx1, idx2])
-      placeShipsValidPositions.push([idx1, idx2])
+      updateBoardValidPositions.push([idx1, idx2])
     }
   }
 
@@ -92,24 +91,38 @@ function init(){
   winner = false;
   //will use to track how many ships have been placed
   placedShips = {}
+  render()
 }
 
 function render(){
-  //place ships
-  placeShips()
-
+  updateMessage()
+  updateSquaresEls()
+  updateBoard()
+}
+function updateMessage(){
+  if (hidden === false) {
+    messageEl = document.getElementById("message1");
+  } else {
+    messageEl = document.getElementById("message2");
+  }
+}
+function updateSquaresEls(){
+  if (hidden === false) {
+    squareEls = document.querySelectorAll(".sqr1");
+  } else {
+    squareEls = document.querySelectorAll(".sqr2");
+  }
 }
 
-function placeShips(){
+function updateBoard(){
   while (placedShips.length < 5) {
     //have the user place ships
-    const messageEl = document.getElementById("message");
-    squareEls.forEach(ele => {
-      ele.addEventListener("click", placeShip);
+    squareEls.forEach(square => {
+      square.addEventListener("click", placeShips);
     })
   }
-  //remove event listener
 }
 
+
 init();
-console.log(placeShipsValidPositions)
+//need to add a second board and give the class of .sqr 2to the div elements 
