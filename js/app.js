@@ -90,7 +90,13 @@ function init(){
   hidden = false;
   winner = false;
   //will use to track how many ships have been placed
-  placedShips = {}
+  placedShips = {
+    ship1: [],
+    ship2: [],
+    ship3: [],
+    ship4: [],
+    ship5: []
+  }
   render()
 }
 
@@ -100,31 +106,32 @@ function render(){
   updateBoard()
 }
 function updateMessage(){
-  // if (hidden === false) {
-  //   messageEl = document.getElementById("message1");
-  // } else {
-  //   messageEl = document.getElementById("message2");
-  // }
+  if (hidden === false) {
+    messageEl = document.getElementById("message1");
+  } else {
+    messageEl = document.getElementById("message2");
+  }
 }
 function updateSquaresEls(){
-  // if (hidden === false) {
-  //   squareEls = document.querySelectorAll(".sqr1");
-  // } else {
-  //   squareEls = document.querySelectorAll(".sqr2");
-  // }
+  if (hidden === false) {
+    squareEls = document.querySelectorAll(".sqr1");
+  } else {
+    squareEls = document.querySelectorAll(".sqr2");
+  }
 }
 
 function updateBoard(){
-  console.log("hello")
-  // while (placedShips.length < 5) {
-  //   squareEls.forEach(square => {
-  //     board[square].addEventListener("click", placeShips);
-  //   })
-  // }
+  //switch to while loop
+  if (placedShips !== ships) {
+    squareEls.forEach(square => {
+      // console.log(board[square])
+      // board[square].addEventListener("click", placeShips);
+    })
+  }
 }
 
 function placeShips(){
-//need to add t0 placed ships once they are placed so we don't run into an infinite loop
+// need to add t0 placed ships once they are placed so we don't run into an infinite loop
 }
 
 init();
