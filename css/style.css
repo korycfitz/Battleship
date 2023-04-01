@@ -35,6 +35,10 @@ div {
   vertical-align: middle;
 }
 
+#prompt-messages > p {
+  font-size: 15px;
+}
+
 @media only screen and (max-width: 500px) {
   div {
     background-color: rgb(128, 0, 0);

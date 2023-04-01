@@ -67,18 +67,32 @@ const ships = {
   ship4: ['S4', 'S4', 'S4'],
   ship5: ['S5', 'S5']
 }
+
 /*------------ Variables ------------*/
-let board, winner, turn, height, width, updateBoardValidPositions, placedShips, hidden, messageEl, squareEls
+let board, winner, turn, height, width, boardValidPositions, placedShips, hidden, messageEl, squareEls, message2, ship
 /*---- Cached Element References ----*/
+messageEl = document.getElementById("message1");
+messageEl2 = document.getElementById("message2");
+const ship1btn = document.getElementById("ship1")
+const ship2btn = document.getElementById("ship2")
+const ship3btn = document.getElementById("ship3")
+const ship4btn = document.getElementById("ship4")
+const ship5btn = document.getElementById("ship5")
+squareEls = document.querySelectorAll(".sqr1");
 /*--------- Event Listeners ---------*/
+ship1btn.addEventListener('click', handleClick)
+// ship2btn.addEventListener('click', placeShip2)
+// ship3btn.addEventListener('click', placeShip3)
+// ship4btn.addEventListener('click', placeShip4)
+// ship5btn.addEventListener('click', placeShip5)
 
 /*------------ Functions ------------*/
 function init(){
-  updateBoardValidPositions = []
+  boardValidPositions = []
   for (let idx1 = 0; idx1 < 10; idx1++) {
     for (let idx2 = 0; idx2 < 10; idx2++) {
       positions.push([idx1, idx2])
-      updateBoardValidPositions.push([idx1, idx2])
+      boardValidPositions.push([idx1, idx2])
     }
   }
 
@@ -106,33 +120,90 @@ function render(){
   updateBoard()
 }
 function updateMessage(){
-  if (hidden === false) {
-    messageEl = document.getElementById("message1");
-  } else {
-    messageEl = document.getElementById("message2");
+  if (hidden === false && turn === 1) {
+    messageEl.textContent = "Player1 Place Ships"
+    messageEl2.textContent = 'To Place a ship, click on a button, then click on the squares on the board where you would like to place the ship'
+  } else if (hidden === false && turn === -1) {
+    messageEl.textContent = "Player2 Place Ships"
+    messageEl2.textContent = 'To Place a ship, click on a button, then click on the squares on the board where you would like to place the ship'
   }
+
+
 }
+
 function updateSquaresEls(){
-  if (hidden === false) {
-    squareEls = document.querySelectorAll(".sqr1");
-  } else {
-    squareEls = document.querySelectorAll(".sqr2");
-  }
+  // if (hidden === false && turn === 1)  {
+  //   squareEls = document.querySelectorAll(".sqr1");
+  // } else if (hidden === false && turn === -1) {
+  //   squareEls = document.querySelectorAll(".sqr2");
+  // }
+
 }
 
 function updateBoard(){
   //switch to while loop
-  if (placedShips !== ships) {
-    squareEls.forEach(square => {
-      // console.log(board[square])
-      // board[square].addEventListener("click", placeShips);
-    })
+  if (placedShips !== ships && turn === 1) {
+
+    // placeShips()
+    //fill corresponding square on board with corresponding color
+    //push placed value string to placed ships 
+  } else if(placedShips === ships && turn === 1) {
+    turn = -1
+    //hideShips()
+  } else if(placedShips !== ships && turn === -1) {
+  // placeShips()
+  } else {
+    //all ships placed
+  //when ships are all placed hides buttons and messages, and changes to "game" state
+  //hideShips()
   }
 }
 
-function placeShips(){
-// need to add t0 placed ships once they are placed so we don't run into an infinite loop
+// function placeShips(evt){
+//   console.log(evt)
+//   placeShip1(evt)
+//   placeShip2(evt)
+//   placeShip3(evt)
+//   placeShip4(evt)
+//   placeShip5(evt)
+// }
+//Next Steps!!!!!!!!!!
+function handleClick(){
+  squareEls.forEach(square => {
+    square.addEventListener("click", placeShip1)
+  })
+
+
+  // console.log(boardValidPositions)
+  //add all the logic here to hide buttons, based on turn, switch turns, etc
+  // const sqIdx = evt.target.id;
+  // console.log(sqIdx)
+
+
+  //hide all the buttons except 1
+  //on each button click, add event listener for the corresponding button     
+  //fill corresponding square on board with corresponding color
+    //push placed value string to placed ships 
+  //push choice to ship in corresponding placedShips object array
+  //define isValidPosition method
+  //add 1 to counter variable if isValidPosition
+  //remove position from isValidPosition
+  //push placed value string to placed ships 
+  //replace null board values with position
+
+}
+function placeShip1(evt){
+  let idx = evt.target.id.split("")
+  idx = idx.map(idx => Number(idx))
+console.log(idx)
 }
 
+function fillSq1(row, col){
+  board[row][col] = 'S1'
+}
+
+// function place
+
+// }
 init();
 //need to add a second board and give the class of .sqr 2to the div elements 
