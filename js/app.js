@@ -100,29 +100,32 @@ function render(){
   updateBoard()
 }
 function updateMessage(){
-  if (hidden === false) {
-    messageEl = document.getElementById("message1");
-  } else {
-    messageEl = document.getElementById("message2");
-  }
+  // if (hidden === false) {
+  //   messageEl = document.getElementById("message1");
+  // } else {
+  //   messageEl = document.getElementById("message2");
+  // }
 }
 function updateSquaresEls(){
-  if (hidden === false) {
-    squareEls = document.querySelectorAll(".sqr1");
-  } else {
-    squareEls = document.querySelectorAll(".sqr2");
-  }
+  // if (hidden === false) {
+  //   squareEls = document.querySelectorAll(".sqr1");
+  // } else {
+  //   squareEls = document.querySelectorAll(".sqr2");
+  // }
 }
 
 function updateBoard(){
-  while (placedShips.length < 5) {
-    //have the user place ships
-    squareEls.forEach(square => {
-      square.addEventListener("click", placeShips);
-    })
-  }
+  console.log("hello")
+  // while (placedShips.length < 5) {
+  //   squareEls.forEach(square => {
+  //     board[square].addEventListener("click", placeShips);
+  //   })
+  // }
 }
 
+function placeShips(){
+//need to add t0 placed ships once they are placed so we don't run into an infinite loop
+}
 
 init();
 //need to add a second board and give the class of .sqr 2to the div elements 
