@@ -22,9 +22,9 @@ body {
 
 #player1 {
   display: grid;
-  grid-template-rows: repeat(10, 3vmin);
-  grid-template-columns: repeat(10, 3vmin);
-  grid-gap: 0vmin;
+  grid-template-rows: repeat(10, 5vmin);
+  grid-template-columns: repeat(10, 5vmin);
+  grid-gap: 0.5vmin;
   text-align: center;
 }
 
@@ -36,3 +36,38 @@ div {
   vertical-align: middle;
 }
 
+@media only screen and (max-width: 500px) {
+  div {
+    background-color: rgb(128, 0, 0);
+    border: 3px solid rgb(16, 186, 92);
+    font-size: 3vmin;
+    text-align: center;
+    vertical-align: middle;
+  }
+  body {
+    background-color: aqua;
+  }
+  section {
+    background-color: aqua;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  div {
+    background-color: green;
+    border: 3px solid rgb(186, 16, 16);
+    font-size: 3vmin;
+    text-align: center;
+    vertical-align: middle;
+  }
+  body {
+    background-color: aqua;
+  }
+  section {
+    background-color: aqua;
+  }
+}
+
+p {
+  font-size: 3vmin;
+}

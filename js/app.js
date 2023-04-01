@@ -1,7 +1,7 @@
 //Initial Data Structure
 //------------------------------------------------------------------------------------------------------------------------------
 //Board Class
-//board: => 2d array(n x n) => n arrays of length n, nested in an outter array, with all null values
+
 //valid positions: 2d array of board positions: [[row,col], [row,col],...etc]
 //ship location: object => {  keys = shipName,    values = [[row,col], [row,col],...etc] dependent on ship size  }
 //shots => object => {  keys = shotNumber,    values = [[row,col]]  }
@@ -60,30 +60,56 @@
     //ship location: object => (   keys = shipName,    value = [[row,col], [row,col]  )
 /*------------ Constants ------------*/
 const positions = []
+const ships = {
+  ship1: ['S1', 'S1', 'S1', 'S1', 'S1'],
+  ship2: ['S2', 'S2', 'S2', 'S2'],
+  ship3: ['S3', 'S3', 'S3'],
+  ship4: ['S4', 'S4', 'S4'],
+  ship5: ['S5', 'S5']
+}
 /*------------ Variables ------------*/
-
+let board, winner, turn, height, width, placeShipsValidPositions, placedShips, hidden
 /*---- Cached Element References ----*/
-// const squareEls = document.querySelectorAll(".sqr");
-// console.log(squareEls)
+const squareEls = document.querySelectorAll(".sqr");
 /*--------- Event Listeners ---------*/
 
 /*------------ Functions ------------*/
 function init(){
+  placeShipsValidPositions = []
   for (let idx1 = 0; idx1 < 10; idx1++) {
     for (let idx2 = 0; idx2 < 10; idx2++) {
       positions.push([idx1, idx2])
+      placeShipsValidPositions.push([idx1, idx2])
     }
   }
+
   //fills the board with null values that we will use to place ships
-  const board = new Array(10).fill(new Array(10).fill([null]));
-  const width = board[0].length
-  const height = board.length
-  let turn = 1
-  let winner = false;
+  board = new Array(10).fill(new Array(10).fill([null]));
+  width = board[0].length
+  height = board.length
+  turn = 1
+  hidden = false;
+  winner = false;
+  //will use to track how many ships have been placed
+  placedShips = {}
 }
 
 function render(){
+  //place ships
+  placeShips()
 
 }
-// console.log(positions);
-// console.log(board);
+
+function placeShips(){
+  while (placedShips.length < 5) {
+    //have the user place ships
+    const messageEl = document.getElementById("message");
+    squareEls.forEach(ele => {
+      ele.addEventListener("click", placeShip);
+    })
+  }
+  //remove event listener
+}
+
+init();
+console.log(placeShipsValidPositions)
