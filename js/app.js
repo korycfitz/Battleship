@@ -59,11 +59,31 @@
     //board: => 2d array(n x n) => 10 arrays of length 10, nested in an outter array
     //ship location: object => (   keys = shipName,    value = [[row,col], [row,col]  )
 /*------------ Constants ------------*/
-
+const positions = []
 /*------------ Variables ------------*/
 
 /*---- Cached Element References ----*/
-
+// const squareEls = document.querySelectorAll(".sqr");
+// console.log(squareEls)
 /*--------- Event Listeners ---------*/
 
 /*------------ Functions ------------*/
+function init(){
+  for (let idx1 = 0; idx1 < 10; idx1++) {
+    for (let idx2 = 0; idx2 < 10; idx2++) {
+      positions.push([idx1, idx2])
+    }
+  }
+  //fills the board with null values that we will use to place ships
+  const board = new Array(10).fill(new Array(10).fill([null]));
+  const width = board[0].length
+  const height = board.length
+  let turn = 1
+  let winner = false;
+}
+
+function render(){
+
+}
+// console.log(positions);
+// console.log(board);
