@@ -97,7 +97,20 @@ function init(){
   }
 
   //fills the board with null values that we will use to place ships
-  board = new Array(10).fill(new Array(10).fill([null]));
+  // board = new Array(10).fill(new Array(10).fill(null));
+  //not working because each of the inner arrays point to the same place in memory 
+  board = [
+    [null, null, null, null, null, null, null, null, null, null], 
+    [null, null, null, null, null, null, null, null, null, null], 
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null]
+]
   width = board[0].length
   height = board.length
   turn = 1
@@ -195,11 +208,14 @@ function handleClick(){
 function placeShip1(evt){
   let idx = evt.target.id.split("")
   idx = idx.map(idx => Number(idx))
-console.log(idx)
-}
-
-function fillSq1(row, col){
-  board[row][col] = 'S1'
+  console.log(idx)
+  let row = idx[0]
+  let col = idx[1]
+  console.log(row)
+  if (board[row][col] === null) {
+    board[row][col] = 'S1'
+  }
+  console.log(board)
 }
 
 // function place
