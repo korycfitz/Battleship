@@ -69,7 +69,7 @@ const ships = {
 }
 
 /*------------ Variables ------------*/
-let board, winner, turn, height, width, boardValidPositions, placedShips, hidden, messageEl, squareEls, message2, ship
+let board, winner, turn, height, width, placedPositions, placedShips, hidden, messageEl, squareEls, message2, ship
 /*---- Cached Element References ----*/
 messageEl = document.getElementById("message1");
 messageEl2 = document.getElementById("message2");
@@ -92,7 +92,6 @@ function init(){
   for (let idx1 = 0; idx1 < 10; idx1++) {
     for (let idx2 = 0; idx2 < 10; idx2++) {
       positions.push([idx1, idx2])
-      boardValidPositions.push([idx1, idx2])
     }
   }
 
@@ -117,6 +116,7 @@ function init(){
   hidden = false;
   winner = false;
   //will use to track how many ships have been placed
+  placedPositions = []
   placedShips = {
     ship1: [],
     ship2: [],
@@ -208,18 +208,55 @@ function handleClick(){
 function placeShip1(evt){
   let idx = evt.target.id.split("")
   idx = idx.map(idx => Number(idx))
-  console.log(idx)
   let row = idx[0]
   let col = idx[1]
-  console.log(row)
-  if (board[row][col] === null) {
+  if (board[row][col] === null && isValid && isAdjacent(row,col)) {
     board[row][col] = 'S1'
+    placedShips.ship1.push('S1')
+    placedPositions.push([row, col])
+    // console.log(placedShips)
+    // console.log(placedPositions)
+
   }
   console.log(board)
 }
 
-// function place
+function isValid(){
+//is valid if is length of ship is less than amount of S1 on board && placement is next to another S1
+counter = 0
+  for (let row = 0; row < height; row++) {
+    for (let col = 0; col < width; col++) {
+      if (board[row][col] = 'S1') counter += 1
+      if (counter < 5) return true
+    }
+  }
+  return false
+}
 
-// }
+function isAdjacent(rowClicked, colClicked) {
+  if (!board.flat().includes('S1')) { 
+    return true
+  } 
+  boardValidPositions = []
+  let validRows = []
+  let validCols = []
+  placedPositions.forEach(pos => {
+    let row = pos[0]
+    let col = pos[1]
+    if (row + 1 < 10 && !validRows.includes(row + 1)) validRows.push(row + 1)
+    if (row - 1 >= 0 && !validRows.includes(row - 1)) validRows.push(row - 1)
+    if (col + 1 < 10 && !validCols.includes(col + 1)) validCols.push(col + 1)
+    if (col - 1 >= 0 && !validCols.includes(col - 1)) validCols.push(col - 1)
+  })
+  validRows.forEach(row => {
+    boardValidPositions.push([row, col])
+  })
+
+  // console.log(validRows)
+  // console.log(validColumns)
+  console.log(boardValidPositions)
+  if (boardValidPositions.includes(rowClicked, colClicked)) return true
+  return false
+}
+
 init();
-//need to add a second board and give the class of .sqr 2to the div elements 
