@@ -210,7 +210,7 @@ function placeShip1(evt){
   idx = idx.map(idx => Number(idx))
   let row = idx[0]
   let col = idx[1]
-  if (board[row][col] === null && isValid && isAdjacent(row,col)) {
+  if (board[row][col] === null && isValid && isAdjacent(idx)) {
     board[row][col] = 'S1'
     placedShips.ship1.push('S1')
     placedPositions.push([row, col])
@@ -233,29 +233,50 @@ counter = 0
   return false
 }
 
-function isAdjacent(rowClicked, colClicked) {
+function isAdjacent(idx) {
+  //need to check the row that is clicked against the valid positions
   if (!board.flat().includes('S1')) { 
     return true
   } 
   boardValidPositions = []
   let validRows = []
   let validCols = []
-  placedPositions.forEach(pos => {
-    let row = pos[0]
-    let col = pos[1]
-    if (row + 1 < 10 && !validRows.includes(row + 1)) validRows.push(row + 1)
-    if (row - 1 >= 0 && !validRows.includes(row - 1)) validRows.push(row - 1)
-    if (col + 1 < 10 && !validCols.includes(col + 1)) validCols.push(col + 1)
-    if (col - 1 >= 0 && !validCols.includes(col - 1)) validCols.push(col - 1)
-  })
-  validRows.forEach(row => {
-    boardValidPositions.push([row, col])
-  })
-
+  let row;
+  let col;
+  if (placedPositions.length === 1) {
+    placedPositions.forEach(pos => {
+      let row = pos[0]
+      let col = pos[1]
+      if (row + 1 < 10) boardValidPositions.push([row + 1, col])
+      if (row - 1 >= 0) boardValidPositions.push([row - 1, col])
+      if (col + 1 < 10) boardValidPositions.push([row, col + 1])
+      if (col - 1 >= 0) boardValidPositions.push([row, col - 1])
+      // if (row - 1 >= 0) validRows.push(row - 1)
+      // if (col + 1 < 10) validCols.push(col + 1)
+      // if (col - 1 >= 0) validCols.push(col - 1)
+      // if (row + 1 < 10 && !validRows.includes(row + 1)) validRows.push(row + 1)
+      // if (row - 1 >= 0 && !validRows.includes(row - 1)) validRows.push(row - 1)
+      // if (col + 1 < 10 && !validCols.includes(col + 1)) validCols.push(col + 1)
+      // if (col - 1 >= 0 && !validCols.includes(col - 1)) validCols.push(col - 1)
+    })
+  }
+//   validRows.forEach(row => {
+//     boardValidPositions.push([row, col])
+//   })
+//   validCols.forEach(col => {
+//     boardValidPositions.push([row, col])
+//   })
+// }
   // console.log(validRows)
   // console.log(validColumns)
-  console.log(boardValidPositions)
-  if (boardValidPositions.includes(rowClicked, colClicked)) return true
+  // console.log(boardValidPositions)
+  // console.log([rowClicked,colClicked])
+  console.log(idx)
+  //can't figure out this bug. 
+  for (let i = 0; i < boardValidPositions.length; i++) {
+    console.log(boardValidPositions[i])
+    if (boardValidPositions[i] === idx) return true
+  }
   return false
 }
 
