@@ -250,17 +250,19 @@
 
 //-------------------------------------------------------------------------------------
 // 1) Define the required variables used to track the state of the game
-let width, height, board, turn, currentShipNum, currentShip, placedShips, placedShipsCount, ships, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, isValidIdx//game status will display false before in 'game' mode and true after
+let width, height, board, turn, currentShipNum, currentShip, placedShips, positions, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos//game status will display false before in 'game' mode and true after
 /*---------------------------- Variables (state) ----------------------------*/
 
 /*------------------------ Cached Element References ------------------------*/
 // 2) Store cached element references
 const messageEl = document.getElementById("message1");
 const squareEls = document.querySelectorAll(".sqr1");
-const playGame = document.getElementById("play-game")
+const playGame = document.getElementById("play-game");
+const hideBtn = document.getElementById("hide-board")
 // const resetBtnEl = document.querySelector('#reset-button');
 /*----------------------------- Event Listeners -----------------------------*/
 playGame.addEventListener('click', handleBtnClick)
+hideBtn.addEventListener('click', hideShips)
 // resetBtnEl.onclick = function(){
 //   init();
 // }
@@ -291,6 +293,12 @@ function init(){
 ]
   width = board[0].length;
   height = board.length;
+  positions = []
+  for (let row = 0; row < height; row++ ){
+    for (let col = 0; col < width; col++) {
+      positions.push([row, col])
+    }
+  }
   currentShipNum = 1;
   ship1 = ['S1', 'S1', 'S1', 'S1', 'S1']
   ship2 = ['S2', 'S2', 'S2', 'S2']
@@ -312,6 +320,7 @@ function init(){
     ship4: [],
     ship5: [],
   }
+  shipArr = [];
   placedShipsCount = 0;
   turn = 1;
   allShipsPlaced = false;
@@ -362,11 +371,23 @@ function updateMessage(){
   //render message based on current game state
   if (winner === false && allShipsPlaced === false && currentShipNum === 1) {
     messageEl.textContent = `Please place ship ${currentShipNum} (Length: 5)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to hide your ships`
+  } else if (winner === false && allShipsPlaced === false && currentShipNum === 2) {
+    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 4)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to hide your ships`
+  } else if (winner === false && allShipsPlaced === false && currentShipNum === 3) {
+    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 3)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to hide your ships`
+  } else if (winner === false && allShipsPlaced === false && currentShipNum === 4) {
+    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 3)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to xhide your ships`
+  } else if (winner === false && allShipsPlaced === false && currentShipNum === 5) {
+    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 2)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to hide your ships`
+  } else if (winner === false && !shipsHidden) {
+    messageEl.textContent = 'All ships have been placed! Press the button below to start!'
+    return;
+  } else if (winner === false && turn === 1) {
+    //need to check based on sq clicked if is a hit or miss
+    messageEl.textContent = `It's player\'s turn. Click a square to guess`
+  } else if (winner === false && turn === -1) {
+
   }
-  //   messageEl.textContent =  `Congratulations Player 1 won!`
-  // } else {
-  //   messageEl.textContent =  `Congratulations Computer won!`
-  // }
 }
 
 
@@ -381,7 +402,10 @@ function handleSqClick(evt){
         //no winner yet
         //want to return out if allships are not placed yet (in board 'setting' state) and click on a square corresponding to a placed ship
         if (!allShipsPlaced && (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5)) return;
-        //otherwise either clicked square in game 'play' state, or clicked empty square in 'setting' state
+        //otherwise either clicked square in game 'play' state, or clicked empty square in 'setting' state //need to account for this
+        //if in the 'game' state, we need to return out if winner === true or if spot is already guessed
+        if (board[row][col] === 'X' || winner === true) return;
+        //going to need to add a different variable for every square
         rowClicked = row;
         colClicked = col;
       }
@@ -390,31 +414,28 @@ function handleSqClick(evt){
   }
   //after this loop, we want to check for any occurance in which we are still placing ships (every possible board state), we want to make sure all the pieces are placed in the loop
   //after loop, 
-  if (allShipsPlaced === false) {
-    //in the 'setting' board state
-    //keep placing ships if is valid sq
+  if (!allShipsPlaced) {
     placeShip(rowClicked, colClicked)
-    //don't move onto another ship until we pass the above
-  } else {
-    //we want to play the game, and change board appearance accordingly
-    hideShips()
-    aiPlaceShips()
-    play()
   }
-//   placePiece(rowClicked, colClicked);
-//   checkBoardFull();
-//   switchPlayerTurn();
+  if (shipsHidden) {
+    
+  }
+
   render();
 }
 
 function placeShip(row, col) {
   if (placedShipsCount < 17) {
+    isValid(row, col)
     if (true) {
       board[row][col] = currentShipNum
       placedShipsCount++
-      placedShips[`ship${currentShipNum}`].push(currentShip[0])
+      placedShips[`ship${currentShipNum}`].push([currentShip[0], [row, col]])
       if (placedShips[`ship${currentShipNum}`].length >= ships[`ship${currentShipNum}`].length) {
         currentShipNum++
+        //track current ship placement, reset after entire ship is place
+        shipArr = [];
+        //track all the valid positions
       }
     }
   } else {
@@ -424,27 +445,51 @@ function placeShip(row, col) {
 }
 
 function isValid(row, col) {
+  validPos = positions
+  console.log(positions[0])
+  if (positions.includes([3,3])) console.log('hello')
+  if (placedShips[`ship${currentShipNum}`].length === 0) {
+    shipArr.push([row, col])
 
+    console.log(shipArr)
+    return true;
+  }
+  if (placedShips[`ship${currentShipNum}`].length < ships[`ship${currentShipNum}`].length) { 
+    shipArr.push([row, col])
+    console.log(shipArr)
+  }
 }
+
+
+
+
+
+
+
 
 function hideShips(){
   //if all ships are placed, and ships are not hidden, hide the ships
-  if (allShipsPlaced && !shipsHidden) {  
     //change display of each box to be empty
     let i = 0
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
         squareEls[i].textContent = "";
+        i++
       }
     }
     //change shipsHidden to true so we don't use this function anymore
     shipsHidden = true;
-  }
+    aiPlaceShips()
 }
-function aiPlaceShips(){
 
+function aiPlaceShips(){
+  //makes new board with hidden ai ships
 }
 
 function play(){
+
+}
+
+function changeTurn(){
 
 }
