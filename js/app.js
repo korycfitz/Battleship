@@ -256,6 +256,7 @@ let width, height, board, turn, currentShipNum, currentShip, placedShips, positi
 /*------------------------ Cached Element References ------------------------*/
 // 2) Store cached element references
 const messageEl = document.getElementById("message1");
+const messageEl2 = document.getElementById("message2");
 const squareEls = document.querySelectorAll(".sqr1");
 const playGame = document.getElementById("play-game");
 const hideBtn = document.getElementById("hide-board")
@@ -293,12 +294,6 @@ function init(){
 ]
   width = board[0].length;
   height = board.length;
-  positions = []
-  for (let row = 0; row < height; row++ ){
-    for (let col = 0; col < width; col++) {
-      positions.push([row, col])
-    }
-  }
   currentShipNum = 1;
   ship1 = ['S1', 'S1', 'S1', 'S1', 'S1']
   ship2 = ['S2', 'S2', 'S2', 'S2']
@@ -321,6 +316,7 @@ function init(){
     ship5: [],
   }
   shipArr = [];
+  validPos = [];
   placedShipsCount = 0;
   turn = 1;
   allShipsPlaced = false;
@@ -415,7 +411,7 @@ function handleSqClick(evt){
   //after this loop, we want to check for any occurance in which we are still placing ships (every possible board state), we want to make sure all the pieces are placed in the loop
   //after loop, 
   if (!allShipsPlaced) {
-    placeShip(rowClicked, colClicked)
+    placeShip(rowClicked, colClicked, isValid)
   }
   if (shipsHidden) {
     
@@ -424,39 +420,48 @@ function handleSqClick(evt){
   render();
 }
 
-function placeShip(row, col) {
-  if (placedShipsCount < 17) {
-    isValid(row, col)
-    if (true) {
+function placeShip(row, col, isValid) {
+    if (isValid(row, col) && placedShipsCount < 17) {
+      messageEl2.textContent = ""
       board[row][col] = currentShipNum
       placedShipsCount++
-      placedShips[`ship${currentShipNum}`].push([currentShip[0], [row, col]])
+      placedShips[`ship${currentShipNum}`].push(currentShip[0])
       if (placedShips[`ship${currentShipNum}`].length >= ships[`ship${currentShipNum}`].length) {
         currentShipNum++
         //track current ship placement, reset after entire ship is place
         shipArr = [];
+        validPos = [];
         //track all the valid positions
-      }
-    }
+      } 
+    } else if (placedShips >= 17) {
+      allShipsPlaced = true
+      return;
   } else {
-    allShipsPlaced = true
-    return;
+//not valid position
+    messageEl2.textContent = 'Click not allowed. Ship must be placed in a horizontal or vertical, adjacent line'
   }
 }
 
 function isValid(row, col) {
-  validPos = positions
-  console.log(positions[0])
-  if (positions.includes([3,3])) console.log('hello')
   if (placedShips[`ship${currentShipNum}`].length === 0) {
     shipArr.push([row, col])
-
-    console.log(shipArr)
+    if (row + 1 <= 10) validPos.push([row + 1, col])
+    if (row - 1 >= 0) validPos.push([row - 1, col])
+    if (col + 1 <= 10) validPos.push([row, col + 1])
+    if (col - 1 >= 0) validPos.push([row, col - 1])
+    // console.log(shipArr)
+    // console.log(validPos)
     return true;
-  }
-  if (placedShips[`ship${currentShipNum}`].length < ships[`ship${currentShipNum}`].length) { 
-    shipArr.push([row, col])
-    console.log(shipArr)
+  } else if (placedShips[`ship${currentShipNum}`].length < ships[`ship${currentShipNum}`].length) { 
+    //loop through valid positions
+    for (let i = 0; i < validPos.length; i++) {
+      if (validPos[i][0] === row && validPos[i][1] === col) {
+        return true;
+        //add valid positions according to valid positions and add the ships to ship idx
+      } 
+    }
+  } else {
+    return false;
   }
 }
 
