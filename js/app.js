@@ -1,103 +1,279 @@
-//Initial Data Structure
-//------------------------------------------------------------------------------------------------------------------------------
-//Board Class
+// /*------------ Constants ------------*/
+// const positions = []
+// const ships = {
+//   ship1: ['S1', 'S1', 'S1', 'S1', 'S1'],
+//   ship2: ['S2', 'S2', 'S2', 'S2'],
+//   ship3: ['S3', 'S3', 'S3'],
+//   ship4: ['S4', 'S4', 'S4'],
+//   ship5: ['S5', 'S5']
+// }
+// /*------------ Variables ------------*/
+// let board, winner, turn, height, width, placedPositions, placedShips, hidden, messageEl, squareEls, message2, ship
+// /*---- Cached Element References ----*/
+// messageEl = document.getElementById("message1");
+// messageEl2 = document.getElementById("message2");
+// const ship1btn = document.getElementById("ship1")
+// const ship2btn = document.getElementById("ship2")
+// const ship3btn = document.getElementById("ship3")
+// const ship4btn = document.getElementById("ship4")
+// const ship5btn = document.getElementById("ship5")
+// squareEls = document.querySelectorAll(".sqr1");
+// /*--------- Event Listeners ---------*/
+// ship1btn.addEventListener('click', handleClick)
+// // ship2btn.addEventListener('click', placeShip2)
+// // ship3btn.addEventListener('click', placeShip3)
+// // ship4btn.addEventListener('click', placeShip4)
+// // ship5btn.addEventListener('click', placeShip5)
 
-//valid positions: 2d array of board positions: [[row,col], [row,col],...etc]
-//ship location: object => {  keys = shipName,    values = [[row,col], [row,col],...etc] dependent on ship size  }
-//shots => object => {  keys = shotNumber,    values = [[row,col]]  }
-//hit shots => object => {  keys = shotNumber,  values =  values = [[row,col]]   }
-//missed shots => object => {  keys = shotNumber,  values =  values = [[row,col]]   }
-//shape of ships => 5, 1d arrays of length 2,3,3,4,5 (for each player)
-//num of ships => 5
-//sunk ships: object => [array of ship names]
-//player = 1 || -1 (use this until we finish a basic setup and implement classes to initialize a player object)
+// /*------------ Functions ------------*/
+// function init(){
+//   board = [
+//     [null, null, null, null, null, null, null, null, null, null], 
+//     [null, null, null, null, null, null, null, null, null, null], 
+//     [null, null, null, null, null, null, null, null, null, null],
+//     [null, null, null, null, null, null, null, null, null, null],
+//     [null, null, null, null, null, null, null, null, null, null],
+//     [null, null, null, null, null, null, null, null, null, null],
+//     [null, null, null, null, null, null, null, null, null, null],
+//     [null, null, null, null, null, null, null, null, null, null],
+//     [null, null, null, null, null, null, null, null, null, null],
+//     [null, null, null, null, null, null, null, null, null, null]
+// ]
+//   width = board[0].length
+//   height = board.length
+//   turn = 1
+//   hidden = false;
+//   winner = false;
+//   placedPositions = []
+//   placedShips = {
+//     ship1: [],
+//     ship2: [],
+//     ship3: [],
+//     ship4: [],
+//     ship5: []
+//   }
+//   render()
+// }
 
-//PlayerClass
-//gets the players move
+// function render(){
+//   updateMessage()
+//   // updateSquaresEls()
+//   updateBoard()
+// }
+// function updateMessage(){
+//   if (hidden === false && turn === 1) {
+//     messageEl.textContent = "Player1 Place Ships"
+//     messageEl2.textContent = 'To Place a ship, click on a button, then click on the squares on the board where you would like to place the ship'
+//   } else if (hidden === false && turn === -1) {
+//     messageEl.textContent = "Player2 Place Ships"
+//     messageEl2.textContent = 'To Place a ship, click on a button, then click on the squares on the board where you would like to place the ship'
+//   }
 
-//Battleship Class
-//initializes player and board objects 
-//starts game 
-//places ships
-//hides ships 
-//repeats for player -1
-//win/loss logic 
-//turn logic (if player 1s turn, pick board location)
-//logic to handle pick (hit ship, missed ship, is not valid position (already picked))
-//renders board
 
-//Play Class
-//plays game
-//-----------------------------------------------------------------------------------------------------------------------------
-//Psudocode
-//going to build out the game simply, without classes first, then add them in later but will pseudo code them in
-//1. define variables to track turn, boards(will make board class after simple version is built out), players (will eventually make a player class), ships, positions, valid positions for placing ships, placed ships, board status(if the players are placing ships or playing game), missed guesses, hit guesses, hit ships, sunk ships, winner, 
-//2. build the basic html board display
-// place ships portion
-//3. initialize Board class and add logic to handle placing ships
-//3.1 add logic to handle valid positions
-//3.2 add catched element references to every square on the board
-//3.3 add event listeners that react to clicking on board squares
-//3.4 add logic to keep track of if the player placed all their ships
-//3.5 add render function to render the board every time it is clicked
-//4. add html button to hide ships once they are placed, and switch player turn
-//4.5 add logic to initialize a new board instance for second player
-//add button after player 2 finishes placing ships to hide their board and //play(game)
-//add all of the logic for playing the game(isValidPositions, switchTurn, rendering boards, etc) 
-//5. add logic to handle once there is a winner, and how a winner is determined
-//6. probably going to need a toggleClass hideShips class on each HTMl element that corresponds to each ship 
-//6.1 or we could use 4 grids, in total, 2 for each player (1 for guessess and 1 for ships) or could have 2 boards toggle the class to hide the board of the grid that was used to create the ships
-//probably going to tackle this when I get to it, but most likely going to stick to two boards and toggle a class to hide the ships 
-//7.add css and html styling 
-//8.create a reset button and add more complex css styling 
+// }
 
-//PlayerClass
-    //constructor 
+// function updateSquaresEls(){
+//   // if (hidden === false && turn === 1)  {
+//   //   squareEls = document.querySelectorAll(".sqr1");
+//   // } else if (hidden === false && turn === -1) {
+//   //   squareEls = document.querySelectorAll(".sqr2");
+//   // }
+
+// }
+
+// function updateBoard(){
+//   //switch to while loop
+//   if (placedShips !== ships && turn === 1) {
+
+//     // placeShips()
+//     //fill corresponding square on board with corresponding color
+//     //push placed value string to placed ships 
+//   } else if(placedShips === ships && turn === 1) {
+//     turn = -1
+//     //hideShips()
+//   } else if(placedShips !== ships && turn === -1) {
+//   // placeShips()
+//   } else {
+//     //all ships placed
+//   //when ships are all placed hides buttons and messages, and changes to "game" state
+//   //hideShips()
+//   }
+// }
+
+// // function placeShips(evt){
+// //   console.log(evt)
+// //   placeShip1(evt)
+// //   placeShip2(evt)
+// //   placeShip3(evt)
+// //   placeShip4(evt)
+// //   placeShip5(evt)
+// // }
+// //Next Steps!!!!!!!!!!
+// function handleClick(){
+//   squareEls.forEach(square => {
+//     square.addEventListener("click", placeShip1)
+//   })
+
+
+//   // console.log(boardValidPositions)
+//   //add all the logic here to hide buttons, based on turn, switch turns, etc
+//   // const sqIdx = evt.target.id;
+//   // console.log(sqIdx)
+
+
+//   //hide all the buttons except 1
+//   //on each button click, add event listener for the corresponding button     
+//   //fill corresponding square on board with corresponding color
+//     //push placed value string to placed ships 
+//   //push choice to ship in corresponding placedShips object array
+//   //define isValidPosition method
+//   //add 1 to counter variable if isValidPosition
+//   //remove position from isValidPosition
+//   //push placed value string to placed ships 
+//   //replace null board values with position
+
+// }
+// function placeShip1(evt){
+//   let idx = evt.target.id.split("")
+//   idx = idx.map(idx => Number(idx))
+//   let row = idx[0]
+//   let col = idx[1]
+//   if (board[row][col] === null && isValid && isAdjacent) {
+//     board[row][col] = 1
     
-//Board Class
-  //constructor 
-    //board: => 2d array(n x n) => 10 arrays of length 10, nested in an outter array
-    //ship location: object => (   keys = shipName,    value = [[row,col], [row,col]  )
-/*------------ Constants ------------*/
-const positions = []
-const ships = {
-  ship1: ['S1', 'S1', 'S1', 'S1', 'S1'],
-  ship2: ['S2', 'S2', 'S2', 'S2'],
-  ship3: ['S3', 'S3', 'S3'],
-  ship4: ['S4', 'S4', 'S4'],
-  ship5: ['S5', 'S5']
-}
+//     placedShips['ship1'].push('S1')
+//     placedPositions.push([row, col])
+//     console.log(placedPositions)
+//   }
+//   console.log(board)
+// }
 
-/*------------ Variables ------------*/
-let board, winner, turn, height, width, placedPositions, placedShips, hidden, messageEl, squareEls, message2, ship
-/*---- Cached Element References ----*/
-messageEl = document.getElementById("message1");
-messageEl2 = document.getElementById("message2");
-const ship1btn = document.getElementById("ship1")
-const ship2btn = document.getElementById("ship2")
-const ship3btn = document.getElementById("ship3")
-const ship4btn = document.getElementById("ship4")
-const ship5btn = document.getElementById("ship5")
-squareEls = document.querySelectorAll(".sqr1");
-/*--------- Event Listeners ---------*/
-ship1btn.addEventListener('click', handleClick)
-// ship2btn.addEventListener('click', placeShip2)
-// ship3btn.addEventListener('click', placeShip3)
-// ship4btn.addEventListener('click', placeShip4)
-// ship5btn.addEventListener('click', placeShip5)
+// function isValid(){
+// //is valid if is length of ship is less than amount of S1 on board && placement is next to another S1
+// counter = 0
+//   for (let row = 0; row < height; row++) {
+//     for (let col = 0; col < width; col++) {
+//       if (board[row][col] = 'S1') counter += 1
+//       if (counter < 5) return true
+//     }
+//   }
+//   return false
+// }
 
-/*------------ Functions ------------*/
+// function isAdjacent(idx) {
+//   //need to check the row that is clicked against the valid positions
+//   if (!board.flat().includes('S1')) { 
+//     return true
+//   } 
+//   boardValidPositions = []
+//   let validRows = []
+//   let validCols = []
+//   let row;
+//   let col;
+//   if (placedPositions.length === 1) {
+//     placedPositions.forEach(pos => {
+//       let row = pos[0]
+//       let col = pos[1]
+//       if (row + 1 < 10) boardValidPositions.push([row + 1, col])
+//       if (row - 1 >= 0) boardValidPositions.push([row - 1, col])
+//       if (col + 1 < 10) boardValidPositions.push([row, col + 1])
+//       if (col - 1 >= 0) boardValidPositions.push([row, col - 1])
+//       // if (row - 1 >= 0) validRows.push(row - 1)
+//       // if (col + 1 < 10) validCols.push(col + 1)
+//       // if (col - 1 >= 0) validCols.push(col - 1)
+//       // if (row + 1 < 10 && !validRows.includes(row + 1)) validRows.push(row + 1)
+//       // if (row - 1 >= 0 && !validRows.includes(row - 1)) validRows.push(row - 1)
+//       // if (col + 1 < 10 && !validCols.includes(col + 1)) validCols.push(col + 1)
+//       // if (col - 1 >= 0 && !validCols.includes(col - 1)) validCols.push(col - 1)
+//     })
+//   }
+// //   validRows.forEach(row => {
+// //     boardValidPositions.push([row, col])
+// //   })
+// //   validCols.forEach(col => {
+// //     boardValidPositions.push([row, col])
+// //   })
+// // }
+//   // console.log(validRows)
+//   // console.log(validColumns)
+//   // console.log(boardValidPositions)
+//   // console.log([rowClicked,colClicked])
+//   console.log(idx)
+//   //can't figure out this bug.
+//   for (let i = 0; i < boardValidPositions.length; i++) {
+//     console.log(boardValidPositions[i])
+//     if (boardValidPositions[i] === idx) return true
+//   }
+//   return false
+// }
+
+// init();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-------------------------------------------------------------------------------------
+// 1) Define the required variables used to track the state of the game
+let width, height, board, turn, currentShipNum, currentShip, placedShips, ships, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, gameMode //game status will display false before in 'game' mode and true after
+/*---------------------------- Variables (state) ----------------------------*/
+
+/*------------------------ Cached Element References ------------------------*/
+// 2) Store cached element references
+const messageEl = document.getElementById("message1");
+const squareEls = document.querySelectorAll(".sqr1");
+const btn1 = document.getElementById("ship1")
+const btn2 = document.getElementById("ship2")
+const btn3 = document.getElementById("ship3")
+const btn4 = document.getElementById("ship4")
+const btn5 = document.getElementById("ship5")
+// const resetBtnEl = document.querySelector('#reset-button');
+/*----------------------------- Event Listeners -----------------------------*/
+btn1.addEventListener('click', handleBtnClick)
+btn2.addEventListener('click', handleBtnClick)
+btn3.addEventListener('click', handleBtnClick)
+btn4.addEventListener('click', handleBtnClick)
+btn5.addEventListener('click', handleBtnClick)
+// resetBtnEl.onclick = function(){
+//   init();
+// }
+/*-------------------------------- Functions --------------------------------*/
 function init(){
-  boardValidPositions = []
-  for (let idx1 = 0; idx1 < 10; idx1++) {
-    for (let idx2 = 0; idx2 < 10; idx2++) {
-      positions.push([idx1, idx2])
-    }
-  }
-
-  //fills the board with null values that we will use to place ships
-  // board = new Array(10).fill(new Array(10).fill(null));
-  //not working because each of the inner arrays point to the same place in memory 
   board = [
     [null, null, null, null, null, null, null, null, null, null], 
     [null, null, null, null, null, null, null, null, null, null], 
@@ -110,174 +286,163 @@ function init(){
     [null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null]
 ]
-  width = board[0].length
-  height = board.length
-  turn = 1
-  hidden = false;
-  winner = false;
-  //will use to track how many ships have been placed
-  placedPositions = []
+  width = board[0].length;
+  height = board.length;
+  currentShipNum = 1;
+  ship1 = ['S1', 'S1', 'S1', 'S1', 'S1']
+  ship2 = ['S2', 'S2', 'S2', 'S2']
+  ship3 = ['S3', 'S3', 'S3']
+  ship4 = ['S4', 'S4', 'S4']
+  ship5 = ['S5', 'S5']
+  ships = {
+    ship1: ship1,
+    ship2: ship2,
+    ship3: ship3,
+    ship4: ship4,
+    ship5: ship5
+  }
+  currentShip = ships[`ship${currentShipNum}`]
   placedShips = {
     ship1: [],
     ship2: [],
     ship3: [],
     ship4: [],
-    ship5: []
+    ship5: [],
   }
-  render()
+  player = 1;
+  turn = 1;
+  boardFull = false;
+  winner = false;
+  gameMode = false;
+  render();
 }
 
+// 4) The state of the game should be rendered to the user
 function render(){
-  updateMessage()
-  updateSquaresEls()
-  updateBoard()
-}
-function updateMessage(){
-  if (hidden === false && turn === 1) {
-    messageEl.textContent = "Player1 Place Ships"
-    messageEl2.textContent = 'To Place a ship, click on a button, then click on the squares on the board where you would like to place the ship'
-  } else if (hidden === false && turn === -1) {
-    messageEl.textContent = "Player2 Place Ships"
-    messageEl2.textContent = 'To Place a ship, click on a button, then click on the squares on the board where you would like to place the ship'
-  }
-
-
-}
-
-function updateSquaresEls(){
-  // if (hidden === false && turn === 1)  {
-  //   squareEls = document.querySelectorAll(".sqr1");
-  // } else if (hidden === false && turn === -1) {
-  //   squareEls = document.querySelectorAll(".sqr2");
-  // }
-
+  updateBoard();
+  //updateBoard will only work for the game before it is in the "play" state because we will need to update the board differently, to display hits and misses. I need to figure out how to handle a different board state.
+  updateMessage();
 }
 
 function updateBoard(){
-  //switch to while loop
-  if (placedShips !== ships && turn === 1) {
-
-    // placeShips()
-    //fill corresponding square on board with corresponding color
-    //push placed value string to placed ships 
-  } else if(placedShips === ships && turn === 1) {
-    turn = -1
-    //hideShips()
-  } else if(placedShips !== ships && turn === -1) {
-  // placeShips()
+  if (!gameMode) {
+    let i = 0
+    for (let row = 0; row < height; row++) {
+      for (let col = 0; col < width; col++){
+        if (board[row][col] === 1) {
+          squareEls[i].textContent = "S1" 
+        } else if(board[row][col] === 2) {
+          squareEls[i].textContent = "S2"
+        } else if(board[row][col] === 3) {
+          squareEls[i].textContent = "S3"
+        } else if(board[row][col] === 4) {
+          squareEls[i].textContent = "S4"
+        } else if(board[row][col] === 5) {
+          squareEls[i].textContent = "S5"
+        } else {
+          squareEls[i].textContent = ""
+        }
+        i++
+      }
+    }
   } else {
-    //all ships placed
-  //when ships are all placed hides buttons and messages, and changes to "game" state
-  //hideShips()
+    //it is in game mode(not placing ships)// if ship gets guessed, update square, based on if it is a hit or missed
   }
 }
+function updateMessage(){
+  //render message based on current game state
+  // if (winner === false && boardFull === false && ship === 1 && turn === 1) {
+  //   messageEl.textContent = `Player 1 Please place ship ${ship}!`
+  // } else if (winner === false && boardFull === false && ship === 2 && turn === 1) {
+  //   messageEl.textContent = `Player 1 Please place ship ${ship}!`
+  // } else if (winner === false && boardFull === false && ship === 3 && turn === 1) {
+  //   messageEl.textContent = `Player 1 Please place ship ${ship}!`
+  // } else if (winner === false && boardFull === false && ship === 4 && turn === 1) {
+  //   messageEl.textContent = `Player 1 Please place ship ${ship}!`
+  // } else if (winner === false && boardFull === false && ship === 5 && turn === 1) {
+  //   messageEl.textContent = `Player 1 Please place ship ${ship}!`
+  // } else if (winner === false && boardFull === false && ship === 1 && turn === -1) {
+  //   messageEl.textContent = `Player 2 Please place ship ${ship}!`
+  // } else if (winner === false && boardFull === false && ship === 2 && turn === -1) {
+  //   messageEl.textContent = `Player 2 Please place ship ${ship}!`
+  // } else if (winner === false && boardFull === false && ship === 3 && turn === -1) {
+  //   messageEl.textContent = `Player 2 Please place ship ${ship}!`
+  // } else if (winner === false && boardFull === false && ship === 4 && turn === -1) {
+  //   messageEl.textContent = `Player 2 Please place ship ${ship}!`
+  // } else if (winner === false && boardFull === false && ship === 5 && turn === -1) {
+  //   messageEl.textContent = `Player 2 Please place ship ${ship}!`
+  // } else if (winner === false && boardFull === true && turn === 1) {
+  //   messageEl.textContent = `Player 1 Place the /'Hide Ships' Button to hide your ships!`
+  // } else if (winner === false && boardFull === true && turn === -1) {
+  //   messageEl.textContent = `Player 2 Place the /'Hide Ships' Button to hide your ships!`
+  // } else if (winner === true && turn === 1) {
+  //   messageEl.textContent =  `Congratulations Player 1 won!`
+  // } else {
+  //   messageEl.textContent =  `Congratulations Player 2 won!`
+  // }
+}
 
-// function placeShips(evt){
-//   console.log(evt)
-//   placeShip1(evt)
-//   placeShip2(evt)
-//   placeShip3(evt)
-//   placeShip4(evt)
-//   placeShip5(evt)
-// }
-//Next Steps!!!!!!!!!!
-function handleClick(){
-  squareEls.forEach(square => {
-    square.addEventListener("click", placeShip1)
+
+
+
+//this event listener will only be added once the button is clicked
+//will need to remove it after all of the ships are placed for both players
+//then we will add a new event listener
+function handleBtnClick(evt){
+  if (evt.target.id === 'ship1') {
+    //if ship is already placed, return;
+    //if ship is already placed, hide button
+    //placeShip1()
+  }
+  squareEls.forEach(ele => {
+    ele.addEventListener("click", handleSqClick);
   })
-
-
-  // console.log(boardValidPositions)
-  //add all the logic here to hide buttons, based on turn, switch turns, etc
-  // const sqIdx = evt.target.id;
-  // console.log(sqIdx)
-
-
-  //hide all the buttons except 1
-  //on each button click, add event listener for the corresponding button     
-  //fill corresponding square on board with corresponding color
-    //push placed value string to placed ships 
-  //push choice to ship in corresponding placedShips object array
-  //define isValidPosition method
-  //add 1 to counter variable if isValidPosition
-  //remove position from isValidPosition
-  //push placed value string to placed ships 
-  //replace null board values with position
-
-}
-function placeShip1(evt){
-  let idx = evt.target.id.split("")
-  idx = idx.map(idx => Number(idx))
-  let row = idx[0]
-  let col = idx[1]
-  if (board[row][col] === null && isValid && isAdjacent(idx)) {
-    board[row][col] = 'S1'
-    placedShips.ship1.push('S1')
-    placedPositions.push([row, col])
-    // console.log(placedShips)
-    // console.log(placedPositions)
-
-  }
-  console.log(board)
 }
 
-function isValid(){
-//is valid if is length of ship is less than amount of S1 on board && placement is next to another S1
-counter = 0
+function handleSqClick(evt){
+  let sqIdx = evt.target.id;
+  let i = 0;
+  let rowClicked, colClicked
   for (let row = 0; row < height; row++) {
     for (let col = 0; col < width; col++) {
-      if (board[row][col] = 'S1') counter += 1
-      if (counter < 5) return true
+      if (sqIdx === squareEls[i].id) {
+        if (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5 || allShipsPlaced) {
+          return;
+        } 
+        rowClicked = row;
+        colClicked = col;
+       }
+       i++
     }
   }
-  return false
+  //if spot is occupied by a ship, or game has a winner, return out of function.
+
+  //check if the game is in placement state, 
+
+//   //after this loop this means there was no winner, and the current spot clicked is not occupied
+//   placePiece(rowClicked, colClicked);
+//   checkBoardFull();
+//   switchPlayerTurn();
+//   render();
 }
 
-function isAdjacent(idx) {
-  //need to check the row that is clicked against the valid positions
-  if (!board.flat().includes('S1')) { 
-    return true
-  } 
-  boardValidPositions = []
-  let validRows = []
-  let validCols = []
-  let row;
-  let col;
-  if (placedPositions.length === 1) {
-    placedPositions.forEach(pos => {
-      let row = pos[0]
-      let col = pos[1]
-      if (row + 1 < 10) boardValidPositions.push([row + 1, col])
-      if (row - 1 >= 0) boardValidPositions.push([row - 1, col])
-      if (col + 1 < 10) boardValidPositions.push([row, col + 1])
-      if (col - 1 >= 0) boardValidPositions.push([row, col - 1])
-      // if (row - 1 >= 0) validRows.push(row - 1)
-      // if (col + 1 < 10) validCols.push(col + 1)
-      // if (col - 1 >= 0) validCols.push(col - 1)
-      // if (row + 1 < 10 && !validRows.includes(row + 1)) validRows.push(row + 1)
-      // if (row - 1 >= 0 && !validRows.includes(row - 1)) validRows.push(row - 1)
-      // if (col + 1 < 10 && !validCols.includes(col + 1)) validCols.push(col + 1)
-      // if (col - 1 >= 0 && !validCols.includes(col - 1)) validCols.push(col - 1)
-    })
-  }
-//   validRows.forEach(row => {
-//     boardValidPositions.push([row, col])
-//   })
-//   validCols.forEach(col => {
-//     boardValidPositions.push([row, col])
-//   })
+// function placePiece(row, col) {
+//     board[row][col] = ship;
+//     console.log(board)
 // }
-  // console.log(validRows)
-  // console.log(validColumns)
-  // console.log(boardValidPositions)
-  // console.log([rowClicked,colClicked])
-  console.log(idx)
-  //can't figure out this bug. 
-  for (let i = 0; i < boardValidPositions.length; i++) {
-    console.log(boardValidPositions[i])
-    if (boardValidPositions[i] === idx) return true
-  }
-  return false
-}
+
+// function checkBoardFull(){
+//   if (ships.length === 5) board = true
+// }
+
+// function switchPlayerTurn(){
+//   if (winner === true){
+//     return;
+//   } else {
+//     turn *= -1;
+//   }
+// }
 
 init();
+
+// console.log(board)
