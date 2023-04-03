@@ -250,7 +250,7 @@
 
 //-------------------------------------------------------------------------------------
 // 1) Define the required variables used to track the state of the game
-let width, height, board, turn, currentShipNum, currentShip, placedShips, ships, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden//game status will display false before in 'game' mode and true after
+let width, height, board, turn, currentShipNum, currentShip, placedShips, placedShipsCount, ships, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, isValidIdx//game status will display false before in 'game' mode and true after
 /*---------------------------- Variables (state) ----------------------------*/
 
 /*------------------------ Cached Element References ------------------------*/
@@ -312,6 +312,7 @@ function init(){
     ship4: [],
     ship5: [],
   }
+  placedShipsCount = 0;
   turn = 1;
   allShipsPlaced = false;
   shipsHidden = false;
@@ -332,7 +333,7 @@ function updateBoard(){
   if (!allShipsPlaced) {
     let i = 0
     for (let row = 0; row < height; row++) {
-      for (let col = 0; col < width; col++){
+      for (let col = 0; col < width; col++) {
         if (board[row][col] === 1) {
           squareEls[i].textContent = "S1"
         } else if(board[row][col] === 2) {
@@ -359,8 +360,8 @@ function updateBoard(){
 }
 function updateMessage(){
   //render message based on current game state
-  if (winner === false && allShipsPlaced === false && currentShipIdx === 1) {
-    messageEl.textContent = `Please place ship ${ship}!`
+  if (winner === false && allShipsPlaced === false && currentShipNum === 1) {
+    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 5)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to hide your ships`
   }
   //   messageEl.textContent =  `Congratulations Player 1 won!`
   // } else {
@@ -368,8 +369,6 @@ function updateMessage(){
   // }
 }
 
-
-}
 
 function handleSqClick(evt){
   let sqIdx = evt.target.id;
@@ -392,12 +391,10 @@ function handleSqClick(evt){
   //after this loop, we want to check for any occurance in which we are still placing ships (every possible board state), we want to make sure all the pieces are placed in the loop
   //after loop, 
   if (allShipsPlaced === false) {
-  //if board is still being set, we want click to place ships according to logic
-
-
-
-
-    //at the end of this we want to check if all ships placed !!!!!!!!
+    //in the 'setting' board state
+    //keep placing ships if is valid sq
+    placeShip(rowClicked, colClicked)
+    //don't move onto another ship until we pass the above
   } else {
     //we want to play the game, and change board appearance accordingly
     hideShips()
@@ -407,37 +404,43 @@ function handleSqClick(evt){
 //   placePiece(rowClicked, colClicked);
 //   checkBoardFull();
 //   switchPlayerTurn();
-//   render();
+  render();
 }
 
-// function placePiece(row, col) {
-//     board[row][col] = ship;
-//     console.log(board)
-// }
+function placeShip(row, col) {
+  if (placedShipsCount < 17) {
+    if (true) {
+      board[row][col] = currentShipNum
+      placedShipsCount++
+      placedShips[`ship${currentShipNum}`].push(currentShip[0])
+      if (placedShips[`ship${currentShipNum}`].length >= ships[`ship${currentShipNum}`].length) {
+        currentShipNum++
+      }
+    }
+  } else {
+    allShipsPlaced = true
+    return;
+  }
+}
 
-// function checkBoardFull(){
-//   if (ships.length === 5) board = true
-// }
+function isValid(row, col) {
 
-// function switchPlayerTurn(){
-//   if (winner === true){
-//     return;
-//   } else {
-//     turn *= -1;
-//   }
-// }
+}
 
 function hideShips(){
   //if all ships are placed, and ships are not hidden, hide the ships
   if (allShipsPlaced && !shipsHidden) {  
     //change display of each box to be empty
+    let i = 0
+    for (let row = 0; row < height; row++) {
+      for (let col = 0; col < width; col++) {
+        squareEls[i].textContent = "";
+      }
+    }
     //change shipsHidden to true so we don't use this function anymore
     shipsHidden = true;
-  } 
-  //change display of each box to be empty
-  
+  }
 }
-
 function aiPlaceShips(){
 
 }
