@@ -9,6 +9,7 @@ html {
 }
 
 body {
+  background-color: aqua;
   /* font-size: 20px;
   font-family: 'Ubuntu', sans-serif;
   margin: 0, auto; */
@@ -34,7 +35,8 @@ body {
 }
 
 div {
-  border: 3px solid black;
+  background-color: green;
+  border: 3px solid rgb(186, 16, 16);
   font-size: 3vmin;
   text-align: center;
   vertical-align: middle;

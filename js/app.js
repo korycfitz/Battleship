@@ -2,12 +2,13 @@
 
 /*---------------------------- Variables (state) ----------------------------*/
 // 1) Define the required variables used to track the state of the game
-let width, height, board, turn, currentShipNum, currentShip, placedShips, positions, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical //game status will display false before in 'game' mode and true after
+let width, height, board, turn, currentShipNum, currentShip, placedShips, positions, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, playerGuesses, computerGuesses //game status will display false before in 'game' mode and true after
 /*------------------------ Cached Element References ------------------------*/
 // 2) Store cached element references
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
 const squareEls = document.querySelectorAll(".sqr1");
+const squareEls2 = document.querySelectorAll(".sqr2");
 const playGame = document.getElementById("play-game");
 const hideBtn = document.getElementById("hide-board");
 const boards = document.getElementById('boards')
@@ -75,6 +76,8 @@ function init(){
   turn = 1;
   allShipsPlaced = false;
   shipsHidden = false;
+  playerGuesses = []
+  computerGuesses = []
   winner = false;
   render();
 }
@@ -109,12 +112,27 @@ function updateBoard(){
         i++
       }
     }
-  } else {
-    //all ships are place
-    //check if hidden
-    
-    //check if ai placed ships yet
-    //if these are both true, update board differently according to game play
+  } else if(shipsHidden && !winner) {
+    // update board differently according to game play
+    let i = 0
+    for (let row = 0; row < height; row++) {
+      for (let col = 0; col < width; col++) {
+        if (board[row][col] === -1) {
+          squareEls[i].textContent = "X"
+        } else if(board[row][col] === -2) {
+          squareEls[i].textContent = "X"
+        } else if(board[row][col] === -3) {
+          squareEls[i].textContent = "X"
+        } else if(board[row][col] === -4) {
+          squareEls[i].textContent = "X"
+        } else if(board[row][col] === -5) {
+          squareEls[i].textContent = "X"
+        } else {
+          squareEls[i].textContent = "-"
+        }
+        i++
+      }
+    }
   }
 }
 function updateMessage(){
@@ -165,17 +183,24 @@ function handleSqClick(evt){
   //after loop, 
   if (!allShipsPlaced) {
     placeShip(rowClicked, colClicked, isValid)
-  }
-  if (allShipsPlaced && !shipsHidden) {
-    return
-  }
+  } else if (allShipsPlaced && !shipsHidden) {
+    return;
+  } else {
+    //if click has already been hit, return out
 
-
-  render();
+    playerGuess()
+    computerGuess()
+    checkForWinner();
+    switchTurn();
+    render();
+  }
 }
 
 function placeShip(row, col, isValid) {
-    if (isValid(row, col) && placedShipsCount < 17) {
+  if (placedShipsCount >= 17) {
+    return
+  }
+    if (isValid(row, col)) {
       messageEl2.textContent = ""
       board[row][col] = currentShipNum
       placedShipsCount++
@@ -195,6 +220,7 @@ function placeShip(row, col, isValid) {
   } else {
 //not valid position
     messageEl2.textContent = 'Click not allowed. Ship must be placed in a horizontal or vertical, adjacent line'
+    return;
   }
 }
 
@@ -251,7 +277,7 @@ function hideShips(){
     let i = 0
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
-        squareEls[i].textContent = "";
+        // squareEls[i].textContent = "";
         i++
       }
     }
@@ -273,18 +299,26 @@ function aiPlaceShips(){
   //   div.setAttribute('id', `${divId}_`)
   //   computerBoard.append(div)
   // })
-
+  //will need to remove it after all of the ships are placed for both players
+  //then we will add a new event listener
+  squareEls2.forEach(ele => {
+    ele.addEventListener("click", handleSqClick);
+  })
+  
   
 }
 
-function play(){
-
-}
-
-function changeTurn(){
+function playerGuess(){
 
 }
 
 function computerGuess(){
+
+}
+function switchTurn(){
+
+}
+
+function checkForWinner(){
 
 }
