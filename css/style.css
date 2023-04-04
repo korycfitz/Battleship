@@ -9,18 +9,23 @@ html {
 }
 
 body {
-  font-size: 20px;
+  /* font-size: 20px;
   font-family: 'Ubuntu', sans-serif;
-  margin: 0, auto;
+  margin: 0, auto; */
   /* max-width: 100px; */
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   /* background: -webkit-linear-gradient(bottom,#419769, rgba(135, 130, 130, 0.5)); */
   /* background: -moz-linear-gradient(bottom,#419769, rgba(135, 130, 130, 0.5)); */
   /* background: -o-linear-gradient(bottom,#419769, rgba(135, 130, 130, 0.5)); */
 }
 
-#player1 {
+.boards {
+  display: flex;
+  justify-content: space-between;
+}
+
+.board {
   display: grid;
   grid-template-rows: repeat(10, 5vmin);
   grid-template-columns: repeat(10, 5vmin);

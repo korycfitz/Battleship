@@ -1,15 +1,17 @@
 //-------------------------------------------------------------------------------------
+
+/*---------------------------- Variables (state) ----------------------------*/
 // 1) Define the required variables used to track the state of the game
 let width, height, board, turn, currentShipNum, currentShip, placedShips, positions, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical //game status will display false before in 'game' mode and true after
-/*---------------------------- Variables (state) ----------------------------*/
-
 /*------------------------ Cached Element References ------------------------*/
 // 2) Store cached element references
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
 const squareEls = document.querySelectorAll(".sqr1");
 const playGame = document.getElementById("play-game");
-const hideBtn = document.getElementById("hide-board")
+const hideBtn = document.getElementById("hide-board");
+const boards = document.getElementById('boards')
+const playerBoard = document.getElementById('player1');
 // const resetBtnEl = document.querySelector('#reset-button');
 /*----------------------------- Event Listeners -----------------------------*/
 playGame.addEventListener('click', handleBtnClick)
@@ -134,7 +136,7 @@ function updateMessage(){
     //need to check based on sq clicked if is a hit or miss
     messageEl.textContent = `It's player\'s turn. Click a square to guess`
   } else if (winner === false && turn === -1) {
-
+    messageEl.textContent = 'Computer is thinking...'
   }
 }
 
@@ -164,9 +166,10 @@ function handleSqClick(evt){
   if (!allShipsPlaced) {
     placeShip(rowClicked, colClicked, isValid)
   }
-  if (shipsHidden) {
-    
+  if (allShipsPlaced && !shipsHidden) {
+    return
   }
+
 
   render();
 }
@@ -225,17 +228,14 @@ function isValid(row, col) {
           validPos = [[min - 1, idx2], [max + 1, idx2]]
         }
         if (isHorizontal) {
-          console.log(shipArr)
           let idx1 = shipArr[0][0]
           let idx2 = []
           for (let i = 0; i < shipArr.length; i++) {
             idx2.push(shipArr[i][1])
-            console.log(idx2)
           }
           max = Math.max(...idx2)
           min = Math.min(...idx2)
           validPos = [[idx1, min - 1], [idx1, max + 1]]
-          console.log(validPos)
         }   
         return true;
       } 
@@ -261,7 +261,20 @@ function hideShips(){
 }
 
 function aiPlaceShips(){
-  //makes new board with hidden ai ships
+  //fills ai board
+  // const computerBoard = document.createElement('section');
+  // boards.append(computerBoard)
+  // computerBoard.classList.add('board');
+  // computerBoard.setArribute('id', 'computer');
+  // board.forEach(pos => {
+  //   // let class = 'Sq2'
+  //   let divId = document.getElementById().id;
+  //   let div = document.createElement('div');
+  //   div.setAttribute('id', `${divId}_`)
+  //   computerBoard.append(div)
+  // })
+
+  
 }
 
 function play(){
@@ -272,3 +285,6 @@ function changeTurn(){
 
 }
 
+function computerGuess(){
+
+}
