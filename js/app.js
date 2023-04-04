@@ -196,14 +196,13 @@ function placeShip(row, col, isValid) {
 }
 
 function isValid(row, col) {
+  let max, min
   if (placedShips[`ship${currentShipNum}`].length === 0) {
     shipArr.push([row, col])
     if (row + 1 <= 10) validPos.push([row + 1, col])
     if (row - 1 >= 0) validPos.push([row - 1, col])
     if (col + 1 <= 10) validPos.push([row, col + 1])
     if (col - 1 >= 0) validPos.push([row, col - 1])
-    // console.log(shipArr)
-    // console.log(validPos)
     return true;
   } else if (placedShips[`ship${currentShipNum}`].length < ships[`ship${currentShipNum}`].length) { 
     //loop through valid positions
@@ -213,8 +212,6 @@ function isValid(row, col) {
         //need to check if is horizontal or vertical and update 
           //need to take into account if the adjacent square = 1 || 2 || 3 || 4 || 5
         shipArr.push([row, col])
-      
-        //if every in piece inship arr has same row
         if (shipArr.length === 2 && (shipArr[0][1] === shipArr[1][1])) isVertical = true 
         if (shipArr.length === 2 && (shipArr[0][0] === shipArr[1][0])) isHorizontal = true 
         if (isVertical) {
@@ -223,17 +220,24 @@ function isValid(row, col) {
           for (let i = 0; i < shipArr.length; i++) {
             idx1.push(shipArr[i][0])
           }
-          let max = Math.max(...idx1)
-          let min = Math.min(...idx1)
+          max = Math.max(...idx1)
+          min = Math.min(...idx1)
           validPos = [[min - 1, idx2], [max + 1, idx2]]
         }
         if (isHorizontal) {
+          console.log(shipArr)
           let idx1 = shipArr[0][0]
           let idx2 = []
-          console.log(idx2)
-          for (let i = 0; i < shipArr.length; i++) {
-            
+          // console.log(shipArr)
+          for (let i = 0; i < shipArr[0].length; i++) {
+            idx2.push(shipArr[i][1])
           }
+          max = Math.max(...idx2)
+          min = Math.min(...idx2)
+          console.log(max)
+          console.log(min)
+          validPos = [[max + 1, idx2], [idx2, max + 1]]
+          console.log(validPos)
         }
         
         //add valid positions according to valid positions and add the ships to ship idx'        
