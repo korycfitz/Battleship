@@ -228,19 +228,15 @@ function isValid(row, col) {
           console.log(shipArr)
           let idx1 = shipArr[0][0]
           let idx2 = []
-          // console.log(shipArr)
-          for (let i = 0; i < shipArr[0].length; i++) {
+          for (let i = 0; i < shipArr.length; i++) {
             idx2.push(shipArr[i][1])
+            console.log(idx2)
           }
           max = Math.max(...idx2)
           min = Math.min(...idx2)
-          console.log(max)
-          console.log(min)
-          validPos = [[max + 1, idx2], [idx2, max + 1]]
+          validPos = [[idx1, min - 1], [idx1, max + 1]]
           console.log(validPos)
-        }
-        
-        //add valid positions according to valid positions and add the ships to ship idx'        
+        }   
         return true;
       } 
     }
