@@ -1,256 +1,6 @@
-// /*------------ Constants ------------*/
-// const positions = []
-// const ships = {
-//   ship1: ['S1', 'S1', 'S1', 'S1', 'S1'],
-//   ship2: ['S2', 'S2', 'S2', 'S2'],
-//   ship3: ['S3', 'S3', 'S3'],
-//   ship4: ['S4', 'S4', 'S4'],
-//   ship5: ['S5', 'S5']
-// }
-// /*------------ Variables ------------*/
-// let board, winner, turn, height, width, placedPositions, placedShips, hidden, messageEl, squareEls, message2, ship
-// /*---- Cached Element References ----*/
-// messageEl = document.getElementById("message1");
-// messageEl2 = document.getElementById("message2");
-// const ship1btn = document.getElementById("ship1")
-// const ship2btn = document.getElementById("ship2")
-// const ship3btn = document.getElementById("ship3")
-// const ship4btn = document.getElementById("ship4")
-// const ship5btn = document.getElementById("ship5")
-// squareEls = document.querySelectorAll(".sqr1");
-// /*--------- Event Listeners ---------*/
-// ship1btn.addEventListener('click', handleClick)
-// // ship2btn.addEventListener('click', placeShip2)
-// // ship3btn.addEventListener('click', placeShip3)
-// // ship4btn.addEventListener('click', placeShip4)
-// // ship5btn.addEventListener('click', placeShip5)
-
-// /*------------ Functions ------------*/
-// function init(){
-//   board = [
-//     [null, null, null, null, null, null, null, null, null, null], 
-//     [null, null, null, null, null, null, null, null, null, null], 
-//     [null, null, null, null, null, null, null, null, null, null],
-//     [null, null, null, null, null, null, null, null, null, null],
-//     [null, null, null, null, null, null, null, null, null, null],
-//     [null, null, null, null, null, null, null, null, null, null],
-//     [null, null, null, null, null, null, null, null, null, null],
-//     [null, null, null, null, null, null, null, null, null, null],
-//     [null, null, null, null, null, null, null, null, null, null],
-//     [null, null, null, null, null, null, null, null, null, null]
-// ]
-//   width = board[0].length
-//   height = board.length
-//   turn = 1
-//   hidden = false;
-//   winner = false;
-//   placedPositions = []
-//   placedShips = {
-//     ship1: [],
-//     ship2: [],
-//     ship3: [],
-//     ship4: [],
-//     ship5: []
-//   }
-//   render()
-// }
-
-// function render(){
-//   updateMessage()
-//   // updateSquaresEls()
-//   updateBoard()
-// }
-// function updateMessage(){
-//   if (hidden === false && turn === 1) {
-//     messageEl.textContent = "Player1 Place Ships"
-//     messageEl2.textContent = 'To Place a ship, click on a button, then click on the squares on the board where you would like to place the ship'
-//   } else if (hidden === false && turn === -1) {
-//     messageEl.textContent = "Player2 Place Ships"
-//     messageEl2.textContent = 'To Place a ship, click on a button, then click on the squares on the board where you would like to place the ship'
-//   }
-
-
-// }
-
-// function updateSquaresEls(){
-//   // if (hidden === false && turn === 1)  {
-//   //   squareEls = document.querySelectorAll(".sqr1");
-//   // } else if (hidden === false && turn === -1) {
-//   //   squareEls = document.querySelectorAll(".sqr2");
-//   // }
-
-// }
-
-// function updateBoard(){
-//   //switch to while loop
-//   if (placedShips !== ships && turn === 1) {
-
-//     // placeShips()
-//     //fill corresponding square on board with corresponding color
-//     //push placed value string to placed ships 
-//   } else if(placedShips === ships && turn === 1) {
-//     turn = -1
-//     //hideShips()
-//   } else if(placedShips !== ships && turn === -1) {
-//   // placeShips()
-//   } else {
-//     //all ships placed
-//   //when ships are all placed hides buttons and messages, and changes to "game" state
-//   //hideShips()
-//   }
-// }
-
-// // function placeShips(evt){
-// //   console.log(evt)
-// //   placeShip1(evt)
-// //   placeShip2(evt)
-// //   placeShip3(evt)
-// //   placeShip4(evt)
-// //   placeShip5(evt)
-// // }
-// //Next Steps!!!!!!!!!!
-// function handleClick(){
-//   squareEls.forEach(square => {
-//     square.addEventListener("click", placeShip1)
-//   })
-
-
-//   // console.log(boardValidPositions)
-//   //add all the logic here to hide buttons, based on turn, switch turns, etc
-//   // const sqIdx = evt.target.id;
-//   // console.log(sqIdx)
-
-
-//   //hide all the buttons except 1
-//   //on each button click, add event listener for the corresponding button     
-//   //fill corresponding square on board with corresponding color
-//     //push placed value string to placed ships 
-//   //push choice to ship in corresponding placedShips object array
-//   //define isValidPosition method
-//   //add 1 to counter variable if isValidPosition
-//   //remove position from isValidPosition
-//   //push placed value string to placed ships 
-//   //replace null board values with position
-
-// }
-// function placeShip1(evt){
-//   let idx = evt.target.id.split("")
-//   idx = idx.map(idx => Number(idx))
-//   let row = idx[0]
-//   let col = idx[1]
-//   if (board[row][col] === null && isValid && isAdjacent) {
-//     board[row][col] = 1
-    
-//     placedShips['ship1'].push('S1')
-//     placedPositions.push([row, col])
-//     console.log(placedPositions)
-//   }
-//   console.log(board)
-// }
-
-// function isValid(){
-// //is valid if is length of ship is less than amount of S1 on board && placement is next to another S1
-// counter = 0
-//   for (let row = 0; row < height; row++) {
-//     for (let col = 0; col < width; col++) {
-//       if (board[row][col] = 'S1') counter += 1
-//       if (counter < 5) return true
-//     }
-//   }
-//   return false
-// }
-
-// function isAdjacent(idx) {
-//   //need to check the row that is clicked against the valid positions
-//   if (!board.flat().includes('S1')) { 
-//     return true
-//   } 
-//   boardValidPositions = []
-//   let validRows = []
-//   let validCols = []
-//   let row;
-//   let col;
-//   if (placedPositions.length === 1) {
-//     placedPositions.forEach(pos => {
-//       let row = pos[0]
-//       let col = pos[1]
-//       if (row + 1 < 10) boardValidPositions.push([row + 1, col])
-//       if (row - 1 >= 0) boardValidPositions.push([row - 1, col])
-//       if (col + 1 < 10) boardValidPositions.push([row, col + 1])
-//       if (col - 1 >= 0) boardValidPositions.push([row, col - 1])
-//       // if (row - 1 >= 0) validRows.push(row - 1)
-//       // if (col + 1 < 10) validCols.push(col + 1)
-//       // if (col - 1 >= 0) validCols.push(col - 1)
-//       // if (row + 1 < 10 && !validRows.includes(row + 1)) validRows.push(row + 1)
-//       // if (row - 1 >= 0 && !validRows.includes(row - 1)) validRows.push(row - 1)
-//       // if (col + 1 < 10 && !validCols.includes(col + 1)) validCols.push(col + 1)
-//       // if (col - 1 >= 0 && !validCols.includes(col - 1)) validCols.push(col - 1)
-//     })
-//   }
-// //   validRows.forEach(row => {
-// //     boardValidPositions.push([row, col])
-// //   })
-// //   validCols.forEach(col => {
-// //     boardValidPositions.push([row, col])
-// //   })
-// // }
-//   // console.log(validRows)
-//   // console.log(validColumns)
-//   // console.log(boardValidPositions)
-//   // console.log([rowClicked,colClicked])
-//   console.log(idx)
-//   //can't figure out this bug.
-//   for (let i = 0; i < boardValidPositions.length; i++) {
-//     console.log(boardValidPositions[i])
-//     if (boardValidPositions[i] === idx) return true
-//   }
-//   return false
-// }
-
-// init();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //-------------------------------------------------------------------------------------
 // 1) Define the required variables used to track the state of the game
-let width, height, board, turn, currentShipNum, currentShip, placedShips, positions, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos//game status will display false before in 'game' mode and true after
+let width, height, board, turn, currentShipNum, currentShip, placedShips, positions, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical //game status will display false before in 'game' mode and true after
 /*---------------------------- Variables (state) ----------------------------*/
 
 /*------------------------ Cached Element References ------------------------*/
@@ -318,6 +68,8 @@ function init(){
   shipArr = [];
   validPos = [];
   placedShipsCount = 0;
+  isVertical = false;
+  isHorizotal = false;
   turn = 1;
   allShipsPlaced = false;
   shipsHidden = false;
@@ -366,15 +118,15 @@ function updateBoard(){
 function updateMessage(){
   //render message based on current game state
   if (winner === false && allShipsPlaced === false && currentShipNum === 1) {
-    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 5)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to hide your ships`
+    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 5)! Do so by clicking a square, then click adjacent squares`
   } else if (winner === false && allShipsPlaced === false && currentShipNum === 2) {
-    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 4)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to hide your ships`
+    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 4)! Do so by clicking a square, then click adjacent squares`
   } else if (winner === false && allShipsPlaced === false && currentShipNum === 3) {
-    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 3)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to hide your ships`
+    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 3)! Do so by clicking a square, then click adjacent squares`
   } else if (winner === false && allShipsPlaced === false && currentShipNum === 4) {
-    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 3)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to xhide your ships`
+    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 3)! Do so by clicking a square, then click adjacent squares`
   } else if (winner === false && allShipsPlaced === false && currentShipNum === 5) {
-    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 2)! Do so by clicking a square, then click adjacent squares. After you place all of your ships, click the button below to hide your ships`
+    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 2)! Do so by clicking a square, then click adjacent squares`
   } else if (winner === false && !shipsHidden) {
     messageEl.textContent = 'All ships have been placed! Press the button below to start!'
     return;
@@ -385,7 +137,6 @@ function updateMessage(){
 
   }
 }
-
 
 function handleSqClick(evt){
   let sqIdx = evt.target.id;
@@ -431,10 +182,12 @@ function placeShip(row, col, isValid) {
         //track current ship placement, reset after entire ship is place
         shipArr = [];
         validPos = [];
+        isVertical = false;
+        isHorizontal = false;
         //track all the valid positions
       } 
     } else if (placedShips >= 17) {
-      allShipsPlaced = true
+      allShipsPlaced = true;
       return;
   } else {
 //not valid position
@@ -456,21 +209,41 @@ function isValid(row, col) {
     //loop through valid positions
     for (let i = 0; i < validPos.length; i++) {
       if (validPos[i][0] === row && validPos[i][1] === col) {
+        //updateValidPositions based on new click
+        //need to check if is horizontal or vertical and update 
+          //need to take into account if the adjacent square = 1 || 2 || 3 || 4 || 5
+        shipArr.push([row, col])
+      
+        //if every in piece inship arr has same row
+        if (shipArr.length === 2 && (shipArr[0][1] === shipArr[1][1])) isVertical = true 
+        if (shipArr.length === 2 && (shipArr[0][0] === shipArr[1][0])) isHorizontal = true 
+        if (isVertical) {
+          let idx2 = shipArr[0][1]
+          let idx1 = []
+          for (let i = 0; i < shipArr.length; i++) {
+            idx1.push(shipArr[i][0])
+          }
+          let max = Math.max(...idx1)
+          let min = Math.min(...idx1)
+          validPos = [[min - 1, idx2], [max + 1, idx2]]
+        }
+        if (isHorizontal) {
+          let idx1 = shipArr[0][0]
+          let idx2 = []
+          console.log(idx2)
+          for (let i = 0; i < shipArr.length; i++) {
+            
+          }
+        }
+        
+        //add valid positions according to valid positions and add the ships to ship idx'        
         return true;
-        //add valid positions according to valid positions and add the ships to ship idx
       } 
     }
   } else {
     return false;
   }
 }
-
-
-
-
-
-
-
 
 function hideShips(){
   //if all ships are placed, and ships are not hidden, hide the ships
@@ -498,3 +271,4 @@ function play(){
 function changeTurn(){
 
 }
+
