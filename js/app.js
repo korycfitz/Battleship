@@ -150,6 +150,7 @@ function updateBoard(){
     }
   }
 }
+
 function updateMessage(){
   //render message based on current game state
   if (winner === false && allShipsPlaced === false && currentShipNum === 1) {
@@ -287,43 +288,16 @@ function hideShips(){
     let i = 0
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
+        //will hide in pvp mode
         // squareEls[i].textContent = "";
         i++
       }
     }
-    //change shipsHidden to true so we don't use this function anymore
     shipsHidden = true;
     aiPlaceShips()
 }
 
 function aiPlaceShips(){
-  computerBoard = [
-    [null, null, null, null, null, null, null, null, null, null], 
-    [null, null, null, null, null, null, null, null, null, null], 
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null]
-]
-  //fills ai board
-  // const computerBoard = document.createElement('section');
-  // boards.append(computerBoard)
-  // computerBoard.classList.add('board');
-  // computerBoard.setArribute('id', 'computer');
-  // board.forEach(pos => {
-  //   // let class = 'Sq2'
-  //   let divId = document.getElementById().id;
-  //   let div = document.createElement('div');
-  //   div.setAttribute('id', `${divId}_`)
-  //   document.computerBoard.append(div)
-  // })
-  // // will need to remove it after all of the ships are placed for both players
-  // // then we will add a new event listener
-  //add event lsitener for game to start
     squareEls2.forEach(ele => {
       ele.addEventListener("click", handleSqClick);
     })
