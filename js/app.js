@@ -1,10 +1,7 @@
-//-------------------------------------------------------------------------------------
-
 /*---------------------------- Variables (state) ----------------------------*/
 // 1) Define the required variables used to track the state of the game
-let width, height, board, turn, currentShipNum, currentShip, placedShips, positions, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, playerGuesses, computerGuesses //game status will display false before in 'game' mode and true after
+let width, height, board, turn, currentShipNum, currentShip, placedShips, positions, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, playerGuesses, computerGuesses //game status will display false before in 'game' mode and true after
 /*------------------------ Cached Element References ------------------------*/
-// 2) Store cached element references
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
 const squareEls = document.querySelectorAll(".sqr1");
@@ -23,17 +20,26 @@ hideBtn.addEventListener('click', hideShips)
 /*-------------------------------- Functions --------------------------------*/
 function handleBtnClick(){
   init();
-//will need to remove it after all of the ships are placed for both players
-//then we will add a new event listener
   squareEls.forEach(ele => {
     ele.addEventListener("click", handleSqClick);
   })
 }
 
-
 function init(){
   //build out board using document.createElement later on
   board = [
+    [null, null, null, null, null, null, null, null, null, null], 
+    [null, null, null, null, null, null, null, null, null, null], 
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null]
+]
+  computerBoard = [
     [null, null, null, null, null, null, null, null, null, null], 
     [null, null, null, null, null, null, null, null, null, null], 
     [null, null, null, null, null, null, null, null, null, null],
@@ -82,16 +88,13 @@ function init(){
   render();
 }
 
-// 4) The state of the game should be rendered to the user
 function render(){
   updateBoard();
   //updateBoard will only work for the game before it is in the "play" state because we will need to update the board differently, to display hits and misses. I need to figure out how to handle a different board state.
   updateMessage();
-  //add event listeners to squares
 }
 
 function updateBoard(){
-  //if all ships aren't placed, update board to display ships that are being placed 
   if (!allShipsPlaced) {
     let i = 0
     for (let row = 0; row < height; row++) {
@@ -115,6 +118,7 @@ function updateBoard(){
   } else if(shipsHidden && !winner) {
     // update board differently according to game play
     let i = 0
+    //need to incorporate turn into each one of these so they don't update the wrong board
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
         if (board[row][col] === -1) {
@@ -127,8 +131,19 @@ function updateBoard(){
           squareEls[i].textContent = "X"
         } else if(board[row][col] === -5) {
           squareEls[i].textContent = "X"
+        } else if(computerBoard[row][col] === -1) {
+          squareEls2[i].textContent = "X"
+        } else if(computerBoard[row][col] === -2) {
+          squareEls2[i].textContent = "X"
+        } else if(computerBoard[row][col] === -3) {
+          squareEls2[i].textContent = "X"
+        } else if(computerBoard[row][col] === -4) {
+          squareEls2[i].textContent = "X"
+        } else if(computerBoard[row][col] === -5) {
+          squareEls2[i].textContent = "X"
         } else {
-          squareEls[i].textContent = "-"
+          squareEls[i].textContent = ""
+          squareEls2[i].textContent = ""
         }
         i++
       }
@@ -152,7 +167,7 @@ function updateMessage(){
     return;
   } else if (winner === false && turn === 1) {
     //need to check based on sq clicked if is a hit or miss
-    messageEl.textContent = `It's player\'s turn. Click a square to guess`
+    messageEl.textContent = `It's your turn. Click a square on the opposite board to guess!`
   } else if (winner === false && turn === -1) {
     messageEl.textContent = 'Computer is thinking...'
   }
@@ -165,8 +180,6 @@ function handleSqClick(evt){
   for (let row = 0; row < height; row++) {
     for (let col = 0; col < width; col++) {
       if (sqIdx === squareEls[i].id) {
-        if (winner === true) return
-        //no winner yet
         //want to return out if allships are not placed yet (in board 'setting' state) and click on a square corresponding to a placed ship
         if (!allShipsPlaced && (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5)) return;
         //otherwise either clicked square in game 'play' state, or clicked empty square in 'setting' state //need to account for this
@@ -187,17 +200,17 @@ function handleSqClick(evt){
     return;
   } else {
     //if click has already been hit, return out
-
     playerGuess()
     computerGuess()
     checkForWinner();
     switchTurn();
-    render();
   }
+  render();
 }
 
 function placeShip(row, col, isValid) {
   if (placedShipsCount >= 17) {
+    allShipsPlaced = true;
     return
   }
     if (isValid(row, col)) {
@@ -214,10 +227,7 @@ function placeShip(row, col, isValid) {
         isHorizontal = false;
         //track all the valid positions
       } 
-    } else if (placedShips >= 17) {
-      allShipsPlaced = true;
-      return;
-  } else {
+    } else {
 //not valid position
     messageEl2.textContent = 'Click not allowed. Ship must be placed in a horizontal or vertical, adjacent line'
     return;
@@ -287,6 +297,18 @@ function hideShips(){
 }
 
 function aiPlaceShips(){
+  computerBoard = [
+    [null, null, null, null, null, null, null, null, null, null], 
+    [null, null, null, null, null, null, null, null, null, null], 
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null]
+]
   //fills ai board
   // const computerBoard = document.createElement('section');
   // boards.append(computerBoard)
@@ -297,15 +319,77 @@ function aiPlaceShips(){
   //   let divId = document.getElementById().id;
   //   let div = document.createElement('div');
   //   div.setAttribute('id', `${divId}_`)
-  //   computerBoard.append(div)
+  //   document.computerBoard.append(div)
   // })
-  //will need to remove it after all of the ships are placed for both players
-  //then we will add a new event listener
-  squareEls2.forEach(ele => {
-    ele.addEventListener("click", handleSqClick);
-  })
-  
-  
+  // // will need to remove it after all of the ships are placed for both players
+  // // then we will add a new event listener
+  //add event lsitener for game to start
+    squareEls2.forEach(ele => {
+      ele.addEventListener("click", handleSqClick);
+    })
+    let occ = [0,1,2,3,4,5,6,7,8,9]
+    let s1idx1 = Math.floor(Math.random() * 10)
+    let s1idx2 = occ[Math.floor(Math.random() * 10)]
+    computerBoard[s1idx1][s1idx2] = 1
+    if (s1idx1 + 1 <= 9 && s1idx1 + 2 <= 9 && s1idx1 + 3 <= 9 && s1idx1 + 4 <= 9) {
+      computerBoard[s1idx1 + 1][s1idx2] = 1
+      computerBoard[s1idx1 + 2][s1idx2] = 1
+      computerBoard[s1idx1 + 3][s1idx2] = 1
+      computerBoard[s1idx1 + 4][s1idx2] = 1
+      occ.splice(s1idx2, 1)
+    } else {
+      computerBoard[s1idx1 - 1][s1idx2] = 1
+      computerBoard[s1idx1 - 2][s1idx2] = 1
+      computerBoard[s1idx1 - 3][s1idx2] = 1
+      computerBoard[s1idx1 - 4][s1idx2] = 1
+      occ.splice(s1idx2, 1)
+    }
+    s1idx1 = Math.floor(Math.random() * 10)
+    s1idx2 = occ[Math.floor(Math.random() * 9)]
+    computerBoard[s1idx1][s1idx2] = 2
+    if (s1idx1 - 1 >= 0 && s1idx1 - 2 >= 0 && s1idx1 - 3 >= 0) {
+      computerBoard[s1idx1 - 1][s1idx2] = 2
+      computerBoard[s1idx1 - 2][s1idx2] = 2
+      computerBoard[s1idx1 - 3][s1idx2] = 2
+      occ.splice(s1idx2, 1)
+    } else {
+      computerBoard[s1idx1 + 1][s1idx2] = 2
+      computerBoard[s1idx1 + 2][s1idx2] = 2
+      computerBoard[s1idx1 + 3][s1idx2] = 2
+      occ.splice(s1idx2, 1)
+    }
+    s1idx1 = Math.floor(Math.random() * 10)
+    s1idx2 = occ[Math.floor(Math.random() * 8)]
+    computerBoard[s1idx1][s1idx2] = 3
+    if (s1idx1 + 1 <= 9 && s1idx1 + 2 <= 9) {
+      computerBoard[s1idx1 + 1][s1idx2] = 3
+      computerBoard[s1idx1 + 2][s1idx2] = 3
+      occ.splice(s1idx2, 1)
+    } else {
+      computerBoard[s1idx1 - 1][s1idx2] = 3
+      computerBoard[s1idx1 - 2][s1idx2] = 3
+      occ.splice(s1idx2, 1)
+    }
+    s1idx1 = Math.floor(Math.random() * 10)
+    s1idx2 = occ[Math.floor(Math.random() * 7)]
+    computerBoard[s1idx1][s1idx2] = 4
+    if (s1idx1 - 1 >= 0 && s1idx1 - 2 >= 0) {
+      computerBoard[s1idx1 - 1][s1idx2] = 4
+      computerBoard[s1idx1 - 2][s1idx2] = 4
+      occ.splice(s1idx2, 1)
+    } else {
+      computerBoard[s1idx1 + 1][s1idx2] = 4
+      computerBoard[s1idx1 + 2][s1idx2] = 4
+      occ.splice(s1idx2, 1)
+    }
+    s1idx1 = Math.floor(Math.random() * 10)
+    s1idx2 = occ[Math.floor(Math.random() * 6)]
+    computerBoard[s1idx1][s1idx2] = 5
+    if (s1idx1 - 1 >= 0) {
+      computerBoard[s1idx1 - 1][s1idx2] = 5
+    } else {
+      computerBoard[s1idx1 + 1][s1idx2] = 5
+    } 
 }
 
 function playerGuess(){
@@ -322,3 +406,4 @@ function switchTurn(){
 function checkForWinner(){
 
 }
+
