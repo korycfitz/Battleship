@@ -1,6 +1,6 @@
 /*---------------------------- Variables (state) ----------------------------*/
 // 1) Define the required variables used to track the state of the game
-let width, height, board, turn, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard //game status will display false before in 'game' mode and true after
+let width, height, board, turn, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions//game status will display false before in 'game' mode and true after
 /*------------------------ Cached Element References ------------------------*/
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
@@ -8,15 +8,11 @@ const squareEls = document.querySelectorAll(".sqr1");
 const squareEls2 = document.querySelectorAll(".sqr2");
 const playGame = document.getElementById("play-game");
 const hideBtn = document.getElementById("hide-board");
-const boards = document.getElementById('boards')
 const playerBoard = document.getElementById('player1');
 // const resetBtnEl = document.querySelector('#reset-button');
 /*----------------------------- Event Listeners -----------------------------*/
 playGame.addEventListener('click', handleBtnClick)
 hideBtn.addEventListener('click', hideShips)
-// resetBtnEl.onclick = function(){
-//   init();
-// }
 /*-------------------------------- Functions --------------------------------*/
 function handleBtnClick(){
   init();
@@ -24,7 +20,6 @@ function handleBtnClick(){
     ele.addEventListener("click", handleSqClick);
   })
 }
-
 function init(){
   //build out board using document.createElement later on
   board = [
@@ -39,7 +34,6 @@ function init(){
     [null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null]
 ]
-const positions = []
   computerBoard = [
     [null, null, null, null, null, null, null, null, null, null], 
     [null, null, null, null, null, null, null, null, null, null], 
@@ -52,6 +46,7 @@ const positions = []
     [null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null]
 ]
+  positions = [];
   width = board[0].length;
   height = board.length;
   for (let row = 0; row < height; row++) {
@@ -88,8 +83,6 @@ const positions = []
   turn = 1;
   allShipsPlaced = false;
   shipsHidden = false;
-  playerGuesses = []
-  computerGuesses = []
   winner = false;
   render();
 }
@@ -121,6 +114,8 @@ function updateBoard(){
         i++
       }
     }
+  } else if (allShipsPlaced && !shipsHidden) {
+    return;
   } else if(shipsHidden && !winner) {
     // update board differently according to game play
     let i = 0
@@ -147,9 +142,6 @@ function updateBoard(){
           squareEls2[i].textContent = "X"
         } else if(computerBoard[row][col] === -5) {
           squareEls2[i].textContent = "X"
-        } else {
-          squareEls[i].textContent = ""
-          squareEls2[i].textContent = ""
         }
         i++
       }
@@ -176,6 +168,11 @@ function updateMessage(){
     messageEl.textContent = `It's your turn. Click a square on the opposite board to guess!`
   } else if (!winner && turn === -1) {
     messageEl.textContent = 'Computer is thinking...'
+  } else if(turn === 1 && winner) {
+    messageEl.textContent = 'You sank all of the comptuters ships! Congrats you win!'
+    return;
+  } else if(turn === -1 && winner) {
+    messageEl.textContent = 'You sank all of the your ships! Computer wins!'
   }
 }
 
@@ -185,33 +182,36 @@ function handleSqClick(evt){
   let rowClicked, colClicked
   for (let row = 0; row < height; row++) {
     for (let col = 0; col < width; col++) {
-      if (sqIdx === squareEls[i].id) {
-        //want to return out if allships are not placed yet (in board 'setting' state) and click on a square corresponding to a placed ship
-        if (winner === true) return;
+      if (sqIdx === squareEls[i].id && !shipsHidden) {
         if (!allShipsPlaced && (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5)) return;
         //otherwise either clicked square in game 'play' state, or clicked empty square in 'setting' state //need to account for this
         //if in the 'game' state, we need to return out if winner === true or if spot is already guessed
-        if (shipsHidden && (computerBoard[row][col] === -1 || computerBoard[row][col] === -2 || computerBoard[row][col] === -3 || computerBoard[row][col] === -4 || computerBoard[row][col] === -5)) return;
-        //going to need to add a different variable for every square
         rowClicked = row;
         colClicked = col;
+      } 
+      if ((sqIdx === squareEls2[i].id) && shipsHidden){
+        //not hitting this function
+        if (winner === true) return;
+        if (computerBoard[row][col] === -1 || computerBoard[row][col] === -2 || computerBoard[row][col] === -3 || computerBoard[row][col] === -4 || computerBoard[row][col] === -5) return;
+        rowClicked = row;
+        colClicked = col;
+        console.log(rowClicked)
+        console.log(colClicked)
       }
       i++
     }
   }
   //after this loop, we want to check for any occurance in which we are still placing ships (every possible board state), we want to make sure all the pieces are placed in the loop
   //after loop, 
+
   if (!allShipsPlaced) {
-    placeShip(rowClicked, colClicked, isValid)
+    placeShip(rowClicked, colClicked, isValid);
   } else if (allShipsPlaced && !shipsHidden) {
     return;
   } else {
-    //if click has already been hit, return out
-    //this might have to be in the computer boards event listener
-    playerGuess(rowClicked, colClicked)
-    computerGuess(rowClicked, colClicked)
+    playerGuess(rowClicked, colClicked);
+    computerGuess();
     checkForWinner();
-    switchTurn();
   }
   render();
 }
@@ -222,8 +222,8 @@ function placeShip(row, col, isValid) {
     return
   }
     if (isValid(row, col)) {
-      messageEl2.textContent = ""
-      board[row][col] = currentShipNum
+      messageEl2.textContent = "";
+      board[row][col] = currentShipNum;
       placedShipsCount++
       placedShips[`ship${currentShipNum}`].push(currentShip[0])
       if (placedShips[`ship${currentShipNum}`].length >= ships[`ship${currentShipNum}`].length) {
@@ -374,10 +374,10 @@ function aiPlaceShips(){
     computerBoard[s1idx1 + 1][s1idx2] = 5
   } 
   updateMessage()
+
 }
 
 function playerGuess(row, col){
-  console.log(computerBoard[row][col])
   if (computerBoard[row][col] === 1 || computerBoard[row][col] === 2 || computerBoard[row][col] === 3 || computerBoard[row][col] === 4 || computerBoard[row][col] === 5) {
     computerBoard[row][col] *= 1
   } else {
@@ -387,8 +387,9 @@ function playerGuess(row, col){
 
 function computerGuess(){
   //this will make sure never guess same choice
-  let randEvenIdx = (Math.floor(Math.random() * 100)) * 2
-  let guess = position[randEvenIdx]
+  let randEvenIdx = (Math.floor(Math.random() * (positions.length / 2))) * 2
+  let row = positions[randEvenIdx]
+  let col = positions[randEvenIdx + 1]
   positions.splice(randEvenIdx, 2)
   if (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5) {
     board[row][col] *= 1
