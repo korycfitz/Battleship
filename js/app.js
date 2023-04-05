@@ -133,19 +133,26 @@ function updateBoard(){
           squareEls[i].textContent = "X"
         } else if(board[row][col] === -5) {
           squareEls[i].textContent = "X"
-        } else if(computerBoard[row][col] === -1) {
+        }
+        if (computerBoard[row][col] === -1) {
           squareEls2[i].textContent = "X"
-        } else if(computerBoard[row][col] === -2) {
+        } 
+        if(computerBoard[row][col] === -2) {
           squareEls2[i].textContent = "X"
-        } else if(computerBoard[row][col] === -3) {
+        } 
+        if (computerBoard[row][col] === -3) {
           squareEls2[i].textContent = "X"
-        } else if(computerBoard[row][col] === -4) {
+        } 
+        if (computerBoard[row][col] === -4) {
           squareEls2[i].textContent = "X"
-        } else if(computerBoard[row][col] === -5) {
+        } 
+        if(computerBoard[row][col] === -5) {
           squareEls2[i].textContent = "X"
-        } else if(computerBoard[row][col] === 6) {
+        } 
+        if(computerBoard[row][col] === 6) {
           squareEls2[i].textContent = "-"
-        } else if(board[row][col] === 6) {
+        } 
+        if(board[row][col] === 6) {
           squareEls[i].textContent = "-"
         }
         i++
@@ -208,9 +215,7 @@ function handleSqClick(evt){
   } else {
     if ((computerBoard[rowClicked][colClicked] === -1 || computerBoard[rowClicked][colClicked] === -2 || computerBoard[rowClicked][colClicked] === -3 || computerBoard[rowClicked][colClicked] === -4 || computerBoard[rowClicked][colClicked] === -5 || computerBoard[rowClicked][colClicked] === 6)) return
     playerGuess(rowClicked, colClicked);
-    checkForWinner();
     computerGuess();
-    checkForWinner();
   }
   render();
 }
@@ -415,9 +420,6 @@ function computerGuess(){
   updateBoard()
 }
 
-
-//getting board to update and display hits, but not misses
-//steps; win loss logic, check for winner, change player turn
 //then: set up containers and have document automatically create elements
 //then styling
 //then: classes
