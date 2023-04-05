@@ -13,8 +13,10 @@ const playerBoard = document.getElementById('player1');
 /*----------------------------- Event Listeners -----------------------------*/
 playGame.addEventListener('click', handleBtnClick)
 hideBtn.addEventListener('click', hideShips)
+//add btn that will reactivate playGameEventListener
 /*-------------------------------- Functions --------------------------------*/
 function handleBtnClick(){
+  playGame.removeEventListener('click', handleBtnClick)
   init();
   squareEls.forEach(ele => {
     ele.addEventListener("click", handleSqClick);
@@ -141,10 +143,10 @@ function updateBoard(){
           squareEls2[i].textContent = "X"
         } else if(computerBoard[row][col] === -5) {
           squareEls2[i].textContent = "X"
-        } else if(computerBoard[row][col] === 0) {
-          squareEls2[i].textContent === "O"
-        } else if(board[row][col] === 0) {
-          squareEls[i].textContent === "O"
+        } else if(computerBoard[row][col] === 6) {
+          squareEls2[i].textContent = "-"
+        } else if(board[row][col] === 6) {
+          squareEls[i].textContent = "-"
         }
         i++
       }
@@ -170,11 +172,11 @@ function updateMessage(){
     messageEl.textContent = `It's your turn. Click a square on the opposite board to guess!`
   } else if (!winner && turn === 1) {
     //need to check based on sq clicked if is a hit or miss
-    messageEl.textContent = `It's your turn. Click a square on the opposite board to guess!`
+    messageEl.textContent = `It's your turn. Click a square on the opposite board to guess. Hits will be displayed by an X. Misses will be displayed by a "'"!`
   } else if (!winner && turn === -1) {
     messageEl.textContent = 'Computer is thinking...'
   } else if(turn === 1 && winner) {
-    messageEl.textContent = 'You sank all of the comptuters ships! Congrats you win!'
+    messageEl.textContent = 'You sank all of the computers ships! Congrats you win!'
     return;
   } else if(turn === -1 && winner) {
     messageEl.textContent = 'Computer sank all of the your ships! Computer wins!'
@@ -225,24 +227,24 @@ function placeShip(row, col, isValid) {
     allShipsPlaced = true;
     return
   }
-    if (isValid(row, col)) {
-      messageEl2.textContent = "";
-      board[row][col] = currentShipNum;
-      placedShipsCount++
-      placedShips[`ship${currentShipNum}`].push(currentShip[0])
-      if (placedShips[`ship${currentShipNum}`].length >= ships[`ship${currentShipNum}`].length) {
-        currentShipNum++
-        //track current ship placement, reset after entire ship is place
-        shipArr = [];
-        validPos = [];
-        isVertical = false;
-        isHorizontal = false;
-        //track all the valid positions
-      } 
-    } else {
+  if (isValid(row, col)) {
+    messageEl2.textContent = "";
+    board[row][col] = currentShipNum;
+    placedShipsCount++
+    placedShips[`ship${currentShipNum}`].push(currentShip[0])
+    if (placedShips[`ship${currentShipNum}`].length >= ships[`ship${currentShipNum}`].length) {
+      currentShipNum++
+      //track current ship placement, reset after entire ship is place
+      shipArr = [];
+      validPos = [];
+      isVertical = false;
+      isHorizontal = false;
+      //track all the valid positions
+    } 
+  } else {
 //not valid position
-    messageEl2.textContent = 'Click not allowed. Ship must be placed in a horizontal or vertical, adjacent line'
-    return;
+  messageEl2.textContent = 'Click not allowed. Ship must be placed in a horizontal or vertical, adjacent line'
+  return;
   }
 }
 
@@ -294,17 +296,15 @@ function isValid(row, col) {
 }
 
 function hideShips(){
-  //if all ships are placed, and ships are not hidden, hide the ships
-    //change display of each box to be empty
-    let i = 0
-    for (let row = 0; row < height; row++) {
-      for (let col = 0; col < width; col++) {
-        squareEls[i].textContent = "";
-        i++
-      }
+  let i = 0
+  for (let row = 0; row < height; row++) {
+    for (let col = 0; col < width; col++) {
+      squareEls[i].textContent = "";
+      i++
     }
-    shipsHidden = true;
-    aiPlaceShips()
+  }
+  shipsHidden = true;
+  aiPlaceShips()
 }
 
 function aiPlaceShips(){
@@ -385,8 +385,11 @@ function playerGuess(row, col){
   if (computerBoard[row][col] === 1 || computerBoard[row][col] === 2 || computerBoard[row][col] === 3 || computerBoard[row][col] === 4 || computerBoard[row][col] === 5) {
     computerBoard[row][col] = computerBoard[row][col] * -1
     playerHitCount++
-  } else {
-    computerBoard[row][col] = 0
+  } else if ((computerBoard[row][col] === -1 || computerBoard[row][col] === -2 || computerBoard[row][col] === -3 || computerBoard[row][col] === -4 || computerBoard[row][col] === -5)) {
+    updateMessage()
+    return;
+  } else if(computerBoard[row][col] = 6) {
+    computerBoard[row][col] = "-"
   }
 }
 
@@ -401,15 +404,27 @@ function computerGuess(){
     board[row][col] = board[row][col] * -1
     compHitCount++
   } else {
-    board[row][col] = 0
+    board[row][col] = 6
   }
 }
 
 function checkForWinner(){
-  if (turn === 1 && playerHitCount === 17) winner = true
-  if (turn === -1 && compHitCount === 17) winner = true
-  turn = 1
+  if (turn === 1 && playerHitCount === 17) {
+    turn = 1
+    winner = true
+    updateMessage()
+    playGame.addEventListener('click', handleBtnClick)
+    return;
+  }
+  if (turn === -1 && compHitCount === 17) {
+    winner = true
+    turn = -1
+    updateMessage()
+    playGame.addEventListener('click', handleBtnClick)
+    return;
+  }
 }
+
 //getting computer board to update, but not display 
 //getting board to update and display hits, but not misses
 //steps; win loss logic, check for winner, change player turn
