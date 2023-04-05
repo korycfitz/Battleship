@@ -1,6 +1,6 @@
 /*---------------------------- Variables (state) ----------------------------*/
 // 1) Define the required variables used to track the state of the game
-let width, height, board, turn, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions//game status will display false before in 'game' mode and true after
+let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount//game status will display false before in 'game' mode and true after
 /*------------------------ Cached Element References ------------------------*/
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
@@ -80,10 +80,11 @@ function init(){
   placedShipsCount = 0;
   isVertical = false;
   isHorizotal = false;
-  turn = 1;
   allShipsPlaced = false;
   shipsHidden = false;
   winner = false;
+  playerHitCount = 0;
+  compHitCount = 0;
   render();
 }
 
@@ -108,9 +109,7 @@ function updateBoard(){
           squareEls[i].textContent = "S4"
         } else if(board[row][col] === 5) {
           squareEls[i].textContent = "S5"
-        } else {
-          squareEls[i].textContent = ""
-        }
+        } 
         i++
       }
     }
@@ -142,6 +141,10 @@ function updateBoard(){
           squareEls2[i].textContent = "X"
         } else if(computerBoard[row][col] === -5) {
           squareEls2[i].textContent = "X"
+        } else if(computerBoard[row][col] === 0) {
+          squareEls2[i].textContent === "O"
+        } else if(board[row][col] === 0) {
+          squareEls[i].textContent === "O"
         }
         i++
       }
@@ -163,6 +166,8 @@ function updateMessage(){
     messageEl.textContent = `Please place ship ${currentShipNum} (Length: 2)! Do so by clicking a square, then click adjacent squares`
   } else if (!winner && !shipsHidden) {
     messageEl.textContent = 'All ships have been placed! Press the button below to start!'
+  } else if (!winner && shipsHidden ){
+    messageEl.textContent = `It's your turn. Click a square on the opposite board to guess!`
   } else if (!winner && turn === 1) {
     //need to check based on sq clicked if is a hit or miss
     messageEl.textContent = `It's your turn. Click a square on the opposite board to guess!`
@@ -172,7 +177,7 @@ function updateMessage(){
     messageEl.textContent = 'You sank all of the comptuters ships! Congrats you win!'
     return;
   } else if(turn === -1 && winner) {
-    messageEl.textContent = 'You sank all of the your ships! Computer wins!'
+    messageEl.textContent = 'Computer sank all of the your ships! Computer wins!'
   }
 }
 
@@ -195,8 +200,6 @@ function handleSqClick(evt){
         if (computerBoard[row][col] === -1 || computerBoard[row][col] === -2 || computerBoard[row][col] === -3 || computerBoard[row][col] === -4 || computerBoard[row][col] === -5) return;
         rowClicked = row;
         colClicked = col;
-        console.log(rowClicked)
-        console.log(colClicked)
       }
       i++
     }
@@ -210,6 +213,7 @@ function handleSqClick(evt){
     return;
   } else {
     playerGuess(rowClicked, colClicked);
+    checkForWinner();
     computerGuess();
     checkForWinner();
   }
@@ -374,35 +378,41 @@ function aiPlaceShips(){
     computerBoard[s1idx1 + 1][s1idx2] = 5
   } 
   updateMessage()
-
 }
 
 function playerGuess(row, col){
+  turn = 1
   if (computerBoard[row][col] === 1 || computerBoard[row][col] === 2 || computerBoard[row][col] === 3 || computerBoard[row][col] === 4 || computerBoard[row][col] === 5) {
-    computerBoard[row][col] *= 1
+    computerBoard[row][col] = computerBoard[row][col] * -1
+    playerHitCount++
   } else {
-    computerBoard[row][col] = "-"
+    computerBoard[row][col] = 0
   }
 }
 
 function computerGuess(){
+  turn = -1
   //this will make sure never guess same choice
   let randEvenIdx = (Math.floor(Math.random() * (positions.length / 2))) * 2
   let row = positions[randEvenIdx]
   let col = positions[randEvenIdx + 1]
   positions.splice(randEvenIdx, 2)
   if (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5) {
-    board[row][col] *= 1
+    board[row][col] = board[row][col] * -1
+    compHitCount++
   } else {
-    board[row][col] = "-"
+    board[row][col] = 0
   }
 }
 
-function switchTurn(){
-  turn *= 1
-}
-
 function checkForWinner(){
-
+  if (turn === 1 && playerHitCount === 17) winner = true
+  if (turn === -1 && compHitCount === 17) winner = true
+  turn = 1
 }
-
+//getting computer board to update, but not display 
+//getting board to update and display hits, but not misses
+//steps; win loss logic, check for winner, change player turn
+//then: set up containers and have document automatically create elements
+//then styling
+//then: classes
