@@ -176,10 +176,10 @@ function updateMessage(){
   } else if (!winner && turn === -1) {
     messageEl.textContent = 'Computer is thinking...'
   } else if(turn === 1 && winner) {
-    messageEl.textContent = 'You sank all of the computers ships! Congrats you win!'
+    messageEl.textContent = 'Computer sank all of the your ships! Computer wins!'
     return;
   } else if(turn === -1 && winner) {
-    messageEl.textContent = 'Computer sank all of the your ships! Computer wins!'
+    messageEl.textContent = 'You sank all of the computers ships! Congrats you win!'
   }
 }
 
@@ -214,6 +214,7 @@ function handleSqClick(evt){
   } else if (allShipsPlaced && !shipsHidden) {
     return;
   } else {
+    if ((computerBoard[rowClicked][colClicked] === -1 || computerBoard[rowClicked][colClicked] === -2 || computerBoard[rowClicked][colClicked] === -3 || computerBoard[rowClicked][colClicked] === -4 || computerBoard[rowClicked][colClicked] === -5 || computerBoard[rowClicked][colClicked] === 6)) return
     playerGuess(rowClicked, colClicked);
     checkForWinner();
     computerGuess();
@@ -385,12 +386,10 @@ function playerGuess(row, col){
   if (computerBoard[row][col] === 1 || computerBoard[row][col] === 2 || computerBoard[row][col] === 3 || computerBoard[row][col] === 4 || computerBoard[row][col] === 5) {
     computerBoard[row][col] = computerBoard[row][col] * -1
     playerHitCount++
-  } else if ((computerBoard[row][col] === -1 || computerBoard[row][col] === -2 || computerBoard[row][col] === -3 || computerBoard[row][col] === -4 || computerBoard[row][col] === -5)) {
-    updateMessage()
-    return;
-  } else if(computerBoard[row][col] = 6) {
-    computerBoard[row][col] = "-"
+  } else if (computerBoard[row][col] === null) {
+    computerBoard[row][col] = 6
   }
+  updateBoard()
 }
 
 function computerGuess(){
@@ -406,6 +405,7 @@ function computerGuess(){
   } else {
     board[row][col] = 6
   }
+  updateBoard()
 }
 
 function checkForWinner(){
@@ -424,7 +424,7 @@ function checkForWinner(){
     return;
   }
 }
-
+//some squares not displaying
 //getting computer board to update, but not display 
 //getting board to update and display hits, but not misses
 //steps; win loss logic, check for winner, change player turn
