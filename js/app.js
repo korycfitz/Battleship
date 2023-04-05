@@ -1,6 +1,6 @@
 /*---------------------------- Variables (state) ----------------------------*/
 // 1) Define the required variables used to track the state of the game
-let width, height, board, turn, currentShipNum, currentShip, placedShips, positions, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, playerGuesses, computerGuesses //game status will display false before in 'game' mode and true after
+let width, height, board, turn, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, computerGuesses //game status will display false before in 'game' mode and true after
 /*------------------------ Cached Element References ------------------------*/
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
@@ -39,6 +39,7 @@ function init(){
     [null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null]
 ]
+const positions = []
   computerBoard = [
     [null, null, null, null, null, null, null, null, null, null], 
     [null, null, null, null, null, null, null, null, null, null], 
@@ -53,6 +54,11 @@ function init(){
 ]
   width = board[0].length;
   height = board.length;
+  for (let row = 0; row < height; row++) {
+    for (let col = 0; col < width; col++) {
+      positions.push(row,col)
+    }
+  }
   currentShipNum = 1;
   ship1 = ['S1', 'S1', 'S1', 'S1', 'S1']
   ship2 = ['S2', 'S2', 'S2', 'S2']
@@ -186,6 +192,7 @@ function handleSqClick(evt){
         //otherwise either clicked square in game 'play' state, or clicked empty square in 'setting' state //need to account for this
         //if in the 'game' state, we need to return out if winner === true or if spot is already guessed
         if (board[row][col] === 'X' || winner === true) return;
+        if (shipsHidden && (computerBoard[row][col] === -1 || computerBoard[row][col] === -2 || computerBoard[row][col] === -3 || computerBoard[row][col] === -4 || computerBoard[row][col] === -5)) return;
         //going to need to add a different variable for every square
         rowClicked = row;
         colClicked = col;
@@ -201,8 +208,9 @@ function handleSqClick(evt){
     return;
   } else {
     //if click has already been hit, return out
-    playerGuess()
-    computerGuess()
+    //this might have to be in the computer boards event listener
+    playerGuess(rowClicked, colClicked)
+    computerGuess(rowClicked, colClicked)
     checkForWinner();
     switchTurn();
   }
@@ -366,15 +374,30 @@ function aiPlaceShips(){
     } 
 }
 
-function playerGuess(){
-
+function playerGuess(row, col){
+  if (computerBoard[row][col] === 1 || computerBoard[row][col] === 2 || computerBoard[row][col] === 3 || computerBoard[row][col] === 4 || computerBoard[row][col] === 5) {
+    computerBoard[row][col] *= 1
+  } else {
+    computerBoard[row][col] = "-"
+  }
 }
 
 function computerGuess(){
+  let pos = Math.floor(Math.random(100))
+  let guess = position[guess]
+  positinos.splice(guess, 1)
 
+
+
+  if (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5) {
+    computerBoard[row][col] *= 1
+  } else {
+    computerBoard[row][col] = "-"
+  }
 }
-function switchTurn(){
 
+function switchTurn(){
+  turn *= 1
 }
 
 function checkForWinner(){
