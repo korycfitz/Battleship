@@ -169,17 +169,9 @@ function updateMessage(){
   } else if (!winner && !shipsHidden) {
     messageEl.textContent = 'All ships have been placed! Press the button below to start!'
   } else if (!winner && shipsHidden ){
-    messageEl.textContent = `It's your turn. Click a square on the opposite board to guess!`
-  } else if (!winner && turn === 1) {
-    //need to check based on sq clicked if is a hit or miss
-    messageEl.textContent = `It's your turn. Click a square on the opposite board to guess. Hits will be displayed by an X. Misses will be displayed by a "'"!`
+    messageEl.textContent = `It's your turn. Click a square on the opposite board to guess! Hits will be displayed by an X. Misses will be displayed by a -`
   } else if (!winner && turn === -1) {
     messageEl.textContent = 'Computer is thinking...'
-  } else if(turn === 1 && winner) {
-    messageEl.textContent = 'Computer sank all of the your ships! Computer wins!'
-    return;
-  } else if(turn === -1 && winner) {
-    messageEl.textContent = 'You sank all of the computers ships! Congrats you win!'
   }
 }
 
@@ -389,6 +381,13 @@ function playerGuess(row, col){
   } else if (computerBoard[row][col] === null) {
     computerBoard[row][col] = 6
   }
+  if (playerHitCount === 17) {
+    updateBoard()
+    winner = true;
+    messageEl.textContent = 'Congrats, You Win!';
+    playGame.addEventListener('click', handleBtnClick);
+    return;
+  }
   updateBoard()
 }
 
@@ -405,27 +404,18 @@ function computerGuess(){
   } else {
     board[row][col] = 6
   }
+  if (turn === -1 && compHitCount === 17) {
+    updateBoard()
+    winner = true
+    turn = -1
+    messageEl.textContent = 'The Computer Won! Better luck next time!'
+    playGame.addEventListener('click', handleBtnClick)
+    return;
+  }
   updateBoard()
 }
 
-function checkForWinner(){
-  if (turn === 1 && playerHitCount === 17) {
-    turn = 1
-    winner = true
-    updateMessage()
-    playGame.addEventListener('click', handleBtnClick)
-    return;
-  }
-  if (turn === -1 && compHitCount === 17) {
-    winner = true
-    turn = -1
-    updateMessage()
-    playGame.addEventListener('click', handleBtnClick)
-    return;
-  }
-}
-//some squares not displaying
-//getting computer board to update, but not display 
+
 //getting board to update and display hits, but not misses
 //steps; win loss logic, check for winner, change player turn
 //then: set up containers and have document automatically create elements
