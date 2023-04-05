@@ -12,7 +12,6 @@ const playerBoard = document.getElementById('player1');
 // const resetBtnEl = document.querySelector('#reset-button');
 /*----------------------------- Event Listeners -----------------------------*/
 playGame.addEventListener('click', handleBtnClick)
-hideBtn.addEventListener('click', hideShips)
 //add btn that will reactivate playGameEventListener
 /*-------------------------------- Functions --------------------------------*/
 function handleBtnClick(){
@@ -213,6 +212,7 @@ function handleSqClick(evt){
   } else if (allShipsPlaced && !shipsHidden) {
     return;
   } else {
+    hideBtn.removeEventListener('click', hideShips)
     if ((computerBoard[rowClicked][colClicked] === -1 || computerBoard[rowClicked][colClicked] === -2 || computerBoard[rowClicked][colClicked] === -3 || computerBoard[rowClicked][colClicked] === -4 || computerBoard[rowClicked][colClicked] === -5 || computerBoard[rowClicked][colClicked] === 6)) return
     playerGuess(rowClicked, colClicked);
     computerGuess();
@@ -222,6 +222,7 @@ function handleSqClick(evt){
 
 function placeShip(row, col, isValid) {
   if (placedShipsCount >= 17) {
+    hideBtn.addEventListener('click', hideShips)
     allShipsPlaced = true;
     return
   }
