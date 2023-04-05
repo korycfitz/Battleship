@@ -1,6 +1,6 @@
 /*---------------------------- Variables (state) ----------------------------*/
 // 1) Define the required variables used to track the state of the game
-let width, height, board, turn, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, computerGuesses //game status will display false before in 'game' mode and true after
+let width, height, board, turn, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard //game status will display false before in 'game' mode and true after
 /*------------------------ Cached Element References ------------------------*/
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
@@ -159,23 +159,22 @@ function updateBoard(){
 
 function updateMessage(){
   //render message based on current game state
-  if (winner === false && allShipsPlaced === false && currentShipNum === 1) {
+  if (!winner && !allShipsPlaced && currentShipNum === 1) {
     messageEl.textContent = `Please place ship ${currentShipNum} (Length: 5)! Do so by clicking a square, then click adjacent squares`
-  } else if (winner === false && allShipsPlaced === false && currentShipNum === 2) {
+  } else if (!winner && !allShipsPlaced && currentShipNum === 2) {
     messageEl.textContent = `Please place ship ${currentShipNum} (Length: 4)! Do so by clicking a square, then click adjacent squares`
-  } else if (winner === false && allShipsPlaced === false && currentShipNum === 3) {
+  } else if (!winner && !allShipsPlaced && currentShipNum === 3) {
     messageEl.textContent = `Please place ship ${currentShipNum} (Length: 3)! Do so by clicking a square, then click adjacent squares`
-  } else if (winner === false && allShipsPlaced === false && currentShipNum === 4) {
+  } else if (!winner && !allShipsPlaced && currentShipNum === 4) {
     messageEl.textContent = `Please place ship ${currentShipNum} (Length: 3)! Do so by clicking a square, then click adjacent squares`
-  } else if (winner === false && allShipsPlaced === false && currentShipNum === 5) {
+  } else if (!winner && !allShipsPlaced && currentShipNum === 5) {
     messageEl.textContent = `Please place ship ${currentShipNum} (Length: 2)! Do so by clicking a square, then click adjacent squares`
-  } else if (winner === false && !shipsHidden) {
+  } else if (!winner && !shipsHidden) {
     messageEl.textContent = 'All ships have been placed! Press the button below to start!'
-    return;
-  } else if (winner === false && turn === 1) {
+  } else if (!winner && turn === 1) {
     //need to check based on sq clicked if is a hit or miss
     messageEl.textContent = `It's your turn. Click a square on the opposite board to guess!`
-  } else if (winner === false && turn === -1) {
+  } else if (!winner && turn === -1) {
     messageEl.textContent = 'Computer is thinking...'
   }
 }
@@ -188,10 +187,10 @@ function handleSqClick(evt){
     for (let col = 0; col < width; col++) {
       if (sqIdx === squareEls[i].id) {
         //want to return out if allships are not placed yet (in board 'setting' state) and click on a square corresponding to a placed ship
+        if (winner === true) return;
         if (!allShipsPlaced && (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5)) return;
         //otherwise either clicked square in game 'play' state, or clicked empty square in 'setting' state //need to account for this
         //if in the 'game' state, we need to return out if winner === true or if spot is already guessed
-        if (board[row][col] === 'X' || winner === true) return;
         if (shipsHidden && (computerBoard[row][col] === -1 || computerBoard[row][col] === -2 || computerBoard[row][col] === -3 || computerBoard[row][col] === -4 || computerBoard[row][col] === -5)) return;
         //going to need to add a different variable for every square
         rowClicked = row;
@@ -296,8 +295,7 @@ function hideShips(){
     let i = 0
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
-        //will hide in pvp mode
-        // squareEls[i].textContent = "";
+        squareEls[i].textContent = "";
         i++
       }
     }
@@ -306,75 +304,80 @@ function hideShips(){
 }
 
 function aiPlaceShips(){
-    squareEls2.forEach(ele => {
-      ele.addEventListener("click", handleSqClick);
-    })
-    let occ = [0,1,2,3,4,5,6,7,8,9]
-    let s1idx1 = Math.floor(Math.random() * 10)
-    let s1idx2 = occ[Math.floor(Math.random() * 10)]
-    computerBoard[s1idx1][s1idx2] = 1
-    if (s1idx1 + 1 <= 9 && s1idx1 + 2 <= 9 && s1idx1 + 3 <= 9 && s1idx1 + 4 <= 9) {
-      computerBoard[s1idx1 + 1][s1idx2] = 1
-      computerBoard[s1idx1 + 2][s1idx2] = 1
-      computerBoard[s1idx1 + 3][s1idx2] = 1
-      computerBoard[s1idx1 + 4][s1idx2] = 1
-      occ.splice(s1idx2, 1)
-    } else {
-      computerBoard[s1idx1 - 1][s1idx2] = 1
-      computerBoard[s1idx1 - 2][s1idx2] = 1
-      computerBoard[s1idx1 - 3][s1idx2] = 1
-      computerBoard[s1idx1 - 4][s1idx2] = 1
-      occ.splice(s1idx2, 1)
-    }
-    s1idx1 = Math.floor(Math.random() * 10)
-    s1idx2 = occ[Math.floor(Math.random() * 9)]
-    computerBoard[s1idx1][s1idx2] = 2
-    if (s1idx1 - 1 >= 0 && s1idx1 - 2 >= 0 && s1idx1 - 3 >= 0) {
-      computerBoard[s1idx1 - 1][s1idx2] = 2
-      computerBoard[s1idx1 - 2][s1idx2] = 2
-      computerBoard[s1idx1 - 3][s1idx2] = 2
-      occ.splice(s1idx2, 1)
-    } else {
-      computerBoard[s1idx1 + 1][s1idx2] = 2
-      computerBoard[s1idx1 + 2][s1idx2] = 2
-      computerBoard[s1idx1 + 3][s1idx2] = 2
-      occ.splice(s1idx2, 1)
-    }
-    s1idx1 = Math.floor(Math.random() * 10)
-    s1idx2 = occ[Math.floor(Math.random() * 8)]
-    computerBoard[s1idx1][s1idx2] = 3
-    if (s1idx1 + 1 <= 9 && s1idx1 + 2 <= 9) {
-      computerBoard[s1idx1 + 1][s1idx2] = 3
-      computerBoard[s1idx1 + 2][s1idx2] = 3
-      occ.splice(s1idx2, 1)
-    } else {
-      computerBoard[s1idx1 - 1][s1idx2] = 3
-      computerBoard[s1idx1 - 2][s1idx2] = 3
-      occ.splice(s1idx2, 1)
-    }
-    s1idx1 = Math.floor(Math.random() * 10)
-    s1idx2 = occ[Math.floor(Math.random() * 7)]
-    computerBoard[s1idx1][s1idx2] = 4
-    if (s1idx1 - 1 >= 0 && s1idx1 - 2 >= 0) {
-      computerBoard[s1idx1 - 1][s1idx2] = 4
-      computerBoard[s1idx1 - 2][s1idx2] = 4
-      occ.splice(s1idx2, 1)
-    } else {
-      computerBoard[s1idx1 + 1][s1idx2] = 4
-      computerBoard[s1idx1 + 2][s1idx2] = 4
-      occ.splice(s1idx2, 1)
-    }
-    s1idx1 = Math.floor(Math.random() * 10)
-    s1idx2 = occ[Math.floor(Math.random() * 6)]
-    computerBoard[s1idx1][s1idx2] = 5
-    if (s1idx1 - 1 >= 0) {
-      computerBoard[s1idx1 - 1][s1idx2] = 5
-    } else {
-      computerBoard[s1idx1 + 1][s1idx2] = 5
-    } 
+  squareEls.forEach(ele => {
+    ele.removeEventListener("click", handleSqClick);
+  })
+  squareEls2.forEach(ele => {
+    ele.addEventListener("click", handleSqClick);
+  })
+  let occ = [0,1,2,3,4,5,6,7,8,9]
+  let s1idx1 = Math.floor(Math.random() * 10)
+  let s1idx2 = occ[Math.floor(Math.random() * 10)]
+  computerBoard[s1idx1][s1idx2] = 1
+  if (s1idx1 + 1 <= 9 && s1idx1 + 2 <= 9 && s1idx1 + 3 <= 9 && s1idx1 + 4 <= 9) {
+    computerBoard[s1idx1 + 1][s1idx2] = 1
+    computerBoard[s1idx1 + 2][s1idx2] = 1
+    computerBoard[s1idx1 + 3][s1idx2] = 1
+    computerBoard[s1idx1 + 4][s1idx2] = 1
+    occ.splice(s1idx2, 1)
+  } else {
+    computerBoard[s1idx1 - 1][s1idx2] = 1
+    computerBoard[s1idx1 - 2][s1idx2] = 1
+    computerBoard[s1idx1 - 3][s1idx2] = 1
+    computerBoard[s1idx1 - 4][s1idx2] = 1
+    occ.splice(s1idx2, 1)
+  }
+  s1idx1 = Math.floor(Math.random() * 10)
+  s1idx2 = occ[Math.floor(Math.random() * 9)]
+  computerBoard[s1idx1][s1idx2] = 2
+  if (s1idx1 - 1 >= 0 && s1idx1 - 2 >= 0 && s1idx1 - 3 >= 0) {
+    computerBoard[s1idx1 - 1][s1idx2] = 2
+    computerBoard[s1idx1 - 2][s1idx2] = 2
+    computerBoard[s1idx1 - 3][s1idx2] = 2
+    occ.splice(s1idx2, 1)
+  } else {
+    computerBoard[s1idx1 + 1][s1idx2] = 2
+    computerBoard[s1idx1 + 2][s1idx2] = 2
+    computerBoard[s1idx1 + 3][s1idx2] = 2
+    occ.splice(s1idx2, 1)
+  }
+  s1idx1 = Math.floor(Math.random() * 10)
+  s1idx2 = occ[Math.floor(Math.random() * 8)]
+  computerBoard[s1idx1][s1idx2] = 3
+  if (s1idx1 + 1 <= 9 && s1idx1 + 2 <= 9) {
+    computerBoard[s1idx1 + 1][s1idx2] = 3
+    computerBoard[s1idx1 + 2][s1idx2] = 3
+    occ.splice(s1idx2, 1)
+  } else {
+    computerBoard[s1idx1 - 1][s1idx2] = 3
+    computerBoard[s1idx1 - 2][s1idx2] = 3
+    occ.splice(s1idx2, 1)
+  }
+  s1idx1 = Math.floor(Math.random() * 10)
+  s1idx2 = occ[Math.floor(Math.random() * 7)]
+  computerBoard[s1idx1][s1idx2] = 4
+  if (s1idx1 - 1 >= 0 && s1idx1 - 2 >= 0) {
+    computerBoard[s1idx1 - 1][s1idx2] = 4
+    computerBoard[s1idx1 - 2][s1idx2] = 4
+    occ.splice(s1idx2, 1)
+  } else {
+    computerBoard[s1idx1 + 1][s1idx2] = 4
+    computerBoard[s1idx1 + 2][s1idx2] = 4
+    occ.splice(s1idx2, 1)
+  }
+  s1idx1 = Math.floor(Math.random() * 10)
+  s1idx2 = occ[Math.floor(Math.random() * 6)]
+  computerBoard[s1idx1][s1idx2] = 5
+  if (s1idx1 - 1 >= 0) {
+    computerBoard[s1idx1 - 1][s1idx2] = 5
+  } else {
+    computerBoard[s1idx1 + 1][s1idx2] = 5
+  } 
+  updateMessage()
 }
 
 function playerGuess(row, col){
+  console.log(computerBoard[row][col])
   if (computerBoard[row][col] === 1 || computerBoard[row][col] === 2 || computerBoard[row][col] === 3 || computerBoard[row][col] === 4 || computerBoard[row][col] === 5) {
     computerBoard[row][col] *= 1
   } else {
@@ -383,16 +386,14 @@ function playerGuess(row, col){
 }
 
 function computerGuess(){
-  let pos = Math.floor(Math.random(100))
-  let guess = position[guess]
-  positinos.splice(guess, 1)
-
-
-
+  //this will make sure never guess same choice
+  let randEvenIdx = (Math.floor(Math.random() * 100)) * 2
+  let guess = position[randEvenIdx]
+  positions.splice(randEvenIdx, 2)
   if (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5) {
-    computerBoard[row][col] *= 1
+    board[row][col] *= 1
   } else {
-    computerBoard[row][col] = "-"
+    board[row][col] = "-"
   }
 }
 
