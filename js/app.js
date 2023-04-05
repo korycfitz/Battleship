@@ -222,7 +222,6 @@ function handleSqClick(evt){
 
 function placeShip(row, col, isValid) {
   if (placedShipsCount >= 17) {
-    hideBtn.addEventListener('click', hideShips)
     allShipsPlaced = true;
     return
   }
@@ -230,15 +229,16 @@ function placeShip(row, col, isValid) {
     messageEl2.textContent = "";
     board[row][col] = currentShipNum;
     placedShipsCount++
+    if (placedShipsCount === 17) {
+      hideBtn.addEventListener('click', hideShips)
+    }
     placedShips[`ship${currentShipNum}`].push(currentShip[0])
     if (placedShips[`ship${currentShipNum}`].length >= ships[`ship${currentShipNum}`].length) {
       currentShipNum++
-      //track current ship placement, reset after entire ship is place
       shipArr = [];
       validPos = [];
       isVertical = false;
       isHorizontal = false;
-      //track all the valid positions
     } 
   } else {
 //not valid position
