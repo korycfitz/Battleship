@@ -9,21 +9,24 @@ html {
 }
 
 body {
-  background-color: aqua;
   /* font-size: 20px;
   font-family: 'Ubuntu', sans-serif;
   margin: 0, auto; */
   /* max-width: 100px; */
-  /* display: flex; */
+  display: flex;
+  flex-direction: column;
+  font-family: Mountains of Christmas;
   /* flex-direction: column; */
   /* background: -webkit-linear-gradient(bottom,#419769, rgba(135, 130, 130, 0.5)); */
   /* background: -moz-linear-gradient(bottom,#419769, rgba(135, 130, 130, 0.5)); */
   /* background: -o-linear-gradient(bottom,#419769, rgba(135, 130, 130, 0.5)); */
 }
 
-.boards {
+.w3-container{
   display: flex;
   justify-content: space-between;
+  background-color: aqua;
+  border-color: aqua;
 }
 
 .board {
@@ -35,13 +38,23 @@ body {
 }
 
 div {
-  background-color: green;
-  border: 3px solid rgb(186, 16, 16);
+  border: 3px solid black;
   font-size: 3vmin;
   text-align: center;
   vertical-align: middle;
 }
+div {
+  background-color: rgb(53, 160, 53);
+  border: 3px solid rgb(187, 36, 36);
+  font-size: 3vmin;
 
+}
+body {
+  background-color: aqua;
+}
+section {
+  background-color: aqua;
+}
 #prompt-messages > p {
   font-size: 15px;
 }
@@ -80,4 +93,26 @@ div {
 
 p {
   font-size: 3vmin;
+}
+button {
+  margin: 10px 0;
+  font-weight: bold;
+  margin-left: 50px;
+}
+section > button {
+  width: 70px;
+  margin: 10px 0;
+}
+
+#computer {
+  margin-right: 50px;
+  margin-left: 0px;
+}
+
+#player1 {
+  margin-left: 50px;
+}
+
+h1 {
+  color:rgb(32, 113, 38)
 }
