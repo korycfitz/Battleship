@@ -10,9 +10,10 @@ const playGame = document.getElementById("play-game");
 const hideBtn = document.getElementById("hide-board");
 const playerBoard = document.getElementById('player1');
 const resetBtnEl = document.querySelector('#reset');
+
 /*----------------------------- Event Listeners -----------------------------*/
 playGame.addEventListener('click', handleBtnClick)
-//add btn that will reactivate playGameEventListener
+
 /*-------------------------------- Functions --------------------------------*/
 function handleBtnClick(){
   playGame.removeEventListener('click', handleBtnClick)
@@ -23,7 +24,6 @@ function handleBtnClick(){
 }
 function init(){
   resetBtnEl.addEventListener('click', init)
-  //build out board using document.createElement later on
   board = [
     [null, null, null, null, null, null, null, null, null, null], 
     [null, null, null, null, null, null, null, null, null, null], 
@@ -92,7 +92,6 @@ function init(){
 
 function render(){
   updateBoard();
-  //updateBoard will only work for the game before it is in the "play" state because we will need to update the board differently, to display hits and misses. I need to figure out how to handle a different board state.
   updateMessage();
 }
 
@@ -207,9 +206,6 @@ function handleSqClick(evt){
       i++
     }
   }
-  //after this loop, we want to check for any occurance in which we are still placing ships (every possible board state), we want to make sure all the pieces are placed in the loop
-  //after loop, 
-
   if (!allShipsPlaced) {
     placeShip(rowClicked, colClicked, isValid);
   } else if (allShipsPlaced && !shipsHidden) {
@@ -244,7 +240,6 @@ function placeShip(row, col, isValid) {
       isHorizontal = false;
     } 
   } else {
-//not valid position
   messageEl2.textContent = 'Click not allowed. Ship must be placed in a horizontal or vertical, adjacent line'
   return;
   }
@@ -260,12 +255,8 @@ function isValid(row, col) {
     if (col - 1 >= 0) validPos.push([row, col - 1])
     return true;
   } else if (placedShips[`ship${currentShipNum}`].length < ships[`ship${currentShipNum}`].length) { 
-    //loop through valid positions
     for (let i = 0; i < validPos.length; i++) {
       if (validPos[i][0] === row && validPos[i][1] === col) {
-        //updateValidPositions based on new click
-        //need to check if is horizontal or vertical and update 
-          //need to take into account if the adjacent square = 1 || 2 || 3 || 4 || 5
         shipArr.push([row, col])
         if (shipArr.length === 2 && (shipArr[0][1] === shipArr[1][1])) isVertical = true 
         if (shipArr.length === 2 && (shipArr[0][0] === shipArr[1][0])) isHorizontal = true 

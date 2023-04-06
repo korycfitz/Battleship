@@ -65,10 +65,16 @@ button {
   font-weight: bold;
   margin-left: 50px;
   background-color: aquamarine;
+  border-radius: 50px;
 }
 section > button {
   width: 70px;
   margin: 10px 0;
+}
+
+button:hover {
+  background-color:#0062ad;
+  transition: 0.7s;
 }
 
 #computer {
@@ -83,7 +89,6 @@ section > button {
 h1 {
   color:rgb(32, 113, 38)
 }
-
 
 @media only screen and (max-width: 747px) {
   #computer {
