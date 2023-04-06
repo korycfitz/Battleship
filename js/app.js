@@ -12,7 +12,6 @@ const playerBoard = document.getElementById('player1');
 const resetBtnEl = document.querySelector('#reset');
 /*----------------------------- Event Listeners -----------------------------*/
 playGame.addEventListener('click', handleBtnClick)
-resetBtnEl.addEventListener('click', init)
 //add btn that will reactivate playGameEventListener
 /*-------------------------------- Functions --------------------------------*/
 function handleBtnClick(){
@@ -23,6 +22,7 @@ function handleBtnClick(){
   })
 }
 function init(){
+  resetBtnEl.addEventListener('click', init)
   //build out board using document.createElement later on
   board = [
     [null, null, null, null, null, null, null, null, null, null], 
@@ -216,8 +216,6 @@ function handleSqClick(evt){
     return;
   } else {
     hideBtn.removeEventListener('click', hideShips)
-    resetBtnEl.removeEventListener('click', init)
-    resetBtnEl.addEventListener('click', resetGame)
     if ((computerBoard[rowClicked][colClicked] === -1 || computerBoard[rowClicked][colClicked] === -2 || computerBoard[rowClicked][colClicked] === -3 || computerBoard[rowClicked][colClicked] === -4 || computerBoard[rowClicked][colClicked] === -5 || computerBoard[rowClicked][colClicked] === 6)) return
     playerGuess(rowClicked, colClicked);
     computerGuess();
@@ -318,6 +316,8 @@ function aiPlaceShips(){
   squareEls2.forEach(ele => {
     ele.addEventListener("click", handleSqClick);
   })
+  resetBtnEl.removeEventListener('click', init)
+  resetBtnEl.addEventListener('click', resetGame)
   let occ = [0,1,2,3,4,5,6,7,8,9]
   let s1idx1 = Math.floor(Math.random() * 10)
   let s1idx2 = occ[Math.floor(Math.random() * 10)]
@@ -398,7 +398,6 @@ function playerGuess(row, col){
     updateBoard()
     winner = true;
     messageEl.textContent = 'Congrats, You Win!';
-    playGame.addEventListener('click', handleBtnClick);
     return;
   }
   updateBoard()
@@ -424,14 +423,21 @@ function computerGuess(){
     winner = true
     turn = -1
     messageEl.textContent = 'The Computer Won! Better luck next time!'
-    playGame.addEventListener('click', handleBtnClick)
     return;
   }
   updateBoard()
 }
 
 function resetGame(){
-  
+  squareEls.forEach(ele => {
+    ele.addEventListener("click", handleSqClick);
+  })
+  squareEls2.forEach(ele => {
+    ele.removeEventListener("click", handleSqClick);
+    ele.textContent = "";
+  })
+  resetBtnEl.removeEventListener('click', resetGame)
+  init();
 }
 //then: set up containers and have document automatically create elements
 //then styling
