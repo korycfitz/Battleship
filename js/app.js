@@ -1,7 +1,5 @@
-/*---------------------------- Variables (state) ----------------------------*/
-// 1) Define the required variables used to track the state of the game
 let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount
-/*------------------------ Cached Element References ------------------------*/
+
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
 const squareEls = document.querySelectorAll(".sqr1");
@@ -11,9 +9,8 @@ const hideBtn = document.getElementById("hide-board");
 const playerBoardEle = document.getElementById('player1')
 const computerBoardEle = document.getElementById('computer');
 const resetBtnEl = document.querySelector('#reset');
-/*----------------------------- Event Listeners -----------------------------*/
+
 playGame.addEventListener('click', handleBtnClick)
-/*-------------------------------- Functions --------------------------------*/
 function handleBtnClick(){
   playGame.removeEventListener('click', handleBtnClick)
   init();
@@ -21,6 +18,7 @@ function handleBtnClick(){
     ele.addEventListener("click", handleSqClick);
   })
 }
+
 function init(){
   resetBtnEl.addEventListener('click', init)
   board = [
@@ -118,9 +116,7 @@ function updateBoard(){
   } else if (allShipsPlaced && !shipsHidden) {
     return;
   } else if(shipsHidden && !winner) {
-    // update board differently according to game play
     let i = 0
-    //need to incorporate turn into each one of these so they don't update the wrong board
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
         if (board[row][col] === -1) {
@@ -162,7 +158,6 @@ function updateBoard(){
 }
 
 function updateMessage(){
-  //render message based on current game state
   if (!winner && !allShipsPlaced && currentShipNum === 1) {
     messageEl.textContent = `Please place ship ${currentShipNum} (Length: 5)! Do so by clicking a square, then click adjacent squares`
   } else if (!winner && !allShipsPlaced && currentShipNum === 2) {
@@ -190,13 +185,10 @@ function handleSqClick(evt){
     for (let col = 0; col < width; col++) {
       if (sqIdx === squareEls[i].id && !shipsHidden) {
         if (!allShipsPlaced && (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5)) return;
-        //otherwise either clicked square in game 'play' state, or clicked empty square in 'setting' state //need to account for this
-        //if in the 'game' state, we need to return out if winner === true or if spot is already guessed
         rowClicked = row;
         colClicked = col;
       } 
       if ((sqIdx === squareEls2[i].id) && shipsHidden){
-        //not hitting this function
         if (winner === true) return;
         if (computerBoard[row][col] === -1 || computerBoard[row][col] === -2 || computerBoard[row][col] === -3 || computerBoard[row][col] === -4 || computerBoard[row][col] === -5) return;
         rowClicked = row;
@@ -390,7 +382,6 @@ function playerGuess(row, col){
 
 function computerGuess(){
   turn = -1
-  //this will make sure never guess same choice
   let randEvenIdx = (Math.floor(Math.random() * (positions.length / 2))) * 2
   let row = positions[randEvenIdx]
   let col = positions[randEvenIdx + 1]
@@ -428,6 +419,3 @@ function resetGame(){
   resetBtnEl.removeEventListener('click', resetGame)
   init();
 }
-//then: set up containers and have document automatically create elements
-//then styling
-//then: classes
