@@ -1,6 +1,6 @@
 /*---------------------------- Variables (state) ----------------------------*/
 // 1) Define the required variables used to track the state of the game
-let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount//game status will display false before in 'game' mode and true after
+let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount
 /*------------------------ Cached Element References ------------------------*/
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
@@ -9,9 +9,10 @@ const squareEls2 = document.querySelectorAll(".sqr2");
 const playGame = document.getElementById("play-game");
 const hideBtn = document.getElementById("hide-board");
 const playerBoard = document.getElementById('player1');
-// const resetBtnEl = document.querySelector('#reset-button');
+const resetBtnEl = document.querySelector('#reset');
 /*----------------------------- Event Listeners -----------------------------*/
 playGame.addEventListener('click', handleBtnClick)
+resetBtnEl.addEventListener('click', init)
 //add btn that will reactivate playGameEventListener
 /*-------------------------------- Functions --------------------------------*/
 function handleBtnClick(){
@@ -110,7 +111,9 @@ function updateBoard(){
           squareEls[i].textContent = "S4"
         } else if(board[row][col] === 5) {
           squareEls[i].textContent = "S5"
-        } 
+        } else if(board[row][col] === null) {
+          squareEls[i].textContent = ""
+        }
         i++
       }
     }
@@ -213,6 +216,8 @@ function handleSqClick(evt){
     return;
   } else {
     hideBtn.removeEventListener('click', hideShips)
+    resetBtnEl.removeEventListener('click', init)
+    resetBtnEl.addEventListener('click', resetGame)
     if ((computerBoard[rowClicked][colClicked] === -1 || computerBoard[rowClicked][colClicked] === -2 || computerBoard[rowClicked][colClicked] === -3 || computerBoard[rowClicked][colClicked] === -4 || computerBoard[rowClicked][colClicked] === -5 || computerBoard[rowClicked][colClicked] === 6)) return
     playerGuess(rowClicked, colClicked);
     computerGuess();
@@ -380,10 +385,12 @@ function aiPlaceShips(){
 }
 
 function playerGuess(row, col){
+  messageEl2.textContent = ""
   turn = 1
   if (computerBoard[row][col] === 1 || computerBoard[row][col] === 2 || computerBoard[row][col] === 3 || computerBoard[row][col] === 4 || computerBoard[row][col] === 5) {
     computerBoard[row][col] = computerBoard[row][col] * -1
     playerHitCount++
+    messageEl2.textContent = "You Hit a Ship!"
   } else if (computerBoard[row][col] === null) {
     computerBoard[row][col] = 6
   }
@@ -407,6 +414,8 @@ function computerGuess(){
   if (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5) {
     board[row][col] = board[row][col] * -1
     compHitCount++
+    if (messageEl2.textContent === "You Hit a Ship!") messageEl2.textContent = 'You and the Computer both hit ships!'
+    if (messageEl2.textContent === "") messageEl2.textContent = "Computer Hit a Ship!"
   } else {
     board[row][col] = 6
   }
@@ -421,6 +430,9 @@ function computerGuess(){
   updateBoard()
 }
 
+function resetGame(){
+  
+}
 //then: set up containers and have document automatically create elements
 //then styling
 //then: classes
