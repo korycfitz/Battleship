@@ -9,18 +9,13 @@ html {
 }
 
 body {
-  /* font-size: 20px;
-  font-family: 'Ubuntu', sans-serif;
-  margin: 0, auto; */
-  /* max-width: 100px; */
+  font-size: 25px;
   display: flex;
   flex-direction: column;
   font-family: Mountains of Christmas;
-  background-color: rgb(192, 63, 41);
-  /* flex-direction: column; */
-  /* background: -webkit-linear-gradient(bottom,#419769, rgba(135, 130, 130, 0.5)); */
-  /* background: -moz-linear-gradient(bottom,#419769, rgba(135, 130, 130, 0.5)); */
-  /* background: -o-linear-gradient(bottom,#419769, rgba(135, 130, 130, 0.5)); */
+  background: -webkit-linear-gradient(bottom, rgb(192, 63, 41), rgb(231, 157, 144));
+  background: -moz-linear-gradient(bottom, rgb(192, 63, 41), rgb(231, 157, 144));
+  background: -o-linear-gradient(bottom, rgb(192, 63, 41), rgb(231, 157, 144));
 }
 
 .w3-container{
@@ -61,6 +56,7 @@ p {
   font-size: 3vmin;
 }
 button {
+  height: 40px;
   margin: 10px 0;
   font-weight: bold;
   margin-left: 50px;
@@ -157,15 +153,12 @@ h1 {
 
 
 @media only screen and (min-width: 1200px) {
-  body {
-    background-color: rgba(211, 44, 10, 0.786);
-  }
   .board {
     display: grid;
     grid-template-rows: repeat(10, 5vmin);
     grid-template-columns: repeat(10, 5vmin);
-    border-width: 5vmin;
-    border-radius: 5vmin;
+    border-width: 4.5vmin;
+    border-radius: 4.5vmin;
   }
   button {
     margin-left: 100px;
@@ -193,10 +186,10 @@ h1 {
   }
   .board {
     display: grid;
-    grid-template-rows: repeat(10, 6vmin);
-    grid-template-columns: repeat(10, 6vmin);
-    border-width: 6vmin;
-    border-radius: 6vmin;
+    grid-template-rows: repeat(10, 5vmin);
+    grid-template-columns: repeat(10, 5vmin);
+    border-width: 5vmin;
+    border-radius: 5vmin;
   }
   button {
     margin-left: 180px;
