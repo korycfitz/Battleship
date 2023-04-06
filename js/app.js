@@ -356,6 +356,7 @@ function computerPlaceShips(){
   } 
   updateMessage()
 }
+gadgeagarg
 
 function playerGuess(row, col){
   messageEl2.textContent = ""
