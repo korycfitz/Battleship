@@ -15,7 +15,7 @@ body {
   font-family: Mountains of Christmas;
   background: -webkit-linear-gradient(bottom, rgb(192, 63, 41), rgb(231, 157, 144));
   background: -moz-linear-gradient(bottom, rgb(192, 63, 41), rgb(231, 157, 144));
-  background: -o-linear-gradient(bottom, rgb(192, 63, 41), rgb(231, 157, 144));
+  background: linear-gradient(bottom, rgb(192, 63, 41), rgb(231, 157, 144));
 }
 
 .w3-container{
