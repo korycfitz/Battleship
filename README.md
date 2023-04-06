@@ -16,7 +16,7 @@
 
 ---
 
-<p align="center"> Welcome to Battleship, Christmas edition. This game is similar to the battleship board game, but has some Christmas styled twists to it.
+<p align="center"> Welcome to Battleship, Christmas edition. This game is similar to the battleship board game but has some Christmas-styled twists to it.
     <br> 
 </p>
 
@@ -25,7 +25,7 @@
 - [About](#about)
 - [Getting Started](#getting_started)
 - [Attributions](#attributions)
-- [Built Using](#built_using)
+- [Technologies Used](#⛏️-technologies-used)
 - [Next Steps](#next-steps)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
@@ -33,13 +33,13 @@
 
 ## 🧐 About <a name = "about"></a>
 
-This project was made because battleship is one of the best pencil and paper games. In addition, Christmas is both the best holiday of the year, and my middle name. As a result, this project was built to combine the two together.
+This project was made because the battleship is one of the best pencil and paper games. In addition, Christmas is both the best holiday of the year, and my middle name. As a result, this project was built to combine the two.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
 These instructions will get the project up and running on your local machine for deployment on a live system. <br>
 
-Visit https://battleship-kory-fitzgerald.netlify.app/  to access the desktop/moble version of the game.
+Visit https://battleship-kory-fitzgerald.netlify.app/  to access the desktop/mobile version of the game.
 
 ### Prerequisites
 
@@ -56,7 +56,7 @@ Browser version: 113.0.5672.21 for most ChromeOS devices
 - [Annimate.css](https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css) - Annimation
 - [Google Fonts](https://fonts.google.com/) - Style
 
-## ⛏️ Built Using <a name = "built_using"></a>
+## ⛏️ Technologies Used <a name = "technologies-used"></a>
 
 - [HyperText Markup Language] - Structure
 - [Cascading Style Sheets](https://www.w3.org/Style/CSS/Overview.en.html) - Style
@@ -69,8 +69,8 @@ Browser version: 113.0.5672.21 for most ChromeOS devices
 ## 🚀 Next Steps <a name = "next-steps"></a>
 
 - Improve the logic for the computer's guesses
-- Improve the logic for the comoputer's ship placement on the board
-- Implement AI functionality to store the users guesses, and computer guesses, and use them to strategically have the computer place its ships
+- Improve the logic for the computer's ship placement on the board
+- Implement AI functionality to store the user's and the computer's guesses, in order to have the computer strategically place its ships
 
 ## ✍️ Authors <a name = "authors"></a>
 
@@ -79,4 +79,3 @@ Browser version: 113.0.5672.21 for most ChromeOS devices
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
 - [Kyle Lobo](https://github.com/kylelobo/The-Documentation-Compendium) - The-Documentation-Compendium 
-
