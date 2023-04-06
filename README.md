@@ -52,7 +52,9 @@ Browser version: 113.0.5672.21 for most ChromeOS devices
 ```
 
 ## 🎈 Attributions <a name="attributions"></a>
-- [The-Documentation-Compendium](https://github.com/kylelobo/The-Documentation-Compendium) - README Formatting
+- [The-Documentation-Compendium](https://github.com/kylelobo/The-Documentation-Compendium) - README Format
+- [Annimate.css](https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css) - Annimation
+- [Google Fonts](https://fonts.google.com/) - Style
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 

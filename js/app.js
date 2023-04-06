@@ -8,12 +8,11 @@ const squareEls = document.querySelectorAll(".sqr1");
 const squareEls2 = document.querySelectorAll(".sqr2");
 const playGame = document.getElementById("play-game");
 const hideBtn = document.getElementById("hide-board");
-const playerBoard = document.getElementById('player1');
+const playerBoardEle = document.getElementById('player1')
+const computerBoardEle = document.getElementById('computer');
 const resetBtnEl = document.querySelector('#reset');
-
 /*----------------------------- Event Listeners -----------------------------*/
 playGame.addEventListener('click', handleBtnClick)
-
 /*-------------------------------- Functions --------------------------------*/
 function handleBtnClick(){
   playGame.removeEventListener('click', handleBtnClick)
@@ -297,10 +296,9 @@ function hideShips(){
     }
   }
   shipsHidden = true;
-  aiPlaceShips()
+  computerPlaceShips()
 }
-
-function aiPlaceShips(){
+function computerPlaceShips(){
   squareEls.forEach(ele => {
     ele.removeEventListener("click", handleSqClick);
   })
@@ -311,61 +309,53 @@ function aiPlaceShips(){
   resetBtnEl.addEventListener('click', resetGame)
   let occ = [0,1,2,3,4,5,6,7,8,9]
   let s1idx1 = Math.floor(Math.random() * 10)
-  let s1idx2 = occ[Math.floor(Math.random() * 10)]
+  let s1idx2 = occ.splice(Math.floor(Math.random() * 10), 1)
   computerBoard[s1idx1][s1idx2] = 1
   if (s1idx1 + 1 <= 9 && s1idx1 + 2 <= 9 && s1idx1 + 3 <= 9 && s1idx1 + 4 <= 9) {
     computerBoard[s1idx1 + 1][s1idx2] = 1
     computerBoard[s1idx1 + 2][s1idx2] = 1
     computerBoard[s1idx1 + 3][s1idx2] = 1
     computerBoard[s1idx1 + 4][s1idx2] = 1
-    occ.splice(s1idx2, 1)
   } else {
     computerBoard[s1idx1 - 1][s1idx2] = 1
     computerBoard[s1idx1 - 2][s1idx2] = 1
     computerBoard[s1idx1 - 3][s1idx2] = 1
     computerBoard[s1idx1 - 4][s1idx2] = 1
-    occ.splice(s1idx2, 1)
   }
   s1idx1 = Math.floor(Math.random() * 10)
-  s1idx2 = occ[Math.floor(Math.random() * 9)]
+  s1idx2 = occ.splice(Math.floor(Math.random() * 9), 1)
   computerBoard[s1idx1][s1idx2] = 2
   if (s1idx1 - 1 >= 0 && s1idx1 - 2 >= 0 && s1idx1 - 3 >= 0) {
     computerBoard[s1idx1 - 1][s1idx2] = 2
     computerBoard[s1idx1 - 2][s1idx2] = 2
     computerBoard[s1idx1 - 3][s1idx2] = 2
-    occ.splice(s1idx2, 1)
   } else {
     computerBoard[s1idx1 + 1][s1idx2] = 2
     computerBoard[s1idx1 + 2][s1idx2] = 2
     computerBoard[s1idx1 + 3][s1idx2] = 2
-    occ.splice(s1idx2, 1)
   }
   s1idx1 = Math.floor(Math.random() * 10)
-  s1idx2 = occ[Math.floor(Math.random() * 8)]
+  s1idx2 = occ.splice(Math.floor(Math.random() * 8), 1)
   computerBoard[s1idx1][s1idx2] = 3
   if (s1idx1 + 1 <= 9 && s1idx1 + 2 <= 9) {
     computerBoard[s1idx1 + 1][s1idx2] = 3
     computerBoard[s1idx1 + 2][s1idx2] = 3
-    occ.splice(s1idx2, 1)
   } else {
     computerBoard[s1idx1 - 1][s1idx2] = 3
     computerBoard[s1idx1 - 2][s1idx2] = 3
-    occ.splice(s1idx2, 1)
   }
   s1idx1 = Math.floor(Math.random() * 10)
-  s1idx2 = occ[Math.floor(Math.random() * 7)]
+  s1idx2 = occ.splice(Math.floor(Math.random() * 7), 1)
   computerBoard[s1idx1][s1idx2] = 4
   if (s1idx1 - 1 >= 0 && s1idx1 - 2 >= 0) {
     computerBoard[s1idx1 - 1][s1idx2] = 4
     computerBoard[s1idx1 - 2][s1idx2] = 4
-    occ.splice(s1idx2, 1)
   } else {
     computerBoard[s1idx1 + 1][s1idx2] = 4
     computerBoard[s1idx1 + 2][s1idx2] = 4
-    occ.splice(s1idx2, 1)
   }
   s1idx1 = Math.floor(Math.random() * 10)
-  s1idx2 = occ[Math.floor(Math.random() * 6)]
+  s1idx2 = occ.splice(Math.floor(Math.random() * 6), 1)
   computerBoard[s1idx1][s1idx2] = 5
   if (s1idx1 - 1 >= 0) {
     computerBoard[s1idx1 - 1][s1idx2] = 5
@@ -382,6 +372,10 @@ function playerGuess(row, col){
     computerBoard[row][col] = computerBoard[row][col] * -1
     playerHitCount++
     messageEl2.textContent = "You Hit a Ship!"
+    computerBoardEle.setAttribute('class', 'board animate__animated animate__bounce')
+    setTimeout(() => {
+      computerBoardEle.setAttribute('class', 'board')
+    }, 1000);
   } else if (computerBoard[row][col] === null) {
     computerBoard[row][col] = 6
   }
@@ -404,6 +398,10 @@ function computerGuess(){
   if (board[row][col] === 1 || board[row][col] === 2 || board[row][col] === 3 || board[row][col] === 4 || board[row][col] === 5) {
     board[row][col] = board[row][col] * -1
     compHitCount++
+    playerBoardEle.setAttribute('class', 'board animate__animated animate__bounce')
+    setTimeout(() => {
+      playerBoardEle.setAttribute('class', 'board')
+    }, 1000);
     if (messageEl2.textContent === "You Hit a Ship!") messageEl2.textContent = 'You and the Computer both hit ships!'
     if (messageEl2.textContent === "") messageEl2.textContent = "Computer Hit a Ship!"
   } else {
@@ -433,3 +431,11 @@ function resetGame(){
 //then: set up containers and have document automatically create elements
 //then styling
 //then: classes
+
+// const main = document.querySelector('.main')
+// const h1 = document.querySelector('span')
+// console.log(main)
+// console.log(h1)
+// const santa = document.createElement('div')
+// const moves = {x:50, y:30, w:40,dx:1, dy:1, speed:5, ani:{}, move:false}
+// santa.width = ``

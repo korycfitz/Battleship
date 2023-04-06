@@ -3,24 +3,26 @@
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/style.css">
   <script defer src="./js/app.js"></script>
-  <title>Battleship</title>
+  <title>ChristmasShip</title>
 </head>
 <body>
   <main>
     <header>
-      <h1>ChristmasShip</h1>
+      <h1 class="animate__animated animate__bounce animate__repeat-2 2">ChristmasShip</h1>
       <button id="play-game" class="btn">Play Battleship</button>
     </header>
     <section class="prompt-messages" id="player-prompt-messages">
       <p id="message1" class="msg"></p>
       <p id="message2" class="msg"></p>
     </section>
-    <div class="w3-container" id="ship-boards">
+  </main>
+    <div class="w3-container animate__animated animate__bounce" id="ship-boards">
       <section class="board"id="player1">
         <div class="sqr1" id="00"></div>
         <div class="sqr1" id="01"></div>
@@ -226,8 +228,8 @@
         <div class="sqr2" id="98_"></div>
         <div class="sqr2" id="99_"></div>
         <button class="button" id="reset">Reset Game</button>
+      </section>
     </container>
-  </main>
 </body>
 </html>
 
