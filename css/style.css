@@ -35,60 +35,27 @@ body {
   grid-template-columns: repeat(10, 5vmin);
   grid-gap: 0.5vmin;
   text-align: center;
+  border-width: 2vmin;
+  border-radius: 2vmin;
+  font-weight: bold;
 }
 
 div {
-  border: 3px solid black;
+  border: 3vmin solid black;
   font-size: 3vmin;
   text-align: center;
   vertical-align: middle;
-}
-div {
-  background-color: rgb(53, 160, 53);
+  background-color: aliceblue;
   border: 3px solid rgb(187, 36, 36);
   font-size: 3vmin;
-
+  color: rgb(183, 10, 10);
 }
+
 body {
-  background-color: aqua;
+  background-color: rgba(1, 156, 194, 0.796);
 }
 section {
   background-color: aqua;
-}
-#prompt-messages > p {
-  font-size: 15px;
-}
-
-@media only screen and (max-width: 500px) {
-  div {
-    background-color: rgb(128, 0, 0);
-    border: 3px solid rgb(16, 186, 92);
-    font-size: 3vmin;
-    text-align: center;
-    vertical-align: middle;
-  }
-  body {
-    background-color: aqua;
-  }
-  section {
-    background-color: aqua;
-  }
-}
-
-@media only screen and (max-width: 700px) {
-  div {
-    background-color: green;
-    border: 3px solid rgb(186, 16, 16);
-    font-size: 3vmin;
-    text-align: center;
-    vertical-align: middle;
-  }
-  body {
-    background-color: aqua;
-  }
-  section {
-    background-color: aqua;
-  }
 }
 
 p {
@@ -98,6 +65,7 @@ button {
   margin: 10px 0;
   font-weight: bold;
   margin-left: 50px;
+  background-color: aquamarine;
 }
 section > button {
   width: 70px;
@@ -115,4 +83,120 @@ section > button {
 
 h1 {
   color:rgb(32, 113, 38)
+}
+
+
+@media only screen and (max-width: 747px) {
+  #computer {
+    margin-right: 0px;
+    margin-left: 30px;
+  }
+  
+  #player1 {
+    margin-left: 0px;
+    margin-right: 0px;
+  }  
+  p {
+    font-size: 1.5vmin;
+  }
+  body {
+    background-color: red;
+  }
+  .board {
+    display: grid;
+    grid-template-rows: repeat(10, 2vmin);
+    grid-template-columns: repeat(10, 2vmin);
+    grid-gap: 0.2vmin;
+    border-width: 1vmin;
+    border-radius: 1vmin;
+    font-weight: 150
+  }
+
+  section > button {
+    width: 70px;
+    margin: 10px 0px;
+  }
+}
+
+@media only screen and (max-width: 940px) {
+  p {
+    font-size: 2.5vmin;
+  }
+  .board {
+    display: grid;
+    grid-template-rows: repeat(10, 4vmin);
+    grid-template-columns: repeat(10, 4vmin);
+    grid-gap: 0.3vmin;
+    border-width: 2vmin;
+    border-radius: 2vmin;
+    font-weight: 200
+  }
+  button {
+    margin-left: 50px;
+  }
+
+  section > button {
+    width: 70px;
+    margin: 10px 0px;
+  }
+  #computer {
+    margin-right: 50px;
+  }
+  
+  #player1 {
+    margin-left: 50px;
+  }
+}
+
+
+@media only screen and (min-width: 1200px) {
+  .board {
+    display: grid;
+    grid-template-rows: repeat(10, 5vmin);
+    grid-template-columns: repeat(10, 5vmin);
+    border-width: 5vmin;
+    border-radius: 5vmin;
+  }
+  button {
+    margin-left: 100px;
+    height: 50px;
+  }
+  section > button {
+    width: 70px;
+    margin: 10px 0;
+  }
+  #computer {
+    margin-right: 100px;
+  }
+  
+  #player1 {
+    margin-left: 100px;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  h1 {
+    font-size: 50px
+  }
+  .board {
+    display: grid;
+    grid-template-rows: repeat(10, 6vmin);
+    grid-template-columns: repeat(10, 6vmin);
+    border-width: 6vmin;
+    border-radius: 6vmin;
+  }
+  button {
+    margin-left: 180px;
+  }
+  section > button {
+    width: 70px;
+    margin: 10px 0;
+  }
+  #computer {
+    margin-right: 180px;
+  }
+  
+  #player1 {
+    margin-left: 180px;
+  }
 }
