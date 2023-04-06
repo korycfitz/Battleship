@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+ <img width=200px height=200px src="./assets/christmas-ship.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">ChristmasShip</h3>
@@ -17,7 +17,7 @@
 ---
 
 <p align="center"> Welcome to Battleship, Christmas edition. This game is similar to the battleship board game but has some Christmas-styled twists to it.
-    <br> 
+  <br> 
 </p>
 
 ## 📝 Table of Contents
@@ -55,6 +55,7 @@ Browser version: 113.0.5672.21 for most ChromeOS devices
 - [The-Documentation-Compendium](https://github.com/kylelobo/The-Documentation-Compendium) - README Format
 - [Annimate.css](https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css) - Annimation
 - [Google Fonts](https://fonts.google.com/) - Style
+- [Flaticon](https://www.flaticon.com/) - Favicon
 
 ## ⛏️ Technologies Used <a name = "technologies-used"></a>
 
