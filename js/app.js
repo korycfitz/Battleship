@@ -431,11 +431,3 @@ function resetGame(){
 //then: set up containers and have document automatically create elements
 //then styling
 //then: classes
-
-// const main = document.querySelector('.main')
-// const h1 = document.querySelector('span')
-// console.log(main)
-// console.log(h1)
-// const santa = document.createElement('div')
-// const moves = {x:50, y:30, w:40,dx:1, dy:1, speed:5, ani:{}, move:false}
-// santa.width = ``
