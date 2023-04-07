@@ -25,7 +25,7 @@
 - [Getting Started](#getting_started)
 - [Attributions](#attributions)
 - [Technologies Used](#⛏️-technologies-used)
-- [Next Steps](#next-steps)
+- [Icebox](#ice-box)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
@@ -65,7 +65,7 @@ Browser version: 113.0.5672.21 for most ChromeOS devices
 - [Git](https://git-scm.com/) - Version Control and Source Code Management
 - [Visual Studio Code](https://code.visualstudio.com/) - Debugging, Version Control
 
-## 🚀 Next Steps <a name = "next-steps"></a>
+## 🚀 Icebox <a name = "ice-box"></a>
 
 - Improve the logic for the computer's guesses
 - Improve the logic for the computer's ship placement on the board
