@@ -176,7 +176,7 @@ function updateMessage(){
   } else if (!winner && !allShipsPlaced && currentShipNum === 2) {
     messageEl.textContent = `Santa: "You know what's next, why do you have to ask! Place my 4 sleds ${img2} on the left board!" ---> Do this by clicking a square, then click squares adjacent to that square!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 3) {
-    messageEl.textContent = `Santa: "I'm thursty. Leave 3 glasses of milk ${img3} for me, or you're getting no presents!---> Do this by clicking adjacent squares on the left board!`
+    messageEl.textContent = `Santa: "I'm thirsty. Leave 3 glasses of milk ${img3} for me, or you're getting no presents!---> Do this by clicking adjacent squares on the left board!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 4) {
     messageEl.textContent = `Santa: "Hmmm. What goes with milk? Leave my 3 cookies ${img4} on the left board!" ---> Do this by clicking adjacent squares on the left board!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 5) {
@@ -184,7 +184,7 @@ function updateMessage(){
   } else if (!winner && !shipsHidden) {
     messageEl.textContent = 'All ships have been placed! Press the \'Hide Board\' button to start the game!'
   } else if (!winner && shipsHidden ){
-    messageEl.textContent = `It's your turn. click anywhere on the opposite board once, then click a square on the opposite board to guess! Hits will be displayed by ${img1}, ${img2}, ${img3}, ${img4} and ${img5}. Misses will be displayed by a "-". Santa will guess automatically, after each of your guesses`
+    messageEl.textContent = `It's your turn. Click anywhere on the opposite board once, then click a square on the opposite board to guess! Hits will be displayed by ${img1}, ${img2}, ${img3}, ${img4} and ${img5}. Misses will be displayed by a "-". Santa will guess automatically, after each of your guesses`
   } else if (!winner && turn === -1) {
     messageEl.textContent = 'Santa is thinking...'
   }
@@ -244,7 +244,7 @@ function placeShip(row, col, isValid) {
       isHorizontal = false;
     } 
   } else {
-  messageEl2.textContent = `Santa:\"Follow the Rules or you\'re getting no presents this year!\". You must click a squares in a horizontal or vertical line for each of santa\'s items`
+  messageEl2.textContent = `Santa:\"Follow the Rules or you\'re getting no presents this year!\". You must click squares in a horizontal or vertical line for each of Santa\'s items`
   return;
   }
 }
@@ -388,7 +388,7 @@ function playerGuess(row, col){
   if (playerHitCount === 17) {
     updateBoard()
     winner = true;
-    messageEl.textContent = 'Congrats, You Win! You sunk all of santa\'s ships';
+    messageEl.textContent = 'Congrats, You Win! You sunk all of Santa\'s ships';
     return;
   }
   updateBoard()

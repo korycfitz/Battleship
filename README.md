@@ -67,11 +67,11 @@ Browser version: 113.0.5672.21 for most ChromeOS devices
 
 ## 🚀 Icebox <a name = "ice-box"></a>
 
-- Allow the user to drag ships on to the board, instead of having the user click individual squares
-- Improve all of the styling
+- Allow the user to drag ships onto the board, instead of having the user click individual squares
+- Improve all of the stylings
 - Improve the logic for the computer's guesses
 - Improve the logic for the computer's ship placement on the board
-- Implement AI functionality to store the user's and the computer's guesses, in order to have the computer strategically place its ships
+- Implement AI functionality to store the user's and the computer's guesses, to have the computer strategically place its ships
 
 ## ✍️ Authors <a name = "authors"></a>
 
