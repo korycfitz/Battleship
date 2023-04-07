@@ -1,8 +1,11 @@
-let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount
+let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount, squareEls
+
+// const img = document.createElement("img");
+// img.src = "https://picsum.photos/200/301";
+// document.body.appendChild(img);
 
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
-const squareEls = document.querySelectorAll(".sqr1");
 const squareEls2 = document.querySelectorAll(".sqr2");
 const playGame = document.getElementById("play-game");
 const hideBtn = document.getElementById("hide-board");
@@ -12,6 +15,18 @@ const resetBtnEl = document.querySelector('#reset');
 
 playGame.addEventListener('click', handleBtnClick)
 function handleBtnClick(){
+  positions = []
+  for (let row = 0; row < 10; row++) {
+    for (let col = 0; col < 10; col++) {
+      positions.push(row, col)
+      div = document.createElement('div')
+      div.setAttribute('class', 'sqr1')
+      div.setAttribute('id', `${row}` + `${col}`)
+      playerBoardEle.appendChild(div)
+      positions.push(row, col)
+    }
+  }
+  squareEls = document.querySelectorAll(".sqr1");
   playGame.removeEventListener('click', handleBtnClick)
   init();
   squareEls.forEach(ele => {
@@ -45,14 +60,8 @@ function init(){
     [null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null]
 ]
-  positions = [];
   width = board[0].length;
   height = board.length;
-  for (let row = 0; row < height; row++) {
-    for (let col = 0; col < width; col++) {
-      positions.push(row,col)
-    }
-  }
   currentShipNum = 1;
   ship1 = ['S1', 'S1', 'S1', 'S1', 'S1']
   ship2 = ['S2', 'S2', 'S2', 'S2']
@@ -169,7 +178,7 @@ function updateMessage(){
   } else if (!winner && !allShipsPlaced && currentShipNum === 5) {
     messageEl.textContent = `Please place ship ${currentShipNum} (Length: 2)! Do so by clicking a square, then click adjacent squares`
   } else if (!winner && !shipsHidden) {
-    messageEl.textContent = 'All ships have been placed! Press the button below to start!'
+    messageEl.textContent = 'All ships have been placed! Press the \'Hide Board\' button to start the game!'
   } else if (!winner && shipsHidden ){
     messageEl.textContent = `It's your turn. Click a square on the opposite board to guess! Hits will be displayed by an X. Misses will be displayed by a -`
   } else if (!winner && turn === -1) {
@@ -356,7 +365,6 @@ function computerPlaceShips(){
   } 
   updateMessage()
 }
-gadgeagarg
 
 function playerGuess(row, col){
   messageEl2.textContent = ""
@@ -410,6 +418,8 @@ function computerGuess(){
 }
 
 function resetGame(){
+  messageEl.textContent = `Please place ship 1 (Length: 5)! Do so by clicking a square, then click adjacent squares`
+  messageEl2.textContent = ''
   squareEls.forEach(ele => {
     ele.addEventListener("click", handleSqClick);
   })
