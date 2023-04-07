@@ -11,7 +11,6 @@
 [![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/korycfitz/Battleship/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/korycfitz/Battleship/pulls)
 [![License](https://img.shields.io/github/license/korycfitz/Battleship?style=plastic)](/LICENSE)
-
 </div>
 
 ---
@@ -29,7 +28,6 @@
 - [Next Steps](#next-steps)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
-
 
 ## 🧐 About <a name = "about"></a>
 

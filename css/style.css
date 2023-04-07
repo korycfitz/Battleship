@@ -8,6 +8,12 @@ html {
   box-sizing: inherit;
 }
 
+.img {
+  max-width: 100%; /* or any custom size */
+  max-height: 100%; 
+  object-fit: contain;
+}
+
 body {
   font-size: 25px;
   display: flex;

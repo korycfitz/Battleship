@@ -1,8 +1,6 @@
 let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount, squareEls, squareEls2, playerSquare, computerSquare
 
-// const img = document.createElement("img");
-// img.src = "https://picsum.photos/200/301";
-// document.body.appendChild(img);
+
 
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
@@ -11,7 +9,11 @@ const hideBtn = document.getElementById("hide-board");
 const playerBoardEle = document.getElementById('player1')
 const computerBoardEle = document.getElementById('computer');
 const resetBtnEl = document.querySelector('#reset');
-
+const img1 = '🦌'
+const img2 = '🛷'
+const img3 = '🥛'
+const img4 = '🍪'
+const img5 = '🔔'
 playGame.addEventListener('click', handleBtnClick)
 function handleBtnClick(){
   positions = []
@@ -67,11 +69,11 @@ function init(){
   width = board[0].length;
   height = board.length;
   currentShipNum = 1;
-  ship1 = ['S1', 'S1', 'S1', 'S1', 'S1']
-  ship2 = ['S2', 'S2', 'S2', 'S2']
-  ship3 = ['S3', 'S3', 'S3']
-  ship4 = ['S4', 'S4', 'S4']
-  ship5 = ['S5', 'S5']
+  ship1 = [img1, img1, img1, img1, img1]
+  ship2 = [img2, img2, img2, img2]
+  ship3 = [img3, img3, img3]
+  ship4 = [img4, img4, img4]
+  ship5 = [img5, img5]
   ships = {
     ship1: ship1,
     ship2: ship2,
@@ -111,15 +113,15 @@ function updateBoard(){
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
         if (board[row][col] === 1) {
-          squareEls[i].textContent = "S1"
+          squareEls[i].textContent = img1
         } else if(board[row][col] === 2) {
-          squareEls[i].textContent = "S2"
+          squareEls[i].textContent = img2
         } else if(board[row][col] === 3) {
-          squareEls[i].textContent = "S3"
+          squareEls[i].textContent = img3
         } else if(board[row][col] === 4) {
-          squareEls[i].textContent = "S4"
+          squareEls[i].textContent = img4
         } else if(board[row][col] === 5) {
-          squareEls[i].textContent = "S5"
+          squareEls[i].textContent = img5
         } else if(board[row][col] === null) {
           squareEls[i].textContent = ""
         }
@@ -133,30 +135,30 @@ function updateBoard(){
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
         if (board[row][col] === -1) {
-          squareEls[i].textContent = "X"
+          squareEls[i].textContent = img1
         } else if(board[row][col] === -2) {
-          squareEls[i].textContent = "X"
+          squareEls[i].textContent = img2
         } else if(board[row][col] === -3) {
-          squareEls[i].textContent = "X"
+          squareEls[i].textContent = img3
         } else if(board[row][col] === -4) {
-          squareEls[i].textContent = "X"
+          squareEls[i].textContent = img4
         } else if(board[row][col] === -5) {
-          squareEls[i].textContent = "X"
+          squareEls[i].textContent = img5
         }
         if (computerBoard[row][col] === -1) {
-          squareEls2[i].textContent = "X"
+          squareEls2[i].textContent = img1
         } 
         if(computerBoard[row][col] === -2) {
-          squareEls2[i].textContent = "X"
+          squareEls2[i].textContent = img2
         } 
         if (computerBoard[row][col] === -3) {
-          squareEls2[i].textContent = "X"
+          squareEls2[i].textContent = img3
         } 
         if (computerBoard[row][col] === -4) {
-          squareEls2[i].textContent = "X"
+          squareEls2[i].textContent = img4
         } 
         if(computerBoard[row][col] === -5) {
-          squareEls2[i].textContent = "X"
+          squareEls2[i].textContent = img5
         } 
         if(computerBoard[row][col] === 6) {
           squareEls2[i].textContent = "-"
@@ -172,21 +174,21 @@ function updateBoard(){
 
 function updateMessage(){
   if (!winner && !allShipsPlaced && currentShipNum === 1) {
-    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 5)! Do so by clicking a square, then click adjacent squares`
+    messageEl.textContent = `Santa: "Place my 5 Reindeers ${img1} on the left board!" ---> Do this by clicking a square, then click squares adjacent to that square!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 2) {
-    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 4)! Do so by clicking a square, then click adjacent squares`
+    messageEl.textContent = `Santa: "You know whats next, why do you have to ask! Place my 4 sleds ${img2} on the left board!" ---> Do this by clicking a square, then click squares adjacent to that square!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 3) {
-    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 3)! Do so by clicking a square, then click adjacent squares`
+    messageEl.textContent = `Santa: "I'm thursty. Leave 3 glasses of milk ${img3} for me, or you're getting no presents!---> Do this by clicking adjacent squares on the left board!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 4) {
-    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 3)! Do so by clicking a square, then click adjacent squares`
+    messageEl.textContent = `Santa: "Hmmm. What goes with milk? Leave my 3 cookies ${img4} on the left board!" ---> Do this by clicking adjacent squares on the left board!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 5) {
-    messageEl.textContent = `Please place ship ${currentShipNum} (Length: 2)! Do so by clicking a square, then click adjacent squares`
+    messageEl.textContent = `Santa: "I'm on a tight budget this year so I only need 2 bells ${img5} this year" ---> Do this by clicking adjacent squares on the left board!`
   } else if (!winner && !shipsHidden) {
     messageEl.textContent = 'All ships have been placed! Press the \'Hide Board\' button to start the game!'
   } else if (!winner && shipsHidden ){
-    messageEl.textContent = `It's your turn. Click a square on the opposite board to guess! Hits will be displayed by an X. Misses will be displayed by a -`
+    messageEl.textContent = `It's your turn. click anywhere on the opposite board once, then click a square on the opposite board to guess! Hits will be displayed by ${img1}, ${img2}, ${img3}, ${img4} and ${img5}. Misses will be displayed by a "-". Santa will guess automatically, after each of your guesses`
   } else if (!winner && turn === -1) {
-    messageEl.textContent = 'Computer is thinking...'
+    messageEl.textContent = 'Santa is thinking...'
   }
 }
 
@@ -244,7 +246,7 @@ function placeShip(row, col, isValid) {
       isHorizontal = false;
     } 
   } else {
-  messageEl2.textContent = 'Click not allowed. Ship must be placed in a horizontal or vertical, adjacent line'
+  messageEl2.textContent = `Santa:\"Follow the Rules or you\'re getting no presents this year!\". You must click a squares in a horizontal or vertical line for each of santa\'s items`
   return;
   }
 }
@@ -387,7 +389,7 @@ function playerGuess(row, col){
   if (playerHitCount === 17) {
     updateBoard()
     winner = true;
-    messageEl.textContent = 'Congrats, You Win!';
+    messageEl.textContent = 'Congrats, You Win! You sunk all of santa\'s ships';
     return;
   }
   updateBoard()
@@ -406,8 +408,8 @@ function computerGuess(){
     setTimeout(() => {
       playerBoardEle.setAttribute('class', 'board')
     }, 1000);
-    if (messageEl2.textContent === "You Hit a Ship!") messageEl2.textContent = 'You and the Computer both hit ships!'
-    if (messageEl2.textContent === "") messageEl2.textContent = "Computer Hit a Ship!"
+    if (messageEl2.textContent === "You Hit a Ship!") messageEl2.textContent = 'You and Santa both hit!'
+    if (messageEl2.textContent === "") messageEl2.textContent = "Santa Hit a Ship!"
   } else {
     board[row][col] = 6
   }
@@ -415,14 +417,14 @@ function computerGuess(){
     updateBoard()
     winner = true
     turn = -1
-    messageEl.textContent = 'The Computer Won! Better luck next time!'
+    messageEl.textContent = 'Santa Wins! Santa: "Time to enjoy my Milk and Cookies. Better luck next time!"'
     return;
   }
   updateBoard()
 }
 
 function resetGame(){
-  messageEl.textContent = `Please place ship 1 (Length: 5)! Do so by clicking a square, then click adjacent squares`
+  messageEl.textContent = `Santa: "Place my 5 Reindeers ${img1} on the left board!" ---> Do so by clicking a square, then click squares adjacent to that square!`
   messageEl2.textContent = ''
   squareEls.forEach(ele => {
     ele.addEventListener("click", handleSqClick);
