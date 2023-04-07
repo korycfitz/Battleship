@@ -1,4 +1,4 @@
-let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount, squareEls
+let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount, squareEls, squareEls2, playerSquare, computerSquare
 
 // const img = document.createElement("img");
 // img.src = "https://picsum.photos/200/301";
@@ -6,7 +6,6 @@ let width, height, board, currentShipNum, currentShip, placedShips, placedShipsC
 
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
-const squareEls2 = document.querySelectorAll(".sqr2");
 const playGame = document.getElementById("play-game");
 const hideBtn = document.getElementById("hide-board");
 const playerBoardEle = document.getElementById('player1')
@@ -18,15 +17,20 @@ function handleBtnClick(){
   positions = []
   for (let row = 0; row < 10; row++) {
     for (let col = 0; col < 10; col++) {
-      positions.push(row, col)
-      div = document.createElement('div')
-      div.setAttribute('class', 'sqr1')
-      div.setAttribute('id', `${row}` + `${col}`)
-      playerBoardEle.appendChild(div)
-      positions.push(row, col)
+      positions.push(row, col);
+      playerSquare = document.createElement('div');
+      playerSquare.setAttribute('class', 'sqr1');
+      playerSquare.setAttribute('id', `${row}` + `${col}`);
+      playerBoardEle.appendChild(playerSquare);
+      computerSquare = document.createElement('div');
+      computerSquare.setAttribute('class', 'sqr2');
+      computerSquare.setAttribute('id', `${row}` + `${col}_`);
+      computerBoardEle.appendChild(computerSquare);
+      positions.push(row, col);
     }
   }
   squareEls = document.querySelectorAll(".sqr1");
+  squareEls2 = document.querySelectorAll(".sqr2");
   playGame.removeEventListener('click', handleBtnClick)
   init();
   squareEls.forEach(ele => {

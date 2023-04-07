@@ -24,6 +24,7 @@
       <h1 class="animate__animated animate__bounce animate__repeat-2 2">ChristmasShip</h1>
       <button class="btn" id="play-game">Play Battleship</button>
       <button class='btn' id="hide-board">Hide Board</button>
+      <button class="btn" id="reset">Reset Game</button>
     </header>
     <section class="prompt-messages" id="player-prompt-messages">
       <p class="msg" id="message1"></p>
@@ -32,109 +33,7 @@
   </main>
     <div class="w3-container animate__animated animate__bounce" id="ship-boards">
       <section class="board"id="player1"></section>
-      <section class="board"id="computer">
-        <div class="sqr2" id="00_"></div>
-        <div class="sqr2" id="01_"></div>
-        <div class="sqr2" id="02_"></div>
-        <div class="sqr2" id="03_"></div>
-        <div class="sqr2" id="04_"></div>
-        <div class="sqr2" id="05_"></div>
-        <div class="sqr2" id="06_"></div>
-        <div class="sqr2" id="07_"></div>
-        <div class="sqr2" id="08_"></div>
-        <div class="sqr2" id="09_"></div>
-        <div class="sqr2" id="10_"></div>
-        <div class="sqr2" id="11_"></div>
-        <div class="sqr2" id="12_"></div>
-        <div class="sqr2" id="13_"></div>
-        <div class="sqr2" id="14_"></div>
-        <div class="sqr2" id="15_"></div>
-        <div class="sqr2" id="16_"></div>
-        <div class="sqr2" id="17_"></div>
-        <div class="sqr2" id="18_"></div>
-        <div class="sqr2" id="19_"></div>
-        <div class="sqr2" id="20_"></div>
-        <div class="sqr2" id="21_"></div>
-        <div class="sqr2" id="22_"></div>
-        <div class="sqr2" id="23_"></div>
-        <div class="sqr2" id="24_"></div>
-        <div class="sqr2" id="25_"></div>
-        <div class="sqr2" id="26_"></div>
-        <div class="sqr2" id="27_"></div>
-        <div class="sqr2" id="28_"></div>
-        <div class="sqr2" id="29_"></div>
-        <div class="sqr2" id="30_"></div>
-        <div class="sqr2" id="31_"></div>
-        <div class="sqr2" id="32_"></div>
-        <div class="sqr2" id="33_"></div>
-        <div class="sqr2" id="34_"></div>
-        <div class="sqr2" id="35_"></div>
-        <div class="sqr2" id="36_"></div>
-        <div class="sqr2" id="37_"></div>
-        <div class="sqr2" id="38_"></div>
-        <div class="sqr2" id="39_"></div>
-        <div class="sqr2" id="40_"></div>
-        <div class="sqr2" id="41_"></div>
-        <div class="sqr2" id="42_"></div>
-        <div class="sqr2" id="43_"></div>
-        <div class="sqr2" id="44_"></div>
-        <div class="sqr2" id="45_"></div>
-        <div class="sqr2" id="46_"></div>
-        <div class="sqr2" id="47_"></div>
-        <div class="sqr2" id="48_"></div>
-        <div class="sqr2" id="49_"></div>
-        <div class="sqr2" id="50_"></div>
-        <div class="sqr2" id="51_"></div>
-        <div class="sqr2" id="52_"></div>
-        <div class="sqr2" id="53_"></div>
-        <div class="sqr2" id="54_"></div>
-        <div class="sqr2" id="55_"></div>
-        <div class="sqr2" id="56_"></div>
-        <div class="sqr2" id="57_"></div>
-        <div class="sqr2" id="58_"></div>
-        <div class="sqr2" id="59_"></div>
-        <div class="sqr2" id="60_"></div>
-        <div class="sqr2" id="61_"></div>
-        <div class="sqr2" id="62_"></div>
-        <div class="sqr2" id="63_"></div>
-        <div class="sqr2" id="64_"></div>
-        <div class="sqr2" id="65_"></div>
-        <div class="sqr2" id="66_"></div>
-        <div class="sqr2" id="67_"></div>
-        <div class="sqr2" id="68_"></div>
-        <div class="sqr2" id="69_"></div>
-        <div class="sqr2" id="70_"></div>
-        <div class="sqr2" id="71_"></div>
-        <div class="sqr2" id="72_"></div>
-        <div class="sqr2" id="73_"></div>
-        <div class="sqr2" id="74_"></div>
-        <div class="sqr2" id="75_"></div>
-        <div class="sqr2" id="76_"></div>
-        <div class="sqr2" id="77_"></div>
-        <div class="sqr2" id="78_"></div>
-        <div class="sqr2" id="79_"></div>
-        <div class="sqr2" id="80_"></div>
-        <div class="sqr2" id="81_"></div>
-        <div class="sqr2" id="82_"></div>
-        <div class="sqr2" id="83_"></div>
-        <div class="sqr2" id="84_"></div>
-        <div class="sqr2" id="85_"></div>
-        <div class="sqr2" id="86_"></div>
-        <div class="sqr2" id="87_"></div>
-        <div class="sqr2" id="88_"></div>
-        <div class="sqr2" id="89_"></div>
-        <div class="sqr2" id="90_"></div>
-        <div class="sqr2" id="91_"></div>
-        <div class="sqr2" id="92_"></div>
-        <div class="sqr2" id="93_"></div>
-        <div class="sqr2" id="94_"></div>
-        <div class="sqr2" id="95_"></div>
-        <div class="sqr2" id="96_"></div>
-        <div class="sqr2" id="97_"></div>
-        <div class="sqr2" id="98_"></div>
-        <div class="sqr2" id="99_"></div>
-        <button class="button" id="reset">Reset Game</button>
-      </section>
+      <section class="board"id="computer"></section>
     </container>
 </body>
 </html>
