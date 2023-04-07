@@ -41,7 +41,7 @@ Visit https://battleship-kory-fitzgerald.netlify.app/  to access the desktop/mob
 
 ### Prerequisites
 
-Access to the internet is required to access the game.<br>
+Access to the internet is required.<br>
 The latest version of Google Chrome is recommended, for the best user experience, but not required.
 
 ```
