@@ -27,7 +27,6 @@ function handleBtnClick(){
       computerSquare.setAttribute('class', 'sqr2');
       computerSquare.setAttribute('id', `${row}` + `${col}_`);
       computerBoardEle.appendChild(computerSquare);
-      positions.push(row, col);
     }
   }
   squareEls = document.querySelectorAll(".sqr1");
@@ -382,7 +381,7 @@ function playerGuess(row, col){
     computerBoardEle.setAttribute('class', 'board animate__animated animate__bounce')
     setTimeout(() => {
       computerBoardEle.setAttribute('class', 'board')
-    }, 300);
+    }, 1000);
   } else if (computerBoard[row][col] === null) {
     computerBoard[row][col] = 6
   }
@@ -407,7 +406,7 @@ function computerGuess(){
     playerBoardEle.setAttribute('class', 'board animate__animated animate__bounce')
     setTimeout(() => {
       playerBoardEle.setAttribute('class', 'board')
-    }, 300);
+    }, 1000);
     if (messageEl2.textContent === "You Hit a Ship!") messageEl2.textContent = 'You and Santa both hit!'
     if (messageEl2.textContent === "") messageEl2.textContent = "Santa Hit a Ship!"
   } else {
