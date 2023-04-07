@@ -1,18 +1,19 @@
 let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount, squareEls, squareEls2, playerSquare, computerSquare
-
-const messageEl = document.getElementById("message1");
-const messageEl2 = document.getElementById("message2");
-const playGame = document.getElementById("play-game");
-const hideBtn = document.getElementById("hide-board");
-const playerBoardEle = document.getElementById('player1')
-const computerBoardEle = document.getElementById('computer');
-const resetBtnEl = document.querySelector('#reset');
 const img1 = '🦌'
 const img2 = '🛷'
 const img3 = '🥛'
 const img4 = '🍪'
 const img5 = '🔔'
+const playGame = document.getElementById("play-game");
+const playerBoardEle = document.getElementById('player1')
+const computerBoardEle = document.getElementById('computer');
+const messageEl = document.getElementById("message1");
+const messageEl2 = document.getElementById("message2");
+const hideBtn = document.getElementById("hide-board");
+const resetBtnEl = document.querySelector('#reset');
+
 playGame.addEventListener('click', handleBtnClick)
+
 function handleBtnClick(){
   positions = []
   for (let row = 0; row < 10; row++) {
@@ -303,6 +304,7 @@ function hideShips(){
   shipsHidden = true;
   computerPlaceShips()
 }
+
 function computerPlaceShips(){
   squareEls.forEach(ele => {
     ele.removeEventListener("click", handleSqClick);
