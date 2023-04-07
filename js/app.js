@@ -1,7 +1,5 @@
 let width, height, board, currentShipNum, currentShip, placedShips, placedShipsCount, ships, shipArr, allShipsPlaced, ship1, ship2, ship3, ship4, ship5, shipsHidden, validPos, isHorizontal, isVertical, computerBoard, positions, turn, playerHitCount, compHitCount, squareEls, squareEls2, playerSquare, computerSquare
 
-
-
 const messageEl = document.getElementById("message1");
 const messageEl2 = document.getElementById("message2");
 const playGame = document.getElementById("play-game");
@@ -176,13 +174,13 @@ function updateMessage(){
   if (!winner && !allShipsPlaced && currentShipNum === 1) {
     messageEl.textContent = `Santa: "Place my 5 Reindeers ${img1} on the left board!" ---> Do this by clicking a square, then click squares adjacent to that square!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 2) {
-    messageEl.textContent = `Santa: "You know whats next, why do you have to ask! Place my 4 sleds ${img2} on the left board!" ---> Do this by clicking a square, then click squares adjacent to that square!`
+    messageEl.textContent = `Santa: "You know what's next, why do you have to ask! Place my 4 sleds ${img2} on the left board!" ---> Do this by clicking a square, then click squares adjacent to that square!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 3) {
     messageEl.textContent = `Santa: "I'm thursty. Leave 3 glasses of milk ${img3} for me, or you're getting no presents!---> Do this by clicking adjacent squares on the left board!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 4) {
     messageEl.textContent = `Santa: "Hmmm. What goes with milk? Leave my 3 cookies ${img4} on the left board!" ---> Do this by clicking adjacent squares on the left board!`
   } else if (!winner && !allShipsPlaced && currentShipNum === 5) {
-    messageEl.textContent = `Santa: "I'm on a tight budget this year so I only need 2 bells ${img5} this year" ---> Do this by clicking adjacent squares on the left board!`
+    messageEl.textContent = `Santa: "I'm on a tight budget this year so I only need 2 bells ${img5}" ---> Do this by clicking adjacent squares on the left board!`
   } else if (!winner && !shipsHidden) {
     messageEl.textContent = 'All ships have been placed! Press the \'Hide Board\' button to start the game!'
   } else if (!winner && shipsHidden ){
