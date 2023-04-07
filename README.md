@@ -3,7 +3,7 @@
  <img width=200px height=200px src="./assets/christmas-ship.png" alt="Project logo"></a>
 </p>
 
-<h3 align="center">ChristmasShip</h3>
+<h3 align="center">Christmasship</h3>
 
 <div align="center">
 
