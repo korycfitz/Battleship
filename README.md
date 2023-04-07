@@ -67,7 +67,7 @@ Browser version: 113.0.5672.21 for most ChromeOS devices
 
 ## 🚀 Icebox <a name = "ice-box"></a>
 
-- Allow ships to be draggable, instead of having the user click individual squares
+- Allow the user to drag ships on to the board, instead of having the user click individual squares
 - Improve all of the styling
 - Improve the logic for the computer's guesses
 - Improve the logic for the computer's ship placement on the board
