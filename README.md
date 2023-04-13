@@ -45,7 +45,7 @@ The latest version of Google Chrome is recommended for the best user experience,
 - Iterate on the current styling.
 - Improve the logic for the computer's guesses.
 - Improve the logic for the computer's ship placement on the board.
-- Implement AI functionality to store the user's and the computer's guesses and to have the computer strategically place its ships
+- Implement AI functionality to store the user's and the computer's guesses and to have the computer strategically place its ships.
 
 ## ✍️ Authors
 
