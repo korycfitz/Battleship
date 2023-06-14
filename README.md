@@ -1,5 +1,5 @@
 <div align="center">
- <img height=300px src="./assets/christmas-hip.png" alt="Project logo"></a>
+ <img height=300px src="./assets/christmas-ship.png" alt="Project logo"></a>
 </div>
 
 <h3 align="center">Christmasship</h3>
